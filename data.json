@@ -326,63 +326,72 @@
     "particles": [
         {
             "id": 1,
-            "question": "私はコーヒー___飲みます。",
-            "options": [
-                "を",
-                "が",
-                "に",
-                "で"
+            "sentence_parts": [
+                { "text": "私", "furigana": "わたし" },
+                { "text": "は" },
+                { "text": "コーヒー" },
+                { "text": "___" },
+                { "text": "飲", "furigana": "の" },
+                { "text": "みます。" }
             ],
+            "romaji": "Watashi wa kōhī ___ nomimasu.",
+            "options": ["を", "が", "に", "で"],
             "answer": "を",
-            "explanation": "Object marker 'o' (を) follows the direct object."
+            "explanation": "Object marker 'o' (を) follows the direct object (coffee)."
         },
         {
             "id": 2,
-            "question": "6時___起きます。",
-            "options": [
-                "に",
-                "へ",
-                "を",
-                "が"
+            "sentence_parts": [
+                { "text": "6", "furigana": "ろく" },
+                { "text": "時", "furigana": "じ" },
+                { "text": "___" },
+                { "text": "起", "furigana": "お" },
+                { "text": "きます。" }
             ],
+            "romaji": "Rokuji ___ okimasu.",
+            "options": ["に", "へ", "を", "が"],
             "answer": "に",
             "explanation": "Time marker 'ni' (に) indicates a specific time."
         },
         {
             "id": 3,
-            "question": "図書館___勉強します。",
-            "options": [
-                "で",
-                "に",
-                "を",
-                "へ"
+            "sentence_parts": [
+                { "text": "図書館", "furigana": "としょかん" },
+                { "text": "___" },
+                { "text": "勉強", "furigana": "べんきょう" },
+                { "text": "します。" }
             ],
+            "romaji": "Toshokan ___ benkyō shimasu.",
+            "options": ["で", "に", "を", "へ"],
             "answer": "で",
             "explanation": "Action location marker 'de' (で) indicates where an action takes place."
         },
         {
             "id": 4,
-            "question": "明日、東京___行きます。",
-            "options": [
-                "へ",
-                "を",
-                "で",
-                "が"
+            "sentence_parts": [
+                { "text": "明日", "furigana": "あした" },
+                { "text": "、" },
+                { "text": "東京", "furigana": "とうきょう" },
+                { "text": "___" },
+                { "text": "行", "furigana": "い" },
+                { "text": "きます。" }
             ],
+            "romaji": "Ashita, Tōkyō ___ ikimasu.",
+            "options": ["へ", "を", "で", "が"],
             "answer": "へ",
-            "explanation": "Direction marker 'e' (へ) indicates direction of movement (ni is also acceptable usually)."
+            "explanation": "Direction marker 'e' (へ) indicates direction of movement."
         },
         {
             "id": 5,
-            "question": "猫___います。",
-            "options": [
-                "が",
-                "を",
-                "で",
-                "に"
+            "sentence_parts": [
+                { "text": "猫", "furigana": "ねこ" },
+                { "text": "___" },
+                { "text": "います。" }
             ],
+            "romaji": "Neko ___ imasu.",
+            "options": ["が", "を", "で", "に"],
             "answer": "が",
-            "explanation": "Subject marker 'ga' (が) is used with existance verbs like imasu/arimasu."
+            "explanation": "Subject marker 'ga' (が) is used with existence verbs like imasu."
         }
     ],
     "reorder_sentences": [

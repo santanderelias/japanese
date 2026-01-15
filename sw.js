@@ -1,4 +1,4 @@
-const CACHE_NAME = 'santael-v1';
+const CACHE_NAME = 'santael-v2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -12,8 +12,10 @@ const ASSETS_TO_CACHE = [
     './particles.js',
     './reorder.js',
     './kanji.js',
+    './installer.js',
     './data.json',
     './manifest.json',
+    './favicon.ico',
     './vendor/bootstrap.min.css',
     './vendor/bootstrap.bundle.min.js',
     './icon-192x192.png',

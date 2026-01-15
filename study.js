@@ -33,7 +33,7 @@ export const StudyModule = {
                                 <div class="card-body p-4">
                                      <h2 class="mb-4 text-primary">Grammar Guides</h2>
                                      <div class="accordion" id="guidesAccordion">
-                                        ${this.renderAccordionItem('headingOne', 'collapseOne', 'Verb Conjugation', this.data.guides.filler, true)}
+                                        ${this.renderAccordionItem('headingOne', 'collapseOne', 'Verb Conjugation', this.data.guides.filler, false)}
                                         ${this.renderAccordionItem('headingTwo', 'collapseTwo', 'Particles', this.data.guides.particles)}
                                         ${this.renderAccordionItem('headingThree', 'collapseThree', 'Sentence Structure', this.data.guides.reorder)}
                                         ${this.renderAccordionItem('headingFour', 'collapseFour', 'Kanji Readings', this.data.guides.kanji)}

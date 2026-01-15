@@ -20,6 +20,23 @@ export const ParticlesModule = {
 
         const drill = this.data[this.currentIndex];
 
+        // Construct Sentence with Ruby support
+        // drill.sentence_parts is expected to be an array of {text, furigana} objects
+        // If data is older format (string), fallback gracefully
+        let sentenceHtml = '';
+        if (drill.sentence_parts) {
+            sentenceHtml = drill.sentence_parts.map(part => {
+                if (part.text === '___') return '<span class="text-primary border-bottom border-primary px-3 mx-1">?</span>';
+                if (part.furigana) {
+                    return `<ruby class="mx-1">${part.text}<rt>${part.furigana}</rt></ruby>`;
+                }
+                return `<span class="mx-1">${part.text}</span>`;
+            }).join('');
+        } else {
+            // Legacy string support
+            sentenceHtml = drill.question.replace('___', '<span class="text-primary border-bottom border-primary px-3">?</span>');
+        }
+
         this.container.innerHTML = `
             <div class="container fade-in" style="max-width: 600px;">
                 <div class="card shadow-sm border-0 mt-4">
@@ -28,8 +45,12 @@ export const ParticlesModule = {
                             <span class="badge bg-light text-muted border">Question ${this.currentIndex + 1} / ${this.data.length}</span>
                         </div>
                         
-                        <h3 class="mb-5 japanese-text">${drill.question.replace('___', '<span class="text-primary border-bottom border-primary px-3">?</span>')}</h3>
+                        <div class="mb-4 d-flex justify-content-center align-items-end flex-wrap japanese-text lh-lg" style="font-size: 2rem;">
+                            ${sentenceHtml}
+                        </div>
                         
+                        ${drill.romaji ? `<p class="text-muted fst-italic mb-5">${drill.romaji}</p>` : ''}
+
                         <div class="d-grid gap-3" id="options-grid">
                             ${drill.options.map(opt => `
                                 <button class="btn btn-outline-dark btn-lg option-btn" data-val="${opt}">${opt}</button>
@@ -73,7 +94,7 @@ export const ParticlesModule = {
         setTimeout(() => {
             this.currentIndex++;
             this.render();
-        }, 2000);
+        }, 2500);
     },
 
     renderComplete() {

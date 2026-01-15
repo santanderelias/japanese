@@ -3,6 +3,7 @@ import { FillerModule } from './filler.js';
 import { StatsModule } from './stats.js';
 import { LearningModule } from './learning.js';
 import { StudyModule } from './study.js';
+import { InstallerModule } from './installer.js';
 
 export const App = {
     data: null,
