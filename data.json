@@ -1,0 +1,542 @@
+{
+    "exercises": [
+        {
+            "id": 1,
+            "sentence": "1. コーヒーを __________。",
+            "translation": "I drink coffee.",
+            "hint": "Use: 飲む (nomu) — Group 1",
+            "answer": "飲みます",
+            "romaji_answer": "nomimasu"
+        },
+        {
+            "id": 2,
+            "sentence": "2. パンを __________。",
+            "translation": "I eat bread.",
+            "hint": "Use: 食べる (taberu) — Group 2",
+            "answer": "食べます",
+            "romaji_answer": "tabemasu"
+        },
+        {
+            "id": 3,
+            "sentence": "3. 音楽を __________。",
+            "translation": "I listen to music.",
+            "hint": "Use: 聞く (kiku) — Group 1",
+            "answer": "聞きます",
+            "romaji_answer": "kikimasu"
+        },
+        {
+            "id": 4,
+            "sentence": "4. テレビを __________。",
+            "translation": "I watch TV.",
+            "hint": "Use: 見る (miru) — Group 2",
+            "answer": "見ます",
+            "romaji_answer": "mimasu"
+        },
+        {
+            "id": 5,
+            "sentence": "5. テニスを __________。",
+            "translation": "He plays tennis.",
+            "hint": "Use: する (suru) — Group 3",
+            "answer": "します",
+            "romaji_answer": "shimasu"
+        },
+        {
+            "id": 6,
+            "sentence": "6. 日本語を __________。",
+            "translation": "I speak Japanese.",
+            "hint": "Use: 話す (hanasu) — Group 1",
+            "answer": "話します",
+            "romaji_answer": "hanashimasu"
+        },
+        {
+            "id": 7,
+            "sentence": "7. 本を __________。",
+            "translation": "I read a book.",
+            "hint": "Use: 読む (yomu) — Group 1",
+            "answer": "読みます",
+            "romaji_answer": "yomimasu"
+        },
+        {
+            "id": 8,
+            "sentence": "8. 手紙を __________。",
+            "translation": "I write a letter.",
+            "hint": "Use: 書く (kaku) — Group 1",
+            "answer": "書きます",
+            "romaji_answer": "kakimasu"
+        },
+        {
+            "id": 9,
+            "sentence": "9. 家に __________。",
+            "translation": "I return home.",
+            "hint": "Use: 帰る (kaeru) — Group 1",
+            "answer": "帰ります",
+            "romaji_answer": "kaerimasu"
+        },
+        {
+            "id": 10,
+            "sentence": "10. 学校へ __________。",
+            "translation": "I go to school.",
+            "hint": "Use: 行く (iku) — Group 1",
+            "answer": "行きます",
+            "romaji_answer": "ikimasu"
+        },
+        {
+            "id": 11,
+            "sentence": "11. 友達に __________。",
+            "translation": "I meet a friend.",
+            "hint": "Use: 会う (au) — Group 1",
+            "answer": "会います",
+            "romaji_answer": "aimasu"
+        },
+        {
+            "id": 12,
+            "sentence": "12. 6時に __________。",
+            "translation": "I wake up at 6.",
+            "hint": "Use: 起きる (okiru) — Group 2",
+            "answer": "起きます",
+            "romaji_answer": "okimasu"
+        },
+        {
+            "id": 13,
+            "sentence": "13. 11時に __________。",
+            "translation": "I sleep at 11.",
+            "hint": "Use: 寝る (neru) — Group 2",
+            "answer": "寝ます",
+            "romaji_answer": "nemasu"
+        },
+        {
+            "id": 14,
+            "sentence": "14. 宿題を __________。",
+            "translation": "I do homework.",
+            "hint": "Use: する (suru) — Group 3",
+            "answer": "します",
+            "romaji_answer": "shimasu"
+        },
+        {
+            "id": 15,
+            "sentence": "15. アメリカから __________。",
+            "translation": "I came from America.",
+            "hint": "Use: 来る (kuru) — Group 3",
+            "answer": "来ます",
+            "romaji_answer": "kimasu"
+        },
+        {
+            "id": 16,
+            "sentence": "16. 写真を __________。",
+            "translation": "I take a photo.",
+            "hint": "Use: 撮る (toru) — Group 1",
+            "answer": "撮ります",
+            "romaji_answer": "torimasu"
+        },
+        {
+            "id": 17,
+            "sentence": "17. お金を __________。",
+            "translation": "I use money.",
+            "hint": "Use: 使う (tsukau) — Group 1",
+            "answer": "使います",
+            "romaji_answer": "tsukaimasu"
+        },
+        {
+            "id": 18,
+            "sentence": "18. プールで __________。",
+            "translation": "I swim at the pool.",
+            "hint": "Use: 泳ぐ (oyogu) — Group 1",
+            "answer": "泳ぎます",
+            "romaji_answer": "oyogimasu"
+        },
+        {
+            "id": 19,
+            "sentence": "19. 歌を __________。",
+            "translation": "I sing a song.",
+            "hint": "Use: 歌う (utau) — Group 1",
+            "answer": "歌います",
+            "romaji_answer": "utaimasu"
+        },
+        {
+            "id": 20,
+            "sentence": "20. 電車に __________。",
+            "translation": "I ride the train.",
+            "hint": "Use: 乗る (noru) — Group 1",
+            "answer": "乗ります",
+            "romaji_answer": "norimasu"
+        }
+    ],
+    "vocabulary": [
+        {
+            "kanji": "食べる",
+            "romaji": "taberu",
+            "polite": "食べます",
+            "group": "2",
+            "meaning": "To eat",
+            "priority": "High"
+        },
+        {
+            "kanji": "飲む",
+            "romaji": "nomu",
+            "polite": "飲みます",
+            "group": "1",
+            "meaning": "To drink",
+            "priority": "High"
+        },
+        {
+            "kanji": "見る",
+            "romaji": "miru",
+            "polite": "見ます",
+            "group": "2",
+            "meaning": "To watch/see",
+            "priority": "High"
+        },
+        {
+            "kanji": "行く",
+            "romaji": "iku",
+            "polite": "行きます",
+            "group": "1",
+            "meaning": "To go",
+            "priority": "High"
+        },
+        {
+            "kanji": "来る",
+            "romaji": "kuru",
+            "polite": "来ます",
+            "group": "3",
+            "meaning": "To come",
+            "priority": "High"
+        },
+        {
+            "kanji": "帰る",
+            "romaji": "kaeru",
+            "polite": "帰ります",
+            "group": "1",
+            "meaning": "To return",
+            "priority": "High"
+        },
+        {
+            "kanji": "する",
+            "romaji": "suru",
+            "polite": "します",
+            "group": "3",
+            "meaning": "To do",
+            "priority": "High"
+        },
+        {
+            "kanji": "寝る",
+            "romaji": "neru",
+            "polite": "寝ます",
+            "group": "2",
+            "meaning": "To sleep",
+            "priority": "High"
+        },
+        {
+            "kanji": "起きる",
+            "romaji": "okiru",
+            "polite": "起きます",
+            "group": "2",
+            "meaning": "To wake up",
+            "priority": "High"
+        },
+        {
+            "kanji": "聞く",
+            "romaji": "kiku",
+            "polite": "聞きます",
+            "group": "1",
+            "meaning": "To listen",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "話す",
+            "romaji": "hanasu",
+            "polite": "話します",
+            "group": "1",
+            "meaning": "To speak",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "読む",
+            "romaji": "yomu",
+            "polite": "読みます",
+            "group": "1",
+            "meaning": "To read",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "書く",
+            "romaji": "kaku",
+            "polite": "書きます",
+            "group": "1",
+            "meaning": "To write",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "会う",
+            "romaji": "au",
+            "polite": "会います",
+            "group": "1",
+            "meaning": "To meet",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "買う",
+            "romaji": "kau",
+            "polite": "買います",
+            "group": "1",
+            "meaning": "To buy",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "使う",
+            "romaji": "tsukau",
+            "polite": "使います",
+            "group": "1",
+            "meaning": "To use",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "撮る",
+            "romaji": "toru",
+            "polite": "撮ります",
+            "group": "1",
+            "meaning": "To take (photo)",
+            "priority": "Low"
+        },
+        {
+            "kanji": "泳ぐ",
+            "romaji": "oyogu",
+            "polite": "泳ぎます",
+            "group": "1",
+            "meaning": "To swim",
+            "priority": "Low"
+        },
+        {
+            "kanji": "歌う",
+            "romaji": "utau",
+            "polite": "歌います",
+            "group": "1",
+            "meaning": "To sing",
+            "priority": "Low"
+        },
+        {
+            "kanji": "乗る",
+            "romaji": "noru",
+            "polite": "乗ります",
+            "group": "1",
+            "meaning": "To ride",
+            "priority": "Low"
+        }
+    ],
+    "particles": [
+        {
+            "id": 1,
+            "question": "私はコーヒー___飲みます。",
+            "options": [
+                "を",
+                "が",
+                "に",
+                "で"
+            ],
+            "answer": "を",
+            "explanation": "Object marker 'o' (を) follows the direct object."
+        },
+        {
+            "id": 2,
+            "question": "6時___起きます。",
+            "options": [
+                "に",
+                "へ",
+                "を",
+                "が"
+            ],
+            "answer": "に",
+            "explanation": "Time marker 'ni' (に) indicates a specific time."
+        },
+        {
+            "id": 3,
+            "question": "図書館___勉強します。",
+            "options": [
+                "で",
+                "に",
+                "を",
+                "へ"
+            ],
+            "answer": "で",
+            "explanation": "Action location marker 'de' (で) indicates where an action takes place."
+        },
+        {
+            "id": 4,
+            "question": "明日、東京___行きます。",
+            "options": [
+                "へ",
+                "を",
+                "で",
+                "が"
+            ],
+            "answer": "へ",
+            "explanation": "Direction marker 'e' (へ) indicates direction of movement (ni is also acceptable usually)."
+        },
+        {
+            "id": 5,
+            "question": "猫___います。",
+            "options": [
+                "が",
+                "を",
+                "で",
+                "に"
+            ],
+            "answer": "が",
+            "explanation": "Subject marker 'ga' (が) is used with existance verbs like imasu/arimasu."
+        }
+    ],
+    "reorder_sentences": [
+        {
+            "id": 1,
+            "parts": [
+                "飲みます",
+                "を",
+                "私",
+                "は",
+                "水"
+            ],
+            "correct_order": [
+                "私",
+                "は",
+                "水",
+                "を",
+                "飲みます"
+            ],
+            "meaning": "I drink water."
+        },
+        {
+            "id": 2,
+            "parts": [
+                "へ",
+                "行きます",
+                "学校",
+                "明日"
+            ],
+            "correct_order": [
+                "明日",
+                "学校",
+                "へ",
+                "行きます"
+            ],
+            "meaning": "I will go to school tomorrow."
+        },
+        {
+            "id": 3,
+            "parts": [
+                "食べます",
+                "パン",
+                "朝",
+                "を"
+            ],
+            "correct_order": [
+                "朝",
+                "パン",
+                "を",
+                "食べます"
+            ],
+            "meaning": "I eat bread in the morning."
+        },
+        {
+            "id": 4,
+            "parts": [
+                "勉強",
+                "図書館",
+                "で",
+                "します"
+            ],
+            "correct_order": [
+                "図書館",
+                "で",
+                "勉強",
+                "します"
+            ],
+            "meaning": "I study at the library."
+        },
+        {
+            "id": 5,
+            "parts": [
+                "見ます",
+                "を",
+                "テレビ",
+                "家",
+                "で"
+            ],
+            "correct_order": [
+                "家",
+                "で",
+                "テレビ",
+                "を",
+                "見ます"
+            ],
+            "meaning": "I watch TV at home."
+        }
+    ],
+    "kanji_drills": [
+        {
+            "id": 1,
+            "kanji": "水",
+            "kana": "みず",
+            "meaning": "Water"
+        },
+        {
+            "id": 2,
+            "kanji": "木",
+            "kana": "き",
+            "meaning": "Tree"
+        },
+        {
+            "id": 3,
+            "kanji": "日",
+            "kana": "ひ",
+            "meaning": "Sun/Day"
+        },
+        {
+            "id": 4,
+            "kanji": "月",
+            "kana": "つき",
+            "meaning": "Moon/Month"
+        },
+        {
+            "id": 5,
+            "kanji": "本",
+            "kana": "ほん",
+            "meaning": "Book"
+        },
+        {
+            "id": 6,
+            "kanji": "人",
+            "kana": "ひと",
+            "meaning": "Person"
+        },
+        {
+            "id": 7,
+            "kanji": "口",
+            "kana": "くち",
+            "meaning": "Mouth"
+        },
+        {
+            "id": 8,
+            "kanji": "目",
+            "kana": "め",
+            "meaning": "Eye"
+        },
+        {
+            "id": 9,
+            "kanji": "手",
+            "kana": "て",
+            "meaning": "Hand"
+        },
+        {
+            "id": 10,
+            "kanji": "足",
+            "kana": "あし",
+            "meaning": "Foot/Leg"
+        }
+    ],
+    "guides": {
+        "filler": "<h5>Verb Conjugation (Masu-form)</h5><p>In Japanese, the <b>Masu-form</b> is the polite way to end a sentence. It is used when speaking to strangers, superiors, or in formal situations.</p><h6>Group 1 (U-verbs)</h6><p>Change the final <i>-u</i> sound to <i>-i</i> and add <i>masu</i>.<br>Example: <i>Nomu</i> (drink) &rarr; <i>Nomimasu</i></p><h6>Group 2 (Ru-verbs)</h6><p>Drop the final <i>-ru</i> and add <i>masu</i>.<br>Example: <i>Taberu</i> (eat) &rarr; <i>Tabemasu</i></p><h6>Group 3 (Irregular)</h6><p><i>Suru</i> &rarr; <i>Shimasu</i><br><i>Kuru</i> &rarr; <i>Kimasu</i></p>",
+        "particles": "<h5>Common Particles</h5><p>Particles are small words that indicate the grammatical function of a word.</p><ul><li><b>Wa (は)</b>: Topic marker. Marks what you are talking about.</li><li><b>Ga (が)</b>: Subject marker. Often used with existential verbs or when identifying something specific.</li><li><b>Wo (を)</b>: Object marker. Marks the target of an action (verb).</li><li><b>Ni (に)</b>: Time/Target marker. Used for specific times or destination of movement.</li><li><b>De (で)</b>: Location (Action). Marks where an action takes place.</li></ul>",
+        "reorder": "<h5>Sentence Structure</h5><p>Japanese basic sentence order is <b>Subject - Object - Verb</b> (SOV).</p><p>Example: <i>Watashi wa</i> (I) <i>kōhī wo</i> (coffee) <i>nomimasu</i> (drink).</p><p>Unlike English (SVO), the verb always comes at the end of the sentence.</p>",
+        "kanji": "<h5>Kanji Readings</h5><p>Most Kanji have two types of readings:</p><ul><li><b>On'yomi</b> (Sound reading): Derived from Chinese. Used in compound words (e.g., 水曜日 <i>ui-yō-bi</i>).</li><li><b>Kun'yomi</b> (Meaning reading): Native Japanese reading. Used when Kanji stands alone (e.g., 水 <i>mizu</i>).</li></ul><p>In this exercise, match the Kanji to its detailed Kun'yomi or common reading.</p>"
+    }
+}
