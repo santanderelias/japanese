@@ -12,7 +12,6 @@ export const HomeModule = {
         this.container.innerHTML = `
             <div class="home-dashboard fade-in">
                 <!-- Training Menu -->
-                <h4 class="mb-4 pb-2 border-bottom text-muted">Training Menu</h4>
                 <div class="row g-4">
                     <!-- Verb Conjugation -->
                     <div class="col-md-6 col-lg-3">
