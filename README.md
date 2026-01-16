@@ -16,6 +16,16 @@
 *   **PWA Support**: Fully functional offline after the first visit. Installable on mobile and desktop.
 *   **Japanese Aesthetics**: A clean, focused UI inspired by traditional colors and layouts.
 
+## 📷️ Screenshots
+
+![Screenshot](./screen_1.png)
+
+![Screenshot](./screen_2.png)
+
+![Screenshot](./screen_3.png)
+
+![Screenshot](./screen_4.png)
+
 ## 🛠️ Technology Stack
 
 *   **Core**: Vanilla HTML5, CSS3, JavaScript (ES6 Modules).
@@ -80,6 +90,6 @@ More sections to add:
 - Minigames
 - Hiragana & Katakana
 - improve this section:
-![Screenshot](./sentence_prev.png)
+![Screenshot](./screen_5.png)
 
 エリアス・サンタンデール
