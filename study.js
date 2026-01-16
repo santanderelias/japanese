@@ -1,4 +1,4 @@
-import { VocabModule } from './filler.js'; // We can reuse logic or copy it. 
+import { VocabModule } from './vocab.js';
 // Actually, let's implement the Vocab logic directly here or import a cleaner version if we had one.
 // Since VocabModule in filler.js was simple, I will re-implement the table logic here for better control and separation.
 

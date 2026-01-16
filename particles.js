@@ -1,4 +1,5 @@
 import { StatsModule } from './stats.js';
+import { SRSModule } from './srs.js';
 
 export const ParticlesModule = {
     data: [],
@@ -6,7 +7,7 @@ export const ParticlesModule = {
     container: null,
 
     init(drills, container) {
-        this.data = drills;
+        this.data = SRSModule.prioritize(drills);
         this.container = container;
         this.currentIndex = 0;
         this.render();
@@ -21,8 +22,6 @@ export const ParticlesModule = {
         const drill = this.data[this.currentIndex];
 
         // Construct Sentence with Ruby support
-        // drill.sentence_parts is expected to be an array of {text, furigana} objects
-        // If data is older format (string), fallback gracefully
         let sentenceHtml = '';
         if (drill.sentence_parts) {
             sentenceHtml = drill.sentence_parts.map(part => {
@@ -33,7 +32,6 @@ export const ParticlesModule = {
                 return `<span class="mx-1">${part.text}</span>`;
             }).join('');
         } else {
-            // Legacy string support
             sentenceHtml = drill.question.replace('___', '<span class="text-primary border-bottom border-primary px-3">?</span>');
         }
 
@@ -80,14 +78,22 @@ export const ParticlesModule = {
 
         this.container.querySelectorAll('.option-btn').forEach(b => {
             b.disabled = true;
-            if (b.dataset.val === drill.answer) b.classList.add('btn-success', 'text-white');
-            else if (b === btn && !isCorrect) b.classList.add('btn-danger', 'text-white');
+            b.classList.remove('btn-outline-dark');
+            if (b.dataset.val === drill.answer) {
+                b.classList.add('btn-success', 'text-white');
+            } else if (b === btn && !isCorrect) {
+                b.classList.add('btn-danger', 'text-white');
+            } else {
+                b.classList.add('btn-outline-secondary'); // muted others
+            }
         });
 
         if (isCorrect) {
             StatsModule.addXP(5);
+            SRSModule.processResult(drill.id, 5);
             feedback.innerHTML = `<div class="text-success fw-bold"><i class="bi bi-check-circle"></i> Correct! ${drill.explanation}</div>`;
         } else {
+            SRSModule.processResult(drill.id, 0);
             feedback.innerHTML = `<div class="text-danger fw-bold"><i class="bi bi-x-circle"></i> Incorrect. ${drill.explanation}</div>`;
         }
 
@@ -105,7 +111,10 @@ export const ParticlesModule = {
                 </div>
                 <h2 class="mb-3">Quiz Complete!</h2>
                 <p class="lead text-muted">You finished the particle drills.</p>
-                <button class="btn btn-primary btn-lg mt-4 px-5" onclick="window.navigateApp('home')">Finish</button>
+                <div class="mt-4">
+                     <button class="btn btn-outline-secondary me-2" onclick="window.navigateApp('home')">Menu</button>
+                    <button class="btn btn-gradient-blue px-5" onclick="window.navigateApp('particles')">Retry</button>
+                </div>
             </div>
         `;
     }

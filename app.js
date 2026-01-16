@@ -16,7 +16,9 @@ export const App = {
     helpBtn: null,
     navLevel: null,
     navXP: null,
+    navXP: null,
     navStreak: null,
+    themeToggle: null,
 
     async init() {
         this.root = document.getElementById('app-root');
@@ -28,6 +30,13 @@ export const App = {
         this.navLevel = document.getElementById('nav-level');
         this.navXP = document.getElementById('nav-xp');
         this.navStreak = document.getElementById('nav-streak');
+        this.themeToggle = document.getElementById('theme-toggle');
+
+        // Theme Init
+        if (localStorage.getItem('santael_theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            if (this.themeToggle) this.themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
+        }
 
         StatsModule.init();
 
@@ -37,6 +46,15 @@ export const App = {
 
         this.backBtn.addEventListener('click', () => this.navigate('home'));
         this.helpBtn.addEventListener('click', () => LearningModule.show(this.currentView));
+
+        if (this.themeToggle) {
+            this.themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('santael_theme', isDark ? 'dark' : 'light');
+                this.themeToggle.innerHTML = isDark ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-stars-fill"></i>';
+            });
+        }
 
         try {
             const response = await fetch('./data.json');

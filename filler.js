@@ -1,201 +1,223 @@
 import { StatsModule } from './stats.js';
+import { SRSModule } from './srs.js';
 
 export const FillerModule = {
     data: [],
-    currentIndex: 0,
-    isSingleMode: false,
     container: null,
+    isOneByOne: true, // Default true
+    currentIndex: 0,
+    startTime: null,
 
-    init(exercises, container) {
-        this.data = exercises;
+    init(drills, container) {
+        // Prioritize data
+        this.data = SRSModule.prioritize(drills);
         this.container = container;
         this.currentIndex = 0;
-        this.render();
-        this.setupControls();
-    },
 
-    setupControls() {
-        const toggler = document.getElementById('view-toggle');
-        if (toggler) {
-            // Unbind old listeners to prevent duplicates if any
-            const newToggler = toggler.cloneNode(true);
-            toggler.parentNode.replaceChild(newToggler, toggler);
-
-            newToggler.addEventListener('change', (e) => {
-                this.isSingleMode = e.target.checked;
+        // Listen for view toggle in parent (app.js handles the switch rendering, we just listen)
+        const toggle = document.getElementById('view-toggle');
+        if (toggle) {
+            toggle.checked = this.isOneByOne;
+            toggle.addEventListener('change', (e) => {
+                this.isOneByOne = e.target.checked;
                 this.render();
             });
-            // Restore state
-            newToggler.checked = this.isSingleMode;
         }
+
+        this.render();
     },
 
     render() {
-        if (this.isSingleMode) {
-            this.renderSingle();
+        this.container.innerHTML = '';
+
+        if (this.isOneByOne) {
+            this.renderOneByOne();
         } else {
-            this.renderList();
+            this.renderAll();
         }
-        this.attachInputListeners();
+
+        // Add Enter key listener for inputs
+        // Remove old if any? Since we re-render, we just re-attach.
+        // Wait, app.js attaches a listener to #check-btn.
+        // We need to attach Enter key on inputs to trigger logic.
+        this.attachEnterListener();
     },
 
-    renderList() {
-        this.container.innerHTML = this.data.map(ex => this.createCard(ex)).join('');
-        this.updateNavButtons(false);
-    },
-
-    renderSingle() {
-        const ex = this.data[this.currentIndex];
-        this.container.innerHTML = `
-            <div class="single-mode-container fade-in">
-                ${this.createCard(ex)}
-                <div class="d-flex justify-content-between mt-3">
-                    <button class="btn btn-outline-secondary" id="prev-btn" ${this.currentIndex === 0 ? 'disabled' : ''}>Previous</button>
-                    <span class="align-self-center text-muted">${this.currentIndex + 1} / ${this.data.length}</span>
-                    <button class="btn btn-outline-primary" id="next-btn" ${this.currentIndex === this.data.length - 1 ? 'disabled' : ''}>Next</button>
-                </div>
-            </div>
-        `;
-        this.updateNavButtons(true);
-    },
-
-    createCard(ex) {
-        return `
-            <div class="card exercise-card mb-3 shadow-sm" data-id="${ex.id}">
-                <div class="card-body">
-                    <h5 class="mb-1 japanese-text">${ex.sentence}</h5>
-                    <p class="text-muted small">(${ex.translation})</p>
-                    <div class="hint-box p-2 mb-3 small text-info"><code>${ex.hint}</code></div>
-                    <div class="has-validation position-relative">
-                        <input type="text" class="form-control form-control-lg verb-input" 
-                               data-id="${ex.id}" placeholder="Type in Japanese or Romaji" autocomplete="off">
-                        <div class="invalid-feedback">Correct: ${ex.answer} or ${ex.romaji_answer}</div>
-                        <div class="valid-feedback fw-bold">Excellent! <i class="bi bi-stars text-warning"></i></div>
-                    </div>
-                </div>
-            </div>
-        `;
-    },
-
-    updateNavButtons(isSingle) {
-        if (!isSingle) return;
-
-        document.getElementById('prev-btn')?.addEventListener('click', () => {
-            if (this.currentIndex > 0) {
-                this.currentIndex--;
-                this.render();
-            }
-        });
-
-        document.getElementById('next-btn')?.addEventListener('click', () => {
-            if (this.currentIndex < this.data.length - 1) {
-                this.currentIndex++;
-                this.render();
-            }
-        });
-    },
-
-    attachInputListeners() {
-        const inputs = this.container.querySelectorAll('.verb-input');
+    attachEnterListener() {
+        const inputs = this.container.querySelectorAll('input');
         inputs.forEach(input => {
-            input.addEventListener('input', (e) => {
-                e.target.classList.remove('is-invalid', 'is-valid');
-
-                // If TimerModule exists and is active
-                if (window.TimerModule && window.TimerModule.isActive && !window.TimerModule.interval) {
-                    window.TimerModule.start();
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    if (this.isOneByOne) {
+                        this.checkOneAnswer();
+                    } else {
+                        // For "All" view, we might not want Enter to submit all. 
+                        // Maybe focus next? Or trigger check all.
+                        // Let's trigger check all.
+                        document.getElementById('check-btn').click();
+                    }
                 }
             });
         });
     },
 
-    validate() {
-        const inputs = document.querySelectorAll('.verb-input');
-        let allCorrect = true;
-        let correctCount = 0;
+    renderOneByOne() {
+        if (this.currentIndex >= this.data.length) {
+            this.showVictory();
+            return;
+        }
 
-        inputs.forEach(input => {
-            const ex = this.data.find(e => e.id == input.dataset.id);
-            const val = input.value.trim().toLowerCase();
-            const isCorrect = (val === ex.answer) || (val === ex.romaji_answer.toLowerCase());
+        const drill = this.data[this.currentIndex];
 
-            input.classList.remove('is-valid', 'is-invalid');
+        // Hide main check/reset buttons in One-By-One mode as we handle it per card
+        const mainBtns = document.querySelector('#check-btn')?.parentElement;
+        if (mainBtns) mainBtns.classList.add('d-none');
 
-            if (isCorrect) {
-                input.classList.add('is-valid');
-                input.closest('.card').classList.add('correct-animation');
-                correctCount++;
-            } else {
-                input.classList.add('is-invalid');
-                allCorrect = false;
-            }
+        this.container.innerHTML = `
+            <div class="card shadow-sm border-0 mt-4 mx-auto" style="max-width: 600px;">
+                <div class="card-body p-4 text-center">
+                    <span class="badge bg-light text-muted border mb-3">
+                        Question ${this.currentIndex + 1} / ${this.data.length}
+                    </span>
+                     
+                    <h2 class="mb-4 japanese-text">${drill.sentence.replace('__________', '<span class="text-primary">__________</span>')}</h2>
+                    <p class="text-muted mb-4">${drill.translation}</p>
+                    
+                    <div class="hint-box p-3 mb-4 text-start bg-light small">
+                        <i class="bi bi-lightbulb-fill text-warning me-2"></i> ${drill.hint}
+                    </div>
+
+                    <input type="text" id="input-${drill.id}" class="form-control form-control-lg text-center mb-3" 
+                        placeholder="Type answer (Romaji ok)" autocomplete="off">
+                    
+                    <div id="feedback-${drill.id}" class="mb-3" style="min-height: 24px;"></div>
+
+                    <button class="btn btn-gradient-blue btn-lg w-100" id="obo-check-btn">Check</button>
+                    <button class="btn btn-secondary w-100 mt-2 d-none" id="obo-next-btn">Next</button>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                 <small class="text-muted">Press <strong>Enter</strong> to submit</small>
+            </div>
+        `;
+
+        // Focus input
+        setTimeout(() => document.getElementById(`input-${drill.id}`).focus(), 100);
+
+        document.getElementById('obo-check-btn').addEventListener('click', () => this.checkOneAnswer());
+        document.getElementById('obo-next-btn').addEventListener('click', () => {
+            this.currentIndex++;
+            this.render();
         });
+    },
 
-        // XP Reward logic could go here if managed internally,
-        // but currently handled by wrapper in app.js for now.
-        // Returning boolean for wrapper to decide.
-        return allCorrect;
-    }
-};
+    checkOneAnswer() {
+        if (this.currentIndex >= this.data.length) return;
 
-export const VocabModule = {
-    data: [],
-    init(vocabulary, container) {
-        this.data = vocabulary;
-        const priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
-        this.data.sort((a, b) => {
-            const pa = priorityOrder[a.priority] || 4;
-            const pb = priorityOrder[b.priority] || 4;
-            return pa - pb;
-        });
+        const drill = this.data[this.currentIndex];
+        const input = document.getElementById(`input-${drill.id}`);
+        const feedback = document.getElementById(`feedback-${drill.id}`);
+        const checkBtn = document.getElementById('obo-check-btn');
+        const nextBtn = document.getElementById('obo-next-btn');
 
-        container.innerHTML = `
-            <div class="table-responsive fade-in">
-                <table class="table table-hover align-middle bg-white shadow-sm rounded">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Kanji</th>
-                            <th>Kana (Reading)</th>
-                            <th>Polite Form</th>
-                            <th>Group</th>
-                            <th>Meaning</th>
-                            <th>Priority</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${this.data.map(word => `
-                            <tr>
-                                <td class="fw-bold text-primary fs-5">${word.kanji}</td>
-                                <td>${word.romaji || word.kana}</td>
-                                <td>${word.polite}</td>
-                                <td><span class="badge bg-secondary">G${word.group}</span></td>
-                                <td>${word.meaning}</td>
-                                <td>${this.getPriorityBadge(word.priority)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+        if (!input || !feedback) return;
+
+        const val = input.value.trim().toLowerCase();
+        // Allow Exact Match OR Romaji
+        const isCorrect = (val === drill.answer) || (drill.romaji_answer && val === drill.romaji_answer.toLowerCase());
+
+        input.disabled = true;
+        checkBtn.classList.add('d-none');
+        nextBtn.classList.remove('d-none');
+        nextBtn.focus();
+
+        if (isCorrect) {
+            input.classList.add('is-valid');
+            feedback.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle"></i> Correct! ${drill.answer}</span>`;
+            StatsModule.addXP(10);
+            SRSModule.processResult(drill.id, 5);
+        } else {
+            input.classList.add('is-invalid');
+            feedback.innerHTML = `<span class="text-danger fw-bold"><i class="bi bi-x-circle"></i> Wrong. Answer: ${drill.answer} (${drill.romaji_answer})</span>`;
+            // XP penalty? No, just no gain.
+            SRSModule.processResult(drill.id, 0);
+        }
+    },
+
+    renderAll() {
+        // Show main buttons
+        const mainBtns = document.querySelector('#check-btn')?.parentElement;
+        if (mainBtns) mainBtns.classList.remove('d-none');
+
+        this.container.innerHTML = `
+            <div class="row g-4">
+                ${this.data.map(drill => `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm border-0 exercise-card">
+                            <div class="card-body">
+                                <h5 class="card-title japanese-text mb-3">${drill.sentence}</h5>
+                                <p class="card-text text-muted small mb-3">${drill.translation}</p>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="input-${drill.id}" data-id="${drill.id}" placeholder="Masu-form">
+                                    <div class="invalid-feedback" id="feedback-${drill.id}"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <small class="text-muted"><i class="bi bi-info-circle me-1"></i> ${drill.hint}</small>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
             </div>
         `;
     },
 
-    getPriorityBadge(priority) {
-        switch (priority) {
-            case 'High': return '<span class="badge bg-danger">High</span>';
-            case 'Medium': return '<span class="badge bg-warning text-dark">Medium</span>';
-            case 'Low': return '<span class="badge bg-info">Low</span>';
-            default: return '<span class="badge bg-light text-muted">-</span>';
-        }
-    }
-};
+    validate() {
+        if (this.isOneByOne) return false; // Handled internally
 
-// Timer module is kept for compatibility if needed, though mostly unused in new flow
-export const TimerModule = {
-    seconds: 0,
-    interval: null,
-    isActive: false,
-    init() { }, // No-op
-    start() { },
-    stop() { },
-    reset() { }
+        let correctCount = 0;
+        let total = this.data.length;
+
+        this.data.forEach(drill => {
+            const input = document.getElementById(`input-${drill.id}`);
+            const feedback = document.getElementById(`feedback-${drill.id}`);
+            if (!input) return;
+
+            const val = input.value.trim().toLowerCase();
+            const isCorrect = (val === drill.answer) || (drill.romaji_answer && val === drill.romaji_answer.toLowerCase());
+
+            if (isCorrect) {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+                feedback.innerText = '';
+                correctCount++;
+                SRSModule.processResult(drill.id, 5);
+            } else {
+                input.classList.add('is-invalid');
+                feedback.innerText = `Correct: ${drill.answer}`;
+                SRSModule.processResult(drill.id, 0);
+            }
+        });
+
+        return correctCount === total; // Returns true if perfect? logic in app.js just awards XP 
+        // We should move XP logic here mostly? 
+        // App.js: if (FillerModule.validate()) StatsModule.addXP(10);
+        // This awards 10XP for pressing check? That's weird.
+        // Let's rely on SRS/Stats internally in this module for granular updates? 
+        // No, let's keep it simple.
+    },
+
+    showVictory() {
+        this.container.innerHTML = `
+            <div class="text-center p-5 fade-in">
+                <i class="bi bi-check-circle-fill text-success display-1 mb-4"></i>
+                <h2 class="mb-3">Set Complete!</h2>
+                <div class="mt-4">
+                     <button class="btn btn-outline-secondary me-2" onclick="window.navigateApp('home')">Menu</button>
+                    <button class="btn btn-gradient-blue px-4" onclick="window.navigateApp('filler')">Review Again</button>
+                </div>
+            </div>
+        `;
+    }
 };

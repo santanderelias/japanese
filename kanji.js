@@ -1,4 +1,5 @@
 import { StatsModule } from './stats.js';
+import { SRSModule } from './srs.js';
 
 export const KanjiModule = {
     fullData: [],
@@ -8,13 +9,15 @@ export const KanjiModule = {
     selectedKana: null,
     matchedInStage: 0,
     currentStage: 0,
-    STAGE_SIZE: 5,
+    STAGE_SIZE: 3, // Reduced from 5 as requested
+    mistakes: {}, // Track mistakes for SRS
 
     init(drills, container) {
-        // Shuffle full data once
-        this.fullData = [...drills].sort(() => Math.random() - 0.5);
+        // Use SRS to prioritize items
+        this.fullData = SRSModule.prioritize(drills);
         this.container = container;
         this.currentStage = 0;
+        this.mistakes = {};
         this.startStage();
     },
 
@@ -31,6 +34,11 @@ export const KanjiModule = {
         this.matchedInStage = 0;
         this.selectedKanji = null;
         this.selectedKana = null;
+        this.mistakes = {}; // Reset for current items? Or keep separate? 
+        // Actually SRS update happens per item.
+        // We initialize mistake counters for these items.
+        this.currentStageData.forEach(item => this.mistakes[item.id] = 0);
+
         this.render();
     },
 
@@ -39,7 +47,8 @@ export const KanjiModule = {
         const kanjiList = [...this.currentStageData].sort(() => Math.random() - 0.5);
         const kanaList = [...this.currentStageData].sort(() => Math.random() - 0.5);
 
-        const progressPercent = ((this.currentStage * this.STAGE_SIZE) / this.fullData.length) * 100;
+        const totalStages = Math.ceil(this.fullData.length / this.STAGE_SIZE);
+        const progressPercent = ((this.currentStage) / totalStages) * 100;
 
         this.container.innerHTML = `
             <div class="container fade-in" style="max-width: 800px;">
@@ -53,7 +62,7 @@ export const KanjiModule = {
                 </div>
 
                 <div class="text-center mb-4">
-                    <p class="text-muted">Tap a Kanji, then tap its matching Reading.</p>
+                    <p class="text-muted">Tap a Kanji, then tap its matching Reading (3 pairs).</p>
                 </div>
 
                 <div class="row g-4">
@@ -97,9 +106,17 @@ export const KanjiModule = {
             btn.addEventListener('click', () => {
                 if (btn.classList.contains('btn-success') || btn.disabled) return;
 
-                kBtns.forEach(b => b.classList.remove('active', 'btn-primary'));
+                kBtns.forEach(b => b.classList.remove('active', 'btn-gradient-blue')); // Use new theme class? No, btn-gradient-blue replaces btn-primary
+                kBtns.forEach(b => {
+                    if (!b.classList.contains('btn-success')) {
+                        b.classList.remove('btn-gradient-blue', 'text-white');
+                        b.classList.add('btn-outline-dark');
+                    }
+                });
+
                 if (this.selectedKanji !== btn) {
-                    btn.classList.add('active', 'btn-primary');
+                    btn.classList.remove('btn-outline-dark');
+                    btn.classList.add('btn-gradient-blue', 'text-white');
                     this.selectedKanji = btn;
                     this.checkMatch();
                 } else {
@@ -112,9 +129,16 @@ export const KanjiModule = {
             btn.addEventListener('click', () => {
                 if (btn.classList.contains('btn-success') || btn.disabled) return;
 
-                rBtns.forEach(b => b.classList.remove('active', 'btn-primary'));
+                rBtns.forEach(b => {
+                    if (!b.classList.contains('btn-success')) {
+                        b.classList.remove('btn-gradient-blue', 'text-white');
+                        b.classList.add('btn-outline-secondary');
+                    }
+                });
+
                 if (this.selectedKana !== btn) {
-                    btn.classList.add('active', 'btn-primary');
+                    btn.classList.remove('btn-outline-secondary');
+                    btn.classList.add('btn-gradient-blue', 'text-white');
                     this.selectedKana = btn;
                     this.checkMatch();
                 } else {
@@ -138,7 +162,7 @@ export const KanjiModule = {
                 this.selectedKanji.className = 'btn btn-success text-white shadow-sm d-flex align-items-center justify-content-center';
                 this.selectedKana.className = 'btn btn-success text-white shadow-sm d-flex align-items-center justify-content-center';
 
-                // Keep styling
+                // Styling retention
                 this.selectedKanji.style.height = '80px';
                 this.selectedKanji.style.fontSize = '2rem';
                 this.selectedKana.style.height = '80px';
@@ -147,7 +171,15 @@ export const KanjiModule = {
                 this.selectedKanji = null;
                 this.selectedKana = null;
                 this.matchedInStage++;
-                StatsModule.addXP(5);
+
+                // SRS Logic
+                if (this.mistakes[id1] === 0) {
+                    SRSModule.processResult(id1, 5); // Perfect recall
+                    StatsModule.addXP(5);
+                } else {
+                    SRSModule.processResult(id1, 1); // Struggled
+                    StatsModule.addXP(1);
+                }
 
                 // Re-enable unmatched buttons
                 allBtns.forEach(b => {
@@ -158,7 +190,7 @@ export const KanjiModule = {
                     setTimeout(() => {
                         this.currentStage++;
                         this.startStage();
-                    }, 1000);
+                    }, 800);
                 }
 
             } else {
@@ -166,9 +198,21 @@ export const KanjiModule = {
                 this.selectedKanji.classList.add('btn-danger', 'text-white');
                 this.selectedKana.classList.add('btn-danger', 'text-white');
 
+                // Record mistake for both involved items? 
+                // Actually we only know ID1 and ID2 are wrong.
+                // Let's mark the *Intended* target of the first click? 
+                // Simplified: Mark both as mistaken to be safe.
+                this.mistakes[id1] = (this.mistakes[id1] || 0) + 1;
+                this.mistakes[id2] = (this.mistakes[id2] || 0) + 1;
+
                 setTimeout(() => {
-                    this.selectedKanji?.classList.remove('btn-danger', 'text-white', 'active', 'btn-primary');
-                    this.selectedKana?.classList.remove('btn-danger', 'text-white', 'active', 'btn-primary');
+                    // Reset styling
+                    this.selectedKanji?.classList.remove('btn-danger', 'text-white', 'btn-gradient-blue');
+                    this.selectedKanji?.classList.add('btn-outline-dark');
+
+                    this.selectedKana?.classList.remove('btn-danger', 'text-white', 'btn-gradient-blue');
+                    this.selectedKana?.classList.add('btn-outline-secondary');
+
                     this.selectedKanji = null;
                     this.selectedKana = null;
 
@@ -191,7 +235,7 @@ export const KanjiModule = {
                 <p class="lead text-muted">You have completed all Kanji stages.</p>
                 <div class="mt-4">
                     <button class="btn btn-outline-secondary me-2" onclick="window.navigateApp('home')">Back to Menu</button>
-                    <button class="btn btn-primary px-4" onclick="window.navigateApp('kanji')">Play Again</button>
+                    <button class="btn btn-gradient-blue px-4" onclick="window.navigateApp('kanji')">Play Again</button>
                 </div>
             </div>
         `;

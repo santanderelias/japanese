@@ -1,4 +1,4 @@
-import { VocabModule } from './filler.js';
+import { VocabModule } from './vocab.js';
 
 export const LearningModule = {
     modal: null,

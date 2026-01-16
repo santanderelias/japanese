@@ -159,6 +159,166 @@
             "hint": "Use: 乗る (noru) — Group 1",
             "answer": "乗ります",
             "romaji_answer": "norimasu"
+        },
+        {
+            "id": 21,
+            "sentence": "21. ドアを __________。",
+            "translation": "I open the door.",
+            "hint": "Use: 開ける (akeru) — Group 2",
+            "answer": "開けます",
+            "romaji_answer": "akemasu"
+        },
+        {
+            "id": 22,
+            "sentence": "22. 窓を __________。",
+            "translation": "I close the window.",
+            "hint": "Use: 閉める (shimeru) — Group 2",
+            "answer": "閉めます",
+            "romaji_answer": "shimemasu"
+        },
+        {
+            "id": 23,
+            "sentence": "23. 漢字を __________。",
+            "translation": "I teach Kanji.",
+            "hint": "Use: 教える (oshieru) — Group 2",
+            "answer": "教えます",
+            "romaji_answer": "oshiemasu"
+        },
+        {
+            "id": 24,
+            "sentence": "24. 名前を __________。",
+            "translation": "I forget the name.",
+            "hint": "Use: 忘れる (wasureru) — Group 2",
+            "answer": "忘れます",
+            "romaji_answer": "wasuremasu"
+        },
+        {
+            "id": 25,
+            "sentence": "25. バスを __________。",
+            "translation": "I get off the bus.",
+            "hint": "Use: 降りる (oriru) — Group 2",
+            "answer": "降ります",
+            "romaji_answer": "orimasu"
+        },
+        {
+            "id": 26,
+            "sentence": "26. シャワーを __________。",
+            "translation": "I take a shower.",
+            "hint": "Use: 浴びる (abiru) — Group 2",
+            "answer": "浴びます",
+            "romaji_answer": "abimasu"
+        },
+        {
+            "id": 27,
+            "sentence": "27. お金を __________。",
+            "translation": "I borrow money.",
+            "hint": "Use: 借りる (kariru) — Group 2",
+            "answer": "借ります",
+            "romaji_answer": "karimasu"
+        },
+        {
+            "id": 28,
+            "sentence": "28. 花を __________。",
+            "translation": "I give flowers.",
+            "hint": "Use: あげる (ageru) — Group 2",
+            "answer": "あげます",
+            "romaji_answer": "agemasu"
+        },
+        {
+            "id": 29,
+            "sentence": "29. 電話を __________。",
+            "translation": "I make a phone call.",
+            "hint": "Use: かける (kakeru) — Group 2",
+            "answer": "かけます",
+            "romaji_answer": "kakemasu"
+        },
+        {
+            "id": 30,
+            "sentence": "30. 部屋に __________。",
+            "translation": "I enter the room.",
+            "hint": "Use: 入る (hairu) — Group 1 (Exception)",
+            "answer": "入ります",
+            "romaji_answer": "hairimasu"
+        },
+        {
+            "id": 31,
+            "sentence": "31. 走って __________。",
+            "translation": "I run.",
+            "hint": "Use: 走る (hashiru) — Group 1 (Exception)",
+            "answer": "走ります",
+            "romaji_answer": "hashirimasu"
+        },
+        {
+            "id": 32,
+            "sentence": "32. 知って __________。",
+            "translation": "I know.",
+            "hint": "Use: 知る (shiru) — Group 1 (Exception)",
+            "answer": "知ります",
+            "romaji_answer": "shirimasu"
+        },
+        {
+            "id": 33,
+            "sentence": "33. 待って __________。",
+            "translation": "I wait.",
+            "hint": "Use: 待つ (matsu) — Group 1",
+            "answer": "待ちます",
+            "romaji_answer": "machimasu"
+        },
+        {
+            "id": 34,
+            "sentence": "34. 持って __________。",
+            "translation": "I hold/have.",
+            "hint": "Use: 持つ (motsu) — Group 1",
+            "answer": "持ちます",
+            "romaji_answer": "mochimasu"
+        },
+        {
+            "id": 35,
+            "sentence": "35. 楽しんで __________。",
+            "translation": "I enjoy.",
+            "hint": "Use: 楽しむ (tanoshimu) — Group 1",
+            "answer": "楽しみます",
+            "romaji_answer": "tanoshimimasu"
+        },
+        {
+            "id": 36,
+            "sentence": "36. 遊んで __________。",
+            "translation": "I play.",
+            "hint": "Use: 遊ぶ (asobu) — Group 1",
+            "answer": "遊びます",
+            "romaji_answer": "asobimasu"
+        },
+        {
+            "id": 37,
+            "sentence": "37. 死んで __________。",
+            "translation": "It dies.",
+            "hint": "Use: 死ぬ (shinu) — Group 1",
+            "answer": "死にます",
+            "romaji_answer": "shinimasu"
+        },
+        {
+            "id": 38,
+            "sentence": "38. 急いで __________。",
+            "translation": "I hurry.",
+            "hint": "Use: 急ぐ (isogu) — Group 1",
+            "answer": "急ぎます",
+            "romaji_answer": "isogimasu"
+        },
+        {
+            "id": 39,
+            "sentence": "39. 働いて __________。",
+            "translation": "I work.",
+            "hint": "Use: 働く (hataraku) — Group 1",
+            "answer": "働きます",
+            "romaji_answer": "hatarakimasu"
+        },
+        {
+            "id": 40,
+            "sentence": "40. 勉強を __________。",
+            "translation": "I study.",
+            "hint": "Use: 勉強する (benkyō suru) — Group 3",
+            "answer": "勉強します",
+            "romaji_answer": "benkyōshimasu"
         }
     ],
     "vocabulary": [
@@ -321,77 +481,461 @@
             "group": "1",
             "meaning": "To ride",
             "priority": "Low"
+        },
+        {
+            "kanji": "開ける",
+            "romaji": "akeru",
+            "polite": "開けます",
+            "group": "2",
+            "meaning": "To open",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "閉める",
+            "romaji": "shimeru",
+            "polite": "閉めます",
+            "group": "2",
+            "meaning": "To close",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "教える",
+            "romaji": "oshieru",
+            "polite": "教えます",
+            "group": "2",
+            "meaning": "To teach",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "忘れる",
+            "romaji": "wasureru",
+            "polite": "忘れます",
+            "group": "2",
+            "meaning": "To forget",
+            "priority": "Low"
+        },
+        {
+            "kanji": "降りる",
+            "romaji": "oriru",
+            "polite": "降ります",
+            "group": "2",
+            "meaning": "To get off",
+            "priority": "Low"
+        },
+        {
+            "kanji": "浴びる",
+            "romaji": "abiru",
+            "polite": "浴びます",
+            "group": "2",
+            "meaning": "To shower",
+            "priority": "Low"
+        },
+        {
+            "kanji": "借りる",
+            "romaji": "kariru",
+            "polite": "借ります",
+            "group": "2",
+            "meaning": "To borrow",
+            "priority": "Low"
+        },
+        {
+            "kanji": "あげる",
+            "romaji": "ageru",
+            "polite": "あげます",
+            "group": "2",
+            "meaning": "To give",
+            "priority": "Low"
+        },
+        {
+            "kanji": "かける",
+            "romaji": "kakeru",
+            "polite": "かけます",
+            "group": "2",
+            "meaning": "To call",
+            "priority": "Low"
+        },
+        {
+            "kanji": "入る",
+            "romaji": "hairu",
+            "polite": "入ります",
+            "group": "1",
+            "meaning": "To enter",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "走る",
+            "romaji": "hashiru",
+            "polite": "走ります",
+            "group": "1",
+            "meaning": "To run",
+            "priority": "Low"
+        },
+        {
+            "kanji": "知る",
+            "romaji": "shiru",
+            "polite": "知ります",
+            "group": "1",
+            "meaning": "To know",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "待つ",
+            "romaji": "matsu",
+            "polite": "待ちます",
+            "group": "1",
+            "meaning": "To wait",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "持つ",
+            "romaji": "motsu",
+            "polite": "持ちます",
+            "group": "1",
+            "meaning": "To hold",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "楽しむ",
+            "romaji": "tanoshimu",
+            "polite": "楽しみます",
+            "group": "1",
+            "meaning": "To enjoy",
+            "priority": "Low"
+        },
+        {
+            "kanji": "遊ぶ",
+            "romaji": "asobu",
+            "polite": "遊びます",
+            "group": "1",
+            "meaning": "To play",
+            "priority": "Low"
+        },
+        {
+            "kanji": "死ぬ",
+            "romaji": "shinu",
+            "polite": "死にます",
+            "group": "1",
+            "meaning": "To die",
+            "priority": "Low"
+        },
+        {
+            "kanji": "急ぐ",
+            "romaji": "isogu",
+            "polite": "急ぎます",
+            "group": "1",
+            "meaning": "To hurry",
+            "priority": "Low"
+        },
+        {
+            "kanji": "働く",
+            "romaji": "hataraku",
+            "polite": "働きます",
+            "group": "1",
+            "meaning": "To work",
+            "priority": "Medium"
+        },
+        {
+            "kanji": "勉強する",
+            "romaji": "benkyō suru",
+            "polite": "勉強します",
+            "group": "3",
+            "meaning": "To study",
+            "priority": "High"
         }
     ],
     "particles": [
         {
             "id": 1,
             "sentence_parts": [
-                { "text": "私", "furigana": "わたし" },
-                { "text": "は" },
-                { "text": "コーヒー" },
-                { "text": "___" },
-                { "text": "飲", "furigana": "の" },
-                { "text": "みます。" }
+                {
+                    "text": "私",
+                    "furigana": "わたし"
+                },
+                {
+                    "text": "は"
+                },
+                {
+                    "text": "コーヒー"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "飲",
+                    "furigana": "の"
+                },
+                {
+                    "text": "みます。"
+                }
             ],
             "romaji": "Watashi wa kōhī ___ nomimasu.",
-            "options": ["を", "が", "に", "で"],
+            "options": [
+                "を",
+                "が",
+                "に",
+                "で"
+            ],
             "answer": "を",
             "explanation": "Object marker 'o' (を) follows the direct object (coffee)."
         },
         {
             "id": 2,
             "sentence_parts": [
-                { "text": "6", "furigana": "ろく" },
-                { "text": "時", "furigana": "じ" },
-                { "text": "___" },
-                { "text": "起", "furigana": "お" },
-                { "text": "きます。" }
+                {
+                    "text": "6",
+                    "furigana": "ろく"
+                },
+                {
+                    "text": "時",
+                    "furigana": "じ"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "起",
+                    "furigana": "お"
+                },
+                {
+                    "text": "きます。"
+                }
             ],
             "romaji": "Rokuji ___ okimasu.",
-            "options": ["に", "へ", "を", "が"],
+            "options": [
+                "に",
+                "へ",
+                "を",
+                "が"
+            ],
             "answer": "に",
             "explanation": "Time marker 'ni' (に) indicates a specific time."
         },
         {
             "id": 3,
             "sentence_parts": [
-                { "text": "図書館", "furigana": "としょかん" },
-                { "text": "___" },
-                { "text": "勉強", "furigana": "べんきょう" },
-                { "text": "します。" }
+                {
+                    "text": "図書館",
+                    "furigana": "としょかん"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "勉強",
+                    "furigana": "べんきょう"
+                },
+                {
+                    "text": "します。"
+                }
             ],
             "romaji": "Toshokan ___ benkyō shimasu.",
-            "options": ["で", "に", "を", "へ"],
+            "options": [
+                "で",
+                "に",
+                "を",
+                "へ"
+            ],
             "answer": "で",
             "explanation": "Action location marker 'de' (で) indicates where an action takes place."
         },
         {
             "id": 4,
             "sentence_parts": [
-                { "text": "明日", "furigana": "あした" },
-                { "text": "、" },
-                { "text": "東京", "furigana": "とうきょう" },
-                { "text": "___" },
-                { "text": "行", "furigana": "い" },
-                { "text": "きます。" }
+                {
+                    "text": "明日",
+                    "furigana": "あした"
+                },
+                {
+                    "text": "、"
+                },
+                {
+                    "text": "東京",
+                    "furigana": "とうきょう"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "行",
+                    "furigana": "い"
+                },
+                {
+                    "text": "きます。"
+                }
             ],
             "romaji": "Ashita, Tōkyō ___ ikimasu.",
-            "options": ["へ", "を", "で", "が"],
+            "options": [
+                "へ",
+                "を",
+                "で",
+                "が"
+            ],
             "answer": "へ",
             "explanation": "Direction marker 'e' (へ) indicates direction of movement."
         },
         {
             "id": 5,
             "sentence_parts": [
-                { "text": "猫", "furigana": "ねこ" },
-                { "text": "___" },
-                { "text": "います。" }
+                {
+                    "text": "猫",
+                    "furigana": "ねこ"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "います。"
+                }
             ],
             "romaji": "Neko ___ imasu.",
-            "options": ["が", "を", "で", "に"],
+            "options": [
+                "が",
+                "を",
+                "で",
+                "に"
+            ],
             "answer": "が",
             "explanation": "Subject marker 'ga' (が) is used with existence verbs like imasu."
+        },
+        {
+            "id": 6,
+            "sentence_parts": [
+                {
+                    "text": "バス",
+                    "furigana": "ばす"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "乗",
+                    "furigana": "の"
+                },
+                {
+                    "text": "ります。"
+                }
+            ],
+            "romaji": "Basu ___ norimasu.",
+            "options": [
+                "に",
+                "を",
+                "で",
+                "へ"
+            ],
+            "answer": "に",
+            "explanation": "Target marker 'ni' (に) is used with boarding vehicles (noru)."
+        },
+        {
+            "id": 7,
+            "sentence_parts": [
+                {
+                    "text": "電車",
+                    "furigana": "でんしゃ"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "降",
+                    "furigana": "お"
+                },
+                {
+                    "text": "ります。"
+                }
+            ],
+            "romaji": "Densha ___ orimasu.",
+            "options": [
+                "を",
+                "に",
+                "で",
+                "が"
+            ],
+            "answer": "を",
+            "explanation": "Departure point marker 'o' (を) is used when getting off a vehicle (oriru)."
+        },
+        {
+            "id": 8,
+            "sentence_parts": [
+                {
+                    "text": "橋",
+                    "furigana": "はし"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "渡",
+                    "furigana": "わた"
+                },
+                {
+                    "text": "ります。"
+                }
+            ],
+            "romaji": "Hashi ___ watarimasu.",
+            "options": [
+                "を",
+                "に",
+                "で",
+                "と"
+            ],
+            "answer": "を",
+            "explanation": "Route marker 'o' (を) is used when crossing or passing through (wataru)."
+        },
+        {
+            "id": 9,
+            "sentence_parts": [
+                {
+                    "text": "友達",
+                    "furigana": "ともだち"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "会",
+                    "furigana": "あ"
+                },
+                {
+                    "text": "います。"
+                }
+            ],
+            "romaji": "Tomodachi ___ aimasu.",
+            "options": [
+                "に",
+                "を",
+                "で",
+                "へ"
+            ],
+            "answer": "に",
+            "explanation": "Target marker 'ni' (に) is used with 'meet' (au)."
+        },
+        {
+            "id": 10,
+            "sentence_parts": [
+                {
+                    "text": "箸",
+                    "furigana": "はし"
+                },
+                {
+                    "text": "___"
+                },
+                {
+                    "text": "食",
+                    "furigana": "た"
+                },
+                {
+                    "text": "べます。"
+                }
+            ],
+            "romaji": "Hashi ___ tabemasu.",
+            "options": [
+                "で",
+                "に",
+                "を",
+                "と"
+            ],
+            "answer": "で",
+            "explanation": "Instrument marker 'de' (で) implies 'using' or 'with'."
         }
     ],
     "reorder_sentences": [
@@ -478,6 +1022,112 @@
                 "見ます"
             ],
             "meaning": "I watch TV at home."
+        },
+        {
+            "id": 6,
+            "parts": [
+                "ます",
+                "買い",
+                "新しい",
+                "車",
+                "を"
+            ],
+            "correct_order": [
+                "新しい",
+                "車",
+                "を",
+                "買い",
+                "ます"
+            ],
+            "meaning": "I will buy a new car."
+        },
+        {
+            "id": 7,
+            "parts": [
+                "日本語",
+                "話します",
+                "を",
+                "彼",
+                "は"
+            ],
+            "correct_order": [
+                "彼",
+                "は",
+                "日本語",
+                "を",
+                "話します"
+            ],
+            "meaning": "He speaks Japanese."
+        },
+        {
+            "id": 8,
+            "parts": [
+                "に",
+                "会いました",
+                "友達",
+                "昨日"
+            ],
+            "correct_order": [
+                "昨日",
+                "友達",
+                "に",
+                "会いました"
+            ],
+            "meaning": "I met a friend yesterday."
+        },
+        {
+            "id": 9,
+            "parts": [
+                "映画",
+                "見ます",
+                "ない",
+                "を",
+                "は"
+            ],
+            "correct_order": [
+                "映画",
+                "は",
+                "見ます",
+                "ない",
+                "を"
+            ],
+            "meaning": "INVALID"
+        },
+        {
+            "id": 9,
+            "parts": [
+                "映画",
+                "明日",
+                "を",
+                "見ます"
+            ],
+            "correct_order": [
+                "明日",
+                "映画",
+                "を",
+                "見ます"
+            ],
+            "meaning": "I will watch a movie tomorrow."
+        },
+        {
+            "id": 10,
+            "parts": [
+                "好き",
+                "私",
+                "寿司",
+                "が",
+                "は",
+                "です"
+            ],
+            "correct_order": [
+                "私",
+                "は",
+                "寿司",
+                "が",
+                "好き",
+                "です"
+            ],
+            "meaning": "I like sushi."
         }
     ],
     "kanji_drills": [
@@ -540,6 +1190,66 @@
             "kanji": "足",
             "kana": "あし",
             "meaning": "Foot/Leg"
+        },
+        {
+            "id": 11,
+            "kanji": "火",
+            "kana": "ひ",
+            "meaning": "Fire"
+        },
+        {
+            "id": 12,
+            "kanji": "土",
+            "kana": "つち",
+            "meaning": "Earth"
+        },
+        {
+            "id": 13,
+            "kanji": "金",
+            "kana": "かね",
+            "meaning": "Gold/Money"
+        },
+        {
+            "id": 14,
+            "kanji": "山",
+            "kana": "やま",
+            "meaning": "Mountain"
+        },
+        {
+            "id": 15,
+            "kanji": "川",
+            "kana": "かわ",
+            "meaning": "River"
+        },
+        {
+            "id": 16,
+            "kanji": "田",
+            "kana": "た",
+            "meaning": "Rice Field"
+        },
+        {
+            "id": 17,
+            "kanji": "花",
+            "kana": "はな",
+            "meaning": "Flower"
+        },
+        {
+            "id": 18,
+            "kanji": "耳",
+            "kana": "みみ",
+            "meaning": "Ear"
+        },
+        {
+            "id": 19,
+            "kanji": "雨",
+            "kana": "あめ",
+            "meaning": "Rain"
+        },
+        {
+            "id": 20,
+            "kanji": "空",
+            "kana": "そら",
+            "meaning": "Sky"
         }
     ],
     "guides": {

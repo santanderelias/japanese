@@ -1,4 +1,4 @@
-const CACHE_NAME = 'santael-v2';
+const CACHE_NAME = 'santael-v3';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -8,6 +8,7 @@ const ASSETS_TO_CACHE = [
     './filler.js',
     './learning.js',
     './stats.js',
+    './srs.js',
     './study.js',
     './particles.js',
     './reorder.js',
@@ -25,6 +26,7 @@ const ASSETS_TO_CACHE = [
 // Install Event - Cache Files
 self.addEventListener('install', (e) => {
     console.log('[Service Worker] Install');
+    self.skipWaiting();
     e.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             console.log('[Service Worker] Caching all: app shell and content');
