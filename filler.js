@@ -48,12 +48,21 @@ export const FillerModule = {
         inputs.forEach(input => {
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent default form submit if any
+
                     if (this.isOneByOne) {
-                        this.checkOneAnswer();
+                        const nextBtn = document.getElementById('obo-next-btn');
+                        const checkBtn = document.getElementById('obo-check-btn');
+
+                        // If input is disabled, it means we already checked, so 'Enter' should trigger Next.
+                        // Or if the Next button is visible.
+                        if (input.disabled || (nextBtn && !nextBtn.classList.contains('d-none'))) {
+                            if (nextBtn) nextBtn.click();
+                        } else {
+                            // Otherwise, trigger Check
+                            if (checkBtn) checkBtn.click();
+                        }
                     } else {
-                        // For "All" view, we might not want Enter to submit all. 
-                        // Maybe focus next? Or trigger check all.
-                        // Let's trigger check all.
                         document.getElementById('check-btn').click();
                     }
                 }
