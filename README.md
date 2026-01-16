@@ -1,7 +1,8 @@
 # Santael - Japanese Verb Practice
 
 **Santael** is a modern, offline-capable Progressive Web App (PWA) designed to help students practice Japanese verb conjugations, particles, and sentence structures.
-**Try it at https://santael.com**
+
+Try it at **https://santael.com**
 
 ## 🚀 Features
 
