@@ -90,6 +90,7 @@ More sections to add:
 - Minigames
 - Hiragana & Katakana
 - improve this section:
-![Screenshot](./screen_5.png)
+
+- ![Screenshot](./screen_5.png)
 
 エリアス・サンタンデール
