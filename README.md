@@ -76,6 +76,10 @@ This project is open-source and available for educational purposes.
 More sections to add:
 - Kanji writing
 - Kanji flashcards
+- Kanji study material
 - Minigames
 - Hiragana & Katakana
-エリアス
+- give more context or hints for this section:
+![Screenshot](./sentence_prev.png)
+
+エリアス・サンタンデール
