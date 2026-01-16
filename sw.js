@@ -1,4 +1,4 @@
-const CACHE_NAME = 'santael-v５';
+const CACHE_NAME = 'santael-v6';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

@@ -100,7 +100,7 @@ export const ParticlesModule = {
         setTimeout(() => {
             this.currentIndex++;
             this.render();
-        }, 2500);
+        }, 4000);
     },
 
     renderComplete() {
