@@ -1,4 +1,4 @@
-const CACHE_NAME = 'santael-v4';
+const CACHE_NAME = 'santael-v５';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -7,7 +7,6 @@ const ASSETS_TO_CACHE = [
     './home.js',
     './filler.js',
     './learning.js',
-    './stats.js',
     './stats.js',
     './srs.js',
     './vocab.js',
