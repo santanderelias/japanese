@@ -18,13 +18,13 @@
 
 ## 📷️ Screenshots
 
-![Screenshot](./screen_1.jpg)
+![Screenshot](./screen_1.jpeg)
 
-![Screenshot](./screen_2.jpg)
+![Screenshot](./screen_2.jpeg)
 
-![Screenshot](./screen_3.jpg)
+![Screenshot](./screen_3.jpeg)
 
-![Screenshot](./screen_4.jpg)
+![Screenshot](./screen_4.jpeg)
 
 ## 🛠️ Technology Stack
 
