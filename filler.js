@@ -14,26 +14,37 @@ export const FillerModule = {
         this.container = container;
         this.currentIndex = 0;
 
-        // Listen for view toggle in parent (app.js handles the switch rendering, we just listen)
-        const toggle = document.getElementById('view-toggle');
-        if (toggle) {
-            toggle.checked = this.isOneByOne;
-            toggle.addEventListener('change', (e) => {
-                this.isOneByOne = e.target.checked;
-                this.render();
-            });
-        }
+        // Set up the navigation action for toggling view mode
+        this.updateNavIcon();
 
         this.render();
     },
 
+    updateNavIcon() {
+        if (window.setNavAction) {
+            window.setNavAction(
+                this.isOneByOne ? 'bi-grid-fill' : 'bi-collection-play-fill',
+                this.isOneByOne ? 'Switch to Grid View' : 'Switch to One-by-One Mode',
+                () => {
+                    this.isOneByOne = !this.isOneByOne;
+                    this.render();
+                }
+            );
+        }
+    },
+
     render() {
-        this.container.innerHTML = '';
+        this.updateNavIcon();
+        this.container.innerHTML = `
+            <div id="filler-content"></div>
+        `;
+
+        const contentContainer = document.getElementById('filler-content');
 
         if (this.isOneByOne) {
-            this.renderOneByOne();
+            this.renderOneByOne(contentContainer);
         } else {
-            this.renderAll();
+            this.renderAll(contentContainer);
         }
 
         // Add Enter key listener for inputs
@@ -70,9 +81,9 @@ export const FillerModule = {
         });
     },
 
-    renderOneByOne() {
+    renderOneByOne(container) {
         if (this.currentIndex >= this.data.length) {
-            this.showVictory();
+            this.showVictory(container);
             return;
         }
 
@@ -82,7 +93,7 @@ export const FillerModule = {
         const mainBtns = document.querySelector('#check-btn')?.parentElement;
         if (mainBtns) mainBtns.classList.add('d-none');
 
-        this.container.innerHTML = `
+        container.innerHTML = `
             <div class="card shadow-sm border-0 mt-4 mx-auto" style="max-width: 600px;">
                 <div class="card-body p-4 text-center">
                     <span class="badge bg-light text-muted border mb-3">
@@ -154,12 +165,12 @@ export const FillerModule = {
         }
     },
 
-    renderAll() {
+    renderAll(container) {
         // Show main buttons
         const mainBtns = document.querySelector('#check-btn')?.parentElement;
         if (mainBtns) mainBtns.classList.remove('d-none');
 
-        this.container.innerHTML = `
+        container.innerHTML = `
             <div class="row g-4">
                 ${this.data.map(drill => `
                     <div class="col-md-6 col-lg-4">
@@ -209,16 +220,11 @@ export const FillerModule = {
             }
         });
 
-        return correctCount === total; // Returns true if perfect? logic in app.js just awards XP 
-        // We should move XP logic here mostly? 
-        // App.js: if (FillerModule.validate()) StatsModule.addXP(10);
-        // This awards 10XP for pressing check? That's weird.
-        // Let's rely on SRS/Stats internally in this module for granular updates? 
-        // No, let's keep it simple.
+        return correctCount === total;
     },
 
-    showVictory() {
-        this.container.innerHTML = `
+    showVictory(container) {
+        container.innerHTML = `
             <div class="text-center p-5 fade-in">
                 <i class="bi bi-check-circle-fill text-success display-1 mb-4"></i>
                 <h2 class="mb-3">Set Complete!</h2>

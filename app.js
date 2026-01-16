@@ -19,6 +19,8 @@ export const App = {
     navXP: null,
     navStreak: null,
     themeToggle: null,
+    navActionBtn: null,
+    actionBtnListener: null,
 
     async init() {
         this.root = document.getElementById('app-root');
@@ -31,6 +33,7 @@ export const App = {
         this.navXP = document.getElementById('nav-xp');
         this.navStreak = document.getElementById('nav-streak');
         this.themeToggle = document.getElementById('theme-toggle');
+        this.navActionBtn = document.getElementById('nav-action-btn');
 
         // Theme Init
         if (localStorage.getItem('santael_theme') === 'dark') {
@@ -56,6 +59,12 @@ export const App = {
             });
         }
 
+        // Initialize Bootstrap Popovers
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        if (window.bootstrap) {
+            [...popoverTriggerList].map(popoverTriggerEl => new window.bootstrap.Popover(popoverTriggerEl));
+        }
+
         try {
             const response = await fetch('./data.json');
             this.data = await response.json();
@@ -64,6 +73,10 @@ export const App = {
             LearningModule.init(this.data);
 
             window.navigateApp = (view) => this.navigate(view);
+            // Expose setActionBtn globally or just use App.setActionBtn if exported?
+            // Since App is exported but initialized immediately, we can attach to window for easier access from modules
+            window.setNavAction = (icon, title, callback) => this.setNavAction(icon, title, callback);
+
             this.navigate('home');
         } catch (e) {
             console.error("Failed to init app:", e);
@@ -76,6 +89,22 @@ export const App = {
         if (this.navXP) this.navXP.innerText = stats.xp;
         if (this.navLevel) this.navLevel.innerText = stats.level;
         if (this.navStreak) this.navStreak.innerText = stats.streak;
+    },
+
+    setNavAction(icon, title, callback) {
+        if (!this.navActionBtn) return;
+
+        // Remove old listener
+        if (this.actionBtnListener) {
+            this.navActionBtn.removeEventListener('click', this.actionBtnListener);
+        }
+
+        this.navActionBtn.innerHTML = `<i class="bi ${icon}"></i>`;
+        this.navActionBtn.title = title || '';
+        this.navActionBtn.classList.remove('d-none');
+
+        this.actionBtnListener = callback;
+        this.navActionBtn.addEventListener('click', this.actionBtnListener);
     },
 
     updateNavbarState(title, canGoBack) {
@@ -93,6 +122,15 @@ export const App = {
             this.helpBtn.classList.remove('d-none');
         } else {
             this.helpBtn.classList.add('d-none');
+        }
+
+        // Reset Action Btn (Modules must re-set it if needed)
+        if (this.navActionBtn) {
+            this.navActionBtn.classList.add('d-none');
+            if (this.actionBtnListener) {
+                this.navActionBtn.removeEventListener('click', this.actionBtnListener);
+                this.actionBtnListener = null;
+            }
         }
     },
 
@@ -135,15 +173,7 @@ export const App = {
 
     renderFillerWrapper() {
         this.root.innerHTML = `
-            <div class="container fade-in">
-                <!-- Toolbar for Filler Specifics -->
-                <div class="d-flex justify-content-end mb-3">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="view-toggle">
-                        <label class="form-check-label" for="view-toggle">One-by-one</label>
-                    </div>
-                </div>
-                
+            <div class="container fade-in">                
                 <div id="filler-root"></div>
 
                 <div class="d-flex justify-content-center gap-3 mt-5">

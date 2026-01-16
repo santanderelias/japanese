@@ -15,17 +15,35 @@ export const StudyModule = {
     render() {
         this.container.innerHTML = `
             <div class="row fade-in">
-                <div class="col-md-3 mb-4">
-                    <div class="list-group shadow-sm sticky-top" style="top: 100px;" id="study-list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action active border-0 py-3" id="list-guides-list" data-bs-toggle="list" href="#list-guides" role="tab">
+                <!-- Mobile Menu (List Group - Original Layout) -->
+                <div class="col-12 d-md-none mb-4">
+                     <div class="list-group shadow-sm" id="study-list-tab-mobile" role="tablist">
+                        <a class="list-group-item list-group-item-action active border-0 py-3" id="list-guides-list-mobile" data-bs-toggle="list" href="#list-guides" role="tab">
                             <i class="bi bi-journal-text me-2"></i>Grammar Guides
                         </a>
-                        <a class="list-group-item list-group-item-action border-0 py-3" id="list-vocab-list" data-bs-toggle="list" href="#list-vocab" role="tab">
+                        <a class="list-group-item list-group-item-action border-0 py-3" id="list-vocab-list-mobile" data-bs-toggle="list" href="#list-vocab" role="tab">
                             <i class="bi bi-translate me-2"></i>Vocabulary List
                         </a>
                     </div>
                 </div>
-                <div class="col-md-9">
+
+                <!-- Desktop Menu (Tabs - New Layout) -->
+                <div class="col-12 d-none d-md-block mb-4">
+                    <ul class="nav nav-pills nav-fill bg-white shadow-sm rounded p-2" id="study-tab-desktop" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active fw-bold" id="list-guides-tab-desktop" data-bs-toggle="tab" data-bs-target="#list-guides" type="button" role="tab">
+                                <i class="bi bi-journal-text me-2"></i>Grammar Guides
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link fw-bold" id="list-vocab-tab-desktop" data-bs-toggle="tab" data-bs-target="#list-vocab" type="button" role="tab">
+                                <i class="bi bi-translate me-2"></i>Vocabulary List
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-12">
                     <div class="tab-content" id="nav-tabContent">
                         <!-- Grammar Guides Panel -->
                         <div class="tab-pane fade show active" id="list-guides" role="tabpanel">
@@ -51,9 +69,7 @@ export const StudyModule = {
                                         <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
                                         <input type="text" class="form-control border-start-0" id="vocab-search" placeholder="Search meanings, romaji, or kanji...">
                                     </div>
-                                    <div id="vocab-table-container">
-                                        ${this.renderVocabTable(this.data.vocabulary)}
-                                    </div>
+                                    <div id="vocab-table-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -61,6 +77,12 @@ export const StudyModule = {
                 </div>
             </div>
         `;
+
+        // Render Vocab using the dedicated module (Dual View)
+        const vocabContainer = document.getElementById('vocab-table-container');
+        if (vocabContainer) {
+            VocabModule.init(this.data.vocabulary, vocabContainer);
+        }
 
         this.attachSearchListener();
     },
@@ -82,55 +104,6 @@ export const StudyModule = {
         `;
     },
 
-    renderVocabTable(vocabList) {
-        if (!vocabList || vocabList.length === 0) return '<p class="text-muted">No words found.</p>';
-
-        const priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
-        const sorted = [...vocabList].sort((a, b) => {
-            const pa = priorityOrder[a.priority] || 4;
-            const pb = priorityOrder[b.priority] || 4;
-            return pa - pb;
-        });
-
-        return `
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Kanji</th>
-                            <th>Kana</th>
-                            <th>Polite</th>
-                            <th>Group</th>
-                            <th>Meaning</th>
-                            <th>Priority</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${sorted.map(word => `
-                            <tr>
-                                <td class="fw-bold text-primary fs-5 text-nowrap">${word.kanji}</td>
-                                <td class="text-nowrap">${word.romaji || word.kana || '-'}</td>
-                                <td class="text-nowrap">${word.polite}</td>
-                                <td><span class="badge bg-secondary">G${word.group}</span></td>
-                                <td>${word.meaning}</td>
-                                <td>${this.getPriorityBadge(word.priority)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    },
-
-    getPriorityBadge(priority) {
-        switch (priority) {
-            case 'High': return '<span class="badge bg-danger">High</span>';
-            case 'Medium': return '<span class="badge bg-warning text-dark">Medium</span>';
-            case 'Low': return '<span class="badge bg-info">Low</span>';
-            default: return '<span class="badge bg-light text-muted">-</span>';
-        }
-    },
-
     attachSearchListener() {
         const searchInput = document.getElementById('vocab-search');
         if (searchInput) {
@@ -142,7 +115,8 @@ export const StudyModule = {
                     (v.romaji && v.romaji.toLowerCase().includes(term)) ||
                     (v.kana && v.kana.includes(term))
                 );
-                document.getElementById('vocab-table-container').innerHTML = this.renderVocabTable(filtered);
+                const container = document.getElementById('vocab-table-container');
+                VocabModule.init(filtered, container);
             });
         }
     }

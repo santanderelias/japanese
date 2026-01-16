@@ -71,4 +71,11 @@
 ## 📝 License
 
 This project is open-source and available for educational purposes.
+
+## Next Steps
+More sections to add:
+- Kanji writing
+- Kanji flashcards
+- Minigames
+- Hiragana & Katakana
 エリアス

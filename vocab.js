@@ -9,14 +9,21 @@ export const VocabModule = {
             return pa - pb;
         });
 
-        container.innerHTML = `
-            <div class="table-responsive fade-in">
+        container.innerHTML = '';
+        this.renderTable(container);
+        this.renderMobileCards(container);
+    },
+
+    renderTable(container) {
+        // Desktop View (Table)
+        const desktopView = `
+            <div class="d-none d-md-block table-responsive fade-in">
                 <table class="table table-hover align-middle bg-white shadow-sm rounded">
                     <thead class="table-light">
                         <tr>
                             <th>Kanji</th>
-                            <th>Kana (Reading)</th>
-                            <th>Polite Form</th>
+                            <th>Kana</th>
+                            <th>Polite</th>
                             <th>Group</th>
                             <th>Meaning</th>
                             <th>Priority</th>
@@ -37,6 +44,42 @@ export const VocabModule = {
                 </table>
             </div>
         `;
+        container.insertAdjacentHTML('beforeend', desktopView);
+    },
+
+    renderMobileCards(container) {
+        // Mobile View (Cards)
+        const mobileView = `
+            <div class="d-md-none fade-in">
+                <div class="row g-3">
+                    ${this.data.map(word => `
+                        <div class="col-12">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h2 class="h1 text-primary mb-0 fw-bold">${word.kanji}</h2>
+                                            <div class="text-muted small">${word.romaji || word.kana}</div>
+                                        </div>
+                                        ${this.getPriorityBadge(word.priority)}
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-light text-dark border">G${word.group}</span>
+                                        <div class="fw-bold">${word.polite}</div>
+                                    </div>
+                                    
+                                    <div class="border-top pt-2 mt-2 text-secondary">
+                                        ${word.meaning}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', mobileView);
     },
 
     getPriorityBadge(priority) {
