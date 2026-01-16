@@ -84,12 +84,17 @@ This project is open-source and available for educational purposes.
 
 ## Next Steps
 More sections to add:
-- Kanji writing
-- Kanji flashcards
-- Kanji study material
+- Hiragana & Katakana Flashcards & other material
+- Lock/Unlock sections based on skill level.
+- More Kanji material & sections
 - Minigames
+<<<<<<< HEAD
 - Hiragana & Katakana
 - improve this section:
 ![Screenshot](./screen_5.png)
+=======
+- Improve this section:
+![Screenshot](./sentence_prev.png)
+>>>>>>> 57bfed1e1bec09b4b2f0e2a086c09aa517de5400
 
 エリアス・サンタンデール
