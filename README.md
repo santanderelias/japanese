@@ -79,7 +79,7 @@ More sections to add:
 - Kanji study material
 - Minigames
 - Hiragana & Katakana
-- give more context or hints for this section:
+- improve this section:
 ![Screenshot](./sentence_prev.png)
 
 エリアス・サンタンデール
