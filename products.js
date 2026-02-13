@@ -4,18 +4,28 @@ const products = [
         "id": "001",
         "title": "Minimalist Watch",
         "price": 150.00,
-        "description": "A sleek, monochromatic timepiece designed for the modern minimalist.",
+        "description": "Un reloj elegante y monocromático diseñado para el minimalista moderno.",
+        "features": [
+            "Alto voltaje",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Premium finish"
+        ],
         "image": "./img/prod1.png"
     },
     {
         "id": "002",
         "title": "Producto X",
         "price": 1500,
-        "description": "An exclusive item with premium build quality.",
+        "description": "Un artículo exclusivo con calidad de construcción superior.",
         "features": [
-            "High voltage",
-            "High performance",
-            "Premium finish"
+            "Alto voltaje",
+            "Rendimiento alto",
+            "Acabado premium"
         ],
         "image": "./img/prod1.png"
     },
@@ -23,19 +33,16 @@ const products = [
         "id": "003",
         "title": "Producto Y",
         "price": 1500,
-        "description": "A sleek, monochromatic timepiece designed for the modern minimalist.",
+        "description": "Un reloj elegante y monocromático diseñado para el minimalista moderno.",
         "features": [
             "High voltage",
-            "High performance",
-            "High performance",
-            "High performance",
-            "High performance",
-            "High performance",
-            "High performance",
-            "High performance",
-            "High performance",
-            "High performance",
-            "Premium finish"
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Rendimiento alto",
+            "Acabado premium"
         ],
         "image": "./img/prod1.png"
     }
