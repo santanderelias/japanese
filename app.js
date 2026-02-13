@@ -106,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'product-card';
 
             card.innerHTML = `
-                <img src="${product.image || 'https://via.placeholder.com/300'}" alt="${product.title}" class="product-image" loading="lazy">
+                <div class="product-image-container">
+                    <img src="${product.image || 'https://via.placeholder.com/300'}" alt="${product.title}" class="product-image" loading="lazy">
+                </div>
                 <div class="product-info">
                     <h2 class="product-title">${product.title}</h2>
                     <div class="product-price">${formatPrice(product.price)}</div>
@@ -117,6 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             card.querySelector('.btn-more-info').onclick = () => openDetail(product);
+
+            // Add zoom functionality to catalog image
+            const img = card.querySelector('.product-image');
+            setupCatalogImageZoom(img);
+
             grid.appendChild(card);
         });
     };
@@ -215,6 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.transform = '';
         img.style.transformOrigin = '';
 
+        // Hide caption by default
+        const caption = detailModal.querySelector('.zoom-caption');
+        if (caption) caption.style.display = 'none';
+
         // Remove old event listeners by cloning (clean slate)
         const clone = img.cloneNode(true);
         img.parentNode.replaceChild(clone, img);
@@ -222,6 +233,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (config.features && config.features.imageZoom) {
             clone.classList.add('zoom-enabled');
+
+            // Show caption if zoom is enabled
+            const caption = detailModal.querySelector('.zoom-caption');
+            if (caption) caption.style.display = 'block';
 
             let rafId = null;
             let isZoomed = false;
@@ -301,6 +316,87 @@ document.addEventListener('DOMContentLoaded', () => {
                 clone.style.transform = 'scale(1)';
             });
         }
+    };
+
+    // Catalog Image Zoom Feature
+    const setupCatalogImageZoom = (img) => {
+        if (!config.features || !config.features.imageZoom) return;
+
+        let rafId = null;
+        let isZoomed = false;
+
+        // Desktop: Mouse events
+        img.addEventListener('mousemove', (e) => {
+            if (rafId) return;
+
+            rafId = requestAnimationFrame(() => {
+                const rect = img.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                img.style.transformOrigin = `${x}% ${y}%`;
+                img.style.transform = 'scale(2)';
+                rafId = null;
+            });
+        });
+
+        img.addEventListener('mouseleave', () => {
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+            img.style.transform = 'scale(1)';
+        });
+
+        // Mobile: Touch events
+        img.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isZoomed = true;
+
+            const touch = e.touches[0];
+            const rect = img.getBoundingClientRect();
+            const x = ((touch.clientX - rect.left) / rect.width) * 100;
+            const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+            img.style.transformOrigin = `${x}% ${y}%`;
+            img.style.transform = 'scale(2)';
+        }, { passive: false });
+
+        img.addEventListener('touchmove', (e) => {
+            if (!isZoomed) return;
+            e.preventDefault();
+
+            if (rafId) return;
+
+            rafId = requestAnimationFrame(() => {
+                const touch = e.touches[0];
+                const rect = img.getBoundingClientRect();
+                const x = ((touch.clientX - rect.left) / rect.width) * 100;
+                const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+                img.style.transformOrigin = `${x}% ${y}%`;
+                img.style.transform = 'scale(2)';
+                rafId = null;
+            });
+        }, { passive: false });
+
+        img.addEventListener('touchend', () => {
+            isZoomed = false;
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+            img.style.transform = 'scale(1)';
+        });
+
+        img.addEventListener('touchcancel', () => {
+            isZoomed = false;
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+            img.style.transform = 'scale(1)';
+        });
     };
 
     const updateDetailQty = () => {

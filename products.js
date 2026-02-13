@@ -15,7 +15,7 @@ const products = [
             "Rendimiento alto",
             "Premium finish"
         ],
-        "image": "./img/prod1.png"
+        "image": "./img/img2.webp"
     },
     {
         "id": "002",
@@ -27,7 +27,7 @@ const products = [
             "Rendimiento alto",
             "Acabado premium"
         ],
-        "image": "./img/prod1.png"
+        "image": "./img/img2.webp"
     },
     {
         "id": "003",
@@ -44,6 +44,6 @@ const products = [
             "Rendimiento alto",
             "Acabado premium"
         ],
-        "image": "./img/prod1.png"
+        "image": "./img/img2.webp"
     }
 ];
