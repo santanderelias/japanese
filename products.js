@@ -3,7 +3,7 @@ const products = [
     {
         "id": "001",
         "title": "Minimalist Watch",
-        "price": 150.00,
+        "price": 150000.00,
         "description": "Un reloj elegante y monocromático diseñado para el minimalista moderno.",
         "features": [
             "Alto voltaje",
@@ -20,7 +20,7 @@ const products = [
     {
         "id": "002",
         "title": "Producto X",
-        "price": 1500,
+        "price": 999999,
         "description": "Un artículo exclusivo con calidad de construcción superior.",
         "features": [
             "Alto voltaje",
@@ -32,7 +32,7 @@ const products = [
     {
         "id": "003",
         "title": "Producto Y",
-        "price": 1500,
+        "price": 500000,
         "description": "Un reloj elegante y monocromático diseñado para el minimalista moderno.",
         "features": [
             "High voltage",
