@@ -4,146 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santael - Japanese Practice</title>
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2e4a62">
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192x192.png">
-
-    <!-- Bootstrap 5 CSS (Local) -->
-    <link href="./vendor/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons (CDN for now as requested) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-    <link rel="stylesheet" href="main.css">
+    <title>Catalog</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="A curated selection of premium goods.">
 </head>
 
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-primary mb-4 shadow-sm py-2">
-        <div class="container flex-wrap">
-            <div class="d-flex align-items-center">
-                <button id="nav-back-btn" class="btn btn-link text-white me-3 p-0 text-decoration-none d-none">
-                    <i class="bi bi-arrow-left fs-4"></i>
-                </button>
-                <span class="navbar-brand fw-bold mb-0 border-end pe-3 me-3" id="app-brand"
-                    onclick="window.navigateApp('home')" style="cursor: pointer;">
-                    日本語練習
-                </span>
-                <span class="navbar-text text-white fw-medium fs-5" id="nav-title">
-                    Welcome
-                </span>
-            </div>
-
-            <div class="d-flex align-items-center gap-3 justify-content-center flex-wrap mobile-toolbar">
-                <button id="nav-help-btn" class="btn btn-outline-light rounded-circle p-2 d-none"
-                    style="width: 40px; height: 40px;" title="Learning Guide">
-                    <i class="bi bi-book-fill"></i>
-                </button>
-                <div class="d-flex align-items-center text-white bg-white bg-opacity-25 rounded-pill px-3 py-1 small shadow-sm"
-                    role="button" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-                    data-bs-placement="bottom" data-bs-title="Current Level"
-                    data-bs-content="Your mastery level. Earn XP to level up!" id="nav-level-container">
-                    <i class="bi bi-trophy-fill text-warning me-2"></i>
-                    <span class="fw-bold" id="nav-level">1</span>
-                </div>
-                <div class="d-flex align-items-center text-white bg-white bg-opacity-25 rounded-pill px-3 py-1 small shadow-sm"
-                    role="button" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-                    data-bs-placement="bottom" data-bs-title="Total XP"
-                    data-bs-content="Total experience points gained from studying." id="nav-xp-container">
-                    <i class="bi bi-star-fill text-warning me-2"></i>
-                    <span class="fw-bold" id="nav-xp">0</span>
-                </div>
-                <div class="d-flex align-items-center text-white bg-white bg-opacity-25 rounded-pill px-3 py-1 small shadow-sm"
-                    role="button" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-                    data-bs-placement="bottom" data-bs-title="Day Streak"
-                    data-bs-content="Consecutive days you have practiced." id="nav-streak-container">
-                    <i class="bi bi-fire text-danger me-2"></i>
-                    <span class="fw-bold" id="nav-streak">0</span>
-                </div>
-                <!-- Dynamic Action Button (e.g. One-by-one Toggle) -->
-                <button id="nav-action-btn" class="btn btn-link text-white p-1 d-none">
-                    <i class="bi bi-circle"></i>
-                </button>
-                <button id="theme-toggle" class="btn btn-link text-white p-1" title="Toggle Dark Mode">
-                    <i class="bi bi-moon-stars-fill"></i>
+    <header class="site-header">
+        <div class="container">
+            <h1>Catalog</h1>
+            <div class="header-actions">
+                <a href="#" id="contact-btn" class="icon-btn" aria-label="Contact">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                </a>
+                <button id="cart-btn" class="icon-btn" aria-label="Cart">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cart-count" class="cart-count">0</span>
                 </button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="container pb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-10" id="app-root">
-                <!-- SPA Content Injected Here -->
-                <div class="text-center p-5">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="mt-2 text-muted">Loading Application...</p>
-                </div>
+    <main class="container">
+        <div id="product-grid" class="product-grid">
+            <!-- Products will be injected here -->
+            <div class="loading">Loading collection...</div>
+        </div>
+    </main>
+
+    <!-- Cart Modal (Floating) -->
+    <div id="cart-modal" class="floating-panel">
+        <div class="panel-header">
+            <h2>Tu Carrito</h2>
+            <button id="close-cart" class="close-panel">&times;</button>
+        </div>
+        <div id="cart-items" class="panel-content">
+            <div id="empty-cart-message" class="empty-cart-message">No hay nada en tu carrito</div>
+        </div>
+        <div class="panel-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
             </div>
+            <a href="#" id="checkout-btn" class="checkout-btn">Finalizar Compra por WhatsApp</a>
+            <button id="continue-shopping-btn" class="continue-shopping-btn">Seguir Comprando</button>
         </div>
     </div>
 
-    <!-- Learning Modal -->
-    <div class="modal fade" id="learning-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="learning-modal-title">Learning Guide</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+    <!-- Product Detail Modal (Floating) -->
+    <div id="product-detail-modal" class="floating-panel">
+        <div class="panel-header">
+            <h2 id="detail-title">Título del Producto</h2>
+            <button id="close-detail" class="close-panel">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="detail-image-container">
+                <img id="detail-image" src="" alt="Producto" class="detail-image">
+            </div>
+            <p id="detail-price" class="detail-price">$0.00</p>
+            <p id="detail-description" class="detail-description">La descripción va aquí...</p>
+            <div id="detail-features-container"></div>
+
+            <div class="detail-actions">
+                <div class="quantity-controls big">
+                    <button class="qty-btn" id="detail-minus">-</button>
+                    <span class="qty-val" id="detail-qty">1</span>
+                    <button class="qty-btn" id="detail-plus">+</button>
                 </div>
-                <div class="modal-body p-0">
-                    <ul class="nav nav-tabs nav-justified" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="guide-tab" data-bs-toggle="tab"
-                                data-bs-target="#guide-tab-pane" type="button" role="tab">
-                                <i class="bi bi-info-circle me-2"></i>Explanation
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="vocab-tab" data-bs-toggle="tab"
-                                data-bs-target="#vocab-tab-pane" type="button" role="tab">
-                                <i class="bi bi-translate me-2"></i>Vocabulary
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="tab-content p-4">
-                        <div class="tab-pane fade show active" id="guide-tab-pane" role="tabpanel">
-                            <!-- Guide content injected here -->
-                        </div>
-                        <div class="tab-pane fade" id="vocab-tab-pane" role="tabpanel">
-                            <!-- Vocab list injected here -->
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="action-buttons">
+                    <a href="#" id="detail-buy-now" class="btn-primary">Pedir 1 ahora</a>
+                    <button id="detail-add-cart" class="btn-secondary">Agregar al Carrito</button>
                 </div>
             </div>
         </div>
+        <div id="scroll-indicator" class="scroll-indicator">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
     </div>
 
-    <!-- Bootstrap Bundle JS (Local) -->
-    <script src="./vendor/bootstrap.bundle.min.js"></script>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Premium Catalog</p>
+        </div>
+    </footer>
 
-    <!-- App Entry Point -->
-    <script type="module" src="./app.js"></script>
-
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW Registered!', reg))
-                    .catch(err => console.log('SW Registration Failed', err));
-            });
-        }
-    </script>
+    <script src="config.js"></script>
+    <script src="products.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
