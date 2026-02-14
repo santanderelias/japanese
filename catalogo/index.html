@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Product Catalog</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">CATALOGO</div>
+            <button id="nav-back" class="nav-back-btn hidden" aria-label="Volver">Volver</button>
+        </div>
+        <div class="nav-right">
+            <a href="https://wa.me/5491153892491" target="_blank" class="nav-contact-btn" id="contact-btn">📞</a>
+            <button id="menu-toggle" class="menu-btn" aria-label="Open Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Side Menu -->
+    <div id="side-menu" class="side-menu">
+        <div class="menu-overlay"></div>
+        <div class="menu-content">
+            <button id="menu-close" class="close-btn">&times;</button>
+            <nav class="menu-nav">
+                <a href="#" class="menu-item active" data-section="home-section">Home</a>
+                <a href="#" class="menu-item" data-section="section-1">Tech Collection</a>
+                <a href="#" class="menu-item" data-section="section-2">Handcrafted Audio</a>
+                <a href="#" class="menu-item" data-section="section-3">Style Essential</a>
+                <a href="#" class="menu-item" data-section="section-4">Modern Living</a>
+            </nav>
+        </div>
+    </div>
+
+    <main id="app-container">
+        <!-- Home Section -->
+        <section id="home-section" class="active">
+            <div class="catalog-grid">
+                <div class="catalog-item" data-section="section-1" style="--bg-image: url('img/section1/01.webp');">
+                    <div class="item-overlay">
+                        <h3>Tech Collection</h3>
+                        <p>Latest in Innovation</p>
+                    </div>
+                </div>
+                <div class="catalog-item" data-section="section-2" style="--bg-image: url('img/section2/04.jpeg');">
+                    <div class="item-overlay">
+                        <h3>Handcrafted Audio</h3>
+                        <p>Pure Sound Experience</p>
+                    </div>
+                </div>
+                <div class="catalog-item" data-section="section-3" style="--bg-image: url('img/section3/07.jpeg');">
+                    <div class="item-overlay">
+                        <h3>Style Essential</h3>
+                        <p>Modern Trends</p>
+                    </div>
+                </div>
+                <div class="catalog-item" data-section="section-4" style="--bg-image: url('img/section4/04.jpeg');">
+                    <div class="item-overlay">
+                        <h3>Modern Living</h3>
+                        <p>Elegant Design</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Sections -->
+        <section id="section-1" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-1">
+                    <!-- Images will be populated by JS or static list -->
+                    <div class="gallery-item"><img src="img/section1/01.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/01 (copy).webp"></div>
+                    <div class="gallery-item"><img src="img/section1/01 (another copy).webp"></div>
+                    <div class="gallery-item"><img src="img/section1/01 (3rd copy).webp"></div>
+                    <div class="gallery-item"><img src="img/section1/02.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/02 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/02 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/02 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/03.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/03 (copy).webp"></div>
+                    <div class="gallery-item"><img src="img/section1/03 (another copy).webp"></div>
+                    <div class="gallery-item"><img src="img/section1/03 (3rd copy).webp"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-2" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-2">
+                    <div class="gallery-item"><img src="img/section2/04.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/04 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/04 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/04 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/05.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/05 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/05 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/05 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section2/06.jpg"></div>
+                    <div class="gallery-item"><img src="img/section2/06 (copy).jpg"></div>
+                    <div class="gallery-item"><img src="img/section2/06 (another copy).jpg"></div>
+                    <div class="gallery-item"><img src="img/section2/06 (3rd copy).jpg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-3" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-3">
+                    <div class="gallery-item"><img src="img/section3/07.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/07 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/07 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/07 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/08.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/08 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/08 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/08 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section3/09.jpg"></div>
+                    <div class="gallery-item"><img src="img/section3/09 (copy).jpg"></div>
+                    <div class="gallery-item"><img src="img/section3/09 (another copy).jpg"></div>
+                    <div class="gallery-item"><img src="img/section3/09 (3rd copy).jpg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-4" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-4">
+                    <div class="gallery-item"><img src="img/section4/04.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/04 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/04 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/04 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/05.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/05 (copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/05 (another copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/05 (3rd copy).jpeg"></div>
+                    <div class="gallery-item"><img src="img/section4/06.jpg"></div>
+                    <div class="gallery-item"><img src="img/section4/06 (copy).jpg"></div>
+                    <div class="gallery-item"><img src="img/section4/06 (another copy).jpg"></div>
+                    <div class="gallery-item"><img src="img/section4/06 (3rd copy).jpg"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-overlay"></div>
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <button class="lightbox-nav prev" aria-label="Anterior">&#10094;</button>
+        <button class="lightbox-nav next" aria-label="Siguiente">&#10095;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Galllery Image">
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Catalogo SPA. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
