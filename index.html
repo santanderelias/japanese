@@ -4,105 +4,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda X</title>
-    <link rel="stylesheet" href="style.css">
-    <meta name="description" content="Tienda de cosas.">
+    <title>Catalogo!</title>
+    <meta name="description" content="Catalogo de cosas.">
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-    <header class="site-header">
-        <div class="container">
-            <h1>Tienda X</h1>
-            <div class="header-actions">
-                <a href="#" id="contact-btn" class="icon-btn" aria-label="Contact">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                        </path>
-                    </svg>
-                </a>
-                <button id="cart-btn" class="icon-btn" aria-label="Cart">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    <span id="cart-count" class="cart-count">0</span>
-                </button>
-            </div>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">CATALOGO</div>
+            <button id="nav-back" class="nav-back-btn hidden" aria-label="Volver">Volver</button>
         </div>
-    </header>
+        <div class="nav-right">
+            <a href="https://wa.me/5491153892491" target="_blank" class="nav-contact-btn" id="contact-btn">📞</a>
+            <button id="menu-toggle" class="menu-btn" aria-label="Open Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
 
-    <main class="container">
-        <div id="product-grid" class="product-grid">
-            <!-- Products will be injected here -->
-            <div class="loading">Cargando datos...</br> Si este mensaje no desaparece por favor contactenos <a href="https://wa.me/5491153892491?text=Hola%2C%20hay%20un%20inconveniente%20con%20el%20sitio">Aqui!</a></div>
+    <!-- Side Menu -->
+    <div id="side-menu" class="side-menu">
+        <div class="menu-overlay"></div>
+        <div class="menu-content">
+            <button id="menu-close" class="close-btn">&times;</button>
+            <nav class="menu-nav">
+                <a href="#" class="menu-item active" data-section="home-section">Inicio</a>
+                <a href="#" class="menu-item" data-section="section-1">Sección 1</a>
+                <a href="#" class="menu-item" data-section="section-2">Sección 2</a>
+                <a href="#" class="menu-item" data-section="section-3">Sección 3</a>
+                <a href="#" class="menu-item" data-section="section-4">Sección 4</a>
+            </nav>
         </div>
+    </div>
+
+    <main id="app-container">
+        <!-- Home Section -->
+        <section id="home-section" class="active">
+            <div class="catalog-grid">
+                <div class="catalog-item" data-section="section-1" style="--bg-image: url('img/section1/01.webp');">
+                    <div class="item-overlay">
+                        <h3>Titulo 1</h3>
+                        <p>Descripcion numero 1</p>
+                    </div>
+                </div>
+                <div class="catalog-item" data-section="section-2" style="--bg-image: url('img/section2/04.jpeg');">
+                    <div class="item-overlay">
+                        <h3>Titulo seccion 2</h3>
+                        <p>Descripcion seccion numero 2</p>
+                    </div>
+                </div>
+                <div class="catalog-item" data-section="section-3" style="--bg-image: url('img/section3/07.jpeg');">
+                    <div class="item-overlay">
+                        <h3>Titulo seccion 3</h3>
+                        <p>Descripcion numero 3</p>
+                    </div>
+                </div>
+                <div class="catalog-item" data-section="section-4" style="--bg-image: url('img/section4/04.jpeg');">
+                    <div class="item-overlay">
+                        <h3>Ultima seccion</h3>
+                        <p>Descripcion de la ultima seccion</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Sections -->
+        <section id="section-1" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-1">
+                    <!-- Images will be populated by JS or static list -->
+                    <div class="gallery-item"><img src="img/section1/01.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/02.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/03.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/04.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/05.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/06.jpg"></div>
+                    <div class="gallery-item"><img src="img/section1/07.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/08.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/09.jpg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-2" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-2">
+                    <div class="gallery-item"><img src="img/section1/01.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/02.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/03.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/04.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/05.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/06.jpg"></div>
+                    <div class="gallery-item"><img src="img/section1/07.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/08.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/09.jpg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-3" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-3">
+                    <div class="gallery-item"><img src="img/section1/01.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/02.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/03.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/04.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/05.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/06.jpg"></div>
+                    <div class="gallery-item"><img src="img/section1/07.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/08.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/09.jpg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-4" class="content-section">
+            <div class="section-content">
+                <div class="gallery-grid" id="gallery-4">
+                    <div class="gallery-item"><img src="img/section1/01.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/02.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/03.webp"></div>
+                    <div class="gallery-item"><img src="img/section1/04.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/05.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/06.jpg"></div>
+                    <div class="gallery-item"><img src="img/section1/07.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/08.jpeg"></div>
+                    <div class="gallery-item"><img src="img/section1/09.jpg"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Cart Modal (Floating) -->
-    <div id="cart-modal" class="floating-panel">
-        <div class="panel-header">
-            <h2>Tu Carrito</h2>
-            <button id="close-cart" class="close-panel">&times;</button>
-        </div>
-        <div id="cart-items" class="panel-content">
-            <div id="empty-cart-message" class="empty-cart-message">No hay nada en tu carrito</div>
-        </div>
-        <div class="panel-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cart-total-price">$0.00</span>
-            </div>
-            <a href="#" id="checkout-btn" class="checkout-btn">Finalizar Compra por WhatsApp</a>
-            <button id="continue-shopping-btn" class="continue-shopping-btn">Seguir Comprando</button>
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-overlay"></div>
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <button class="lightbox-nav prev" aria-label="Anterior">&#10094;</button>
+        <button class="lightbox-nav next" aria-label="Siguiente">&#10095;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Galllery Image">
         </div>
     </div>
 
-    <!-- Product Detail Modal (Floating) -->
-    <div id="product-detail-modal" class="floating-panel">
-        <div class="panel-header">
-            <h2 id="detail-title">Título del Producto</h2>
-            <button id="close-detail" class="close-panel">&times;</button>
-        </div>
-        <div class="panel-content">
-            <div class="detail-image-container">
-                <img id="detail-image" src="" alt="Producto" class="detail-image">
-                <div class="zoom-caption">Zoom</div>
-            </div>
-            <p id="detail-price" class="detail-price">$0.00</p>
-            <p id="detail-description" class="detail-description">La descripción va aquí...</p>
-            <div id="detail-features-container"></div>
-
-            <div class="detail-actions">
-                <div class="quantity-controls big">
-                    <button class="qty-btn" id="detail-minus">-</button>
-                    <span class="qty-val" id="detail-qty">1</span>
-                    <button class="qty-btn" id="detail-plus">+</button>
-                </div>
-                <div class="action-buttons">
-                    <a href="#" id="detail-buy-now" class="btn-primary">Pedir 1 ahora</a>
-                    <button id="detail-add-cart" class="btn-secondary">Agregar al Carrito</button>
-                </div>
-            </div>
-        </div>
-        <div id="scroll-indicator" class="scroll-indicator">
-            <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none"
-                    stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </div>
-    </div>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 Premium Goods</p>
-        </div>
+    <footer class="main-footer">
+        <p>&copy; 2026 Catalogo. Elias Santander.</p>
     </footer>
 
-    <script src="config.js"></script>
-    <script src="products.js"></script>
-    <script src="app.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
