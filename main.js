@@ -19,9 +19,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxPrev = document.querySelector('.lightbox-nav.prev');
     const lightboxNext = document.querySelector('.lightbox-nav.next');
     const lightboxOverlay = document.querySelector('.lightbox-overlay');
+    const lightboxConsulta = document.getElementById('lightbox-consulta');
 
     let currentImages = [];
     let currentImageIndex = 0;
+    let slideshowInterval = null;
+
+    // --- Slideshow Logic ---
+    const sectionImages = {
+        'section-1': ['img/section1/sofa.jpg', 'img/section1/chair.jpg', 'img/section1/table.jpg', 'img/section1/desk.jpg', 'img/section1/bed.jpg', 'img/section1/lamp.jpg', 'img/section1/armchair.jpg', 'img/section1/interior.jpg', 'img/section1/shelf.jpg'],
+        'section-2': ['img/section2/sofa.jpg', 'img/section2/chair.jpg', 'img/section2/table.jpg', 'img/section2/desk.jpg', 'img/section2/bed.jpg', 'img/section2/lamp.jpg', 'img/section2/armchair.jpg', 'img/section2/interior.jpg', 'img/section2/shelf.jpg'],
+        'section-3': ['img/section3/sofa.jpg', 'img/section3/chair.jpg', 'img/section3/table.jpg', 'img/section3/desk.jpg', 'img/section3/bed.jpg', 'img/section3/lamp.jpg', 'img/section3/armchair.jpg', 'img/section3/interior.jpg', 'img/section3/shelf.jpg'],
+        'section-4': ['img/section4/sofa.jpg', 'img/section4/chair.jpg', 'img/section4/table.jpg', 'img/section4/desk.jpg', 'img/section4/bed.jpg', 'img/section4/lamp.jpg', 'img/section4/armchair.jpg', 'img/section4/interior.jpg', 'img/section4/shelf.jpg']
+    };
+
+    function startHomepageSlideshow() {
+        if (slideshowInterval) return;
+        slideshowInterval = setInterval(() => {
+            catalogItems.forEach(item => {
+                const sectionId = item.getAttribute('data-section');
+                const images = sectionImages[sectionId];
+                if (!images) return;
+                const currentImg = item.style.getPropertyValue('--bg-image').replace(/url\(['"]?|['"]?\)/g, '');
+                let nextImg;
+                do {
+                    nextImg = images[Math.floor(Math.random() * images.length)];
+                } while (nextImg === currentImg && images.length > 1);
+                item.style.setProperty('--bg-image-next', `url('${nextImg}')`);
+                item.classList.add('slide-transition');
+                setTimeout(() => {
+                    item.style.setProperty('--bg-image', `url('${nextImg}')`);
+                    item.classList.remove('slide-transition');
+                }, 1000);
+            });
+        }, 2000);
+    }
+
+    function stopHomepageSlideshow() {
+        clearInterval(slideshowInterval);
+        slideshowInterval = null;
+    }
 
     // SPA Navigation Function
     function showSection(sectionId, immediate = false) {
@@ -32,12 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetSection = document.getElementById(sectionId);
         if (!targetSection) return;
 
-        // Transitions
+        if (sectionId === 'home-section') {
+            startHomepageSlideshow();
+        } else {
+            stopHomepageSlideshow();
+        }
+
         if (!immediate) {
             currentActive.classList.add('fade-out');
             setTimeout(() => {
                 finalizeNavigation(currentActive, targetSection, sectionId);
-            }, 500);
+            }, 400);
         } else {
             finalizeNavigation(currentActive, targetSection, sectionId);
         }
@@ -47,23 +89,26 @@ document.addEventListener('DOMContentLoaded', () => {
         currentActive.classList.remove('active', 'fade-out');
         currentActive.style.display = 'none';
 
-        targetSection.style.display = (sectionId === 'home-section') ? 'flex' : 'block';
-        targetSection.offsetHeight; // force reflow
+        if (sectionId === 'home-section') {
+            targetSection.style.display = 'flex';
+        } else {
+            targetSection.style.display = 'block';
+        }
+
+        targetSection.offsetHeight;
         targetSection.classList.add('active');
 
-        // Nav Back Button visibility
         if (sectionId === 'home-section') {
             navBackBtn.classList.add('hidden');
         } else {
             navBackBtn.classList.remove('hidden');
         }
 
-        // Update menu active state
         menuItems.forEach(item => {
             item.classList.toggle('active', item.getAttribute('data-section') === sectionId);
         });
 
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Side Menu Logic
@@ -115,8 +160,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateLightboxImage() {
         lightboxImg.style.opacity = '0';
+
+        const imgSrc = currentImages[currentImageIndex];
+        const fileNameWithExt = imgSrc.split('/').pop();
+        const fileName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf('.')) || fileNameWithExt;
+
+        // Update WhatsApp enquiry link
+        const phone = "5491153892491";
+        const message = `Hola! Consulta por el articulo ${fileName}`;
+        const whatsappBtn = document.getElementById('lightbox-consulta');
+        if (whatsappBtn) {
+            whatsappBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        }
+
         setTimeout(() => {
-            lightboxImg.src = currentImages[currentImageIndex];
+            lightboxImg.src = imgSrc;
             lightboxImg.style.opacity = '1';
         }, 150);
     }
@@ -182,6 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (touchEndX > touchStartX + threshold) prevImage();
     }
 
-    // CSS for JS transitions (simple fade for lightbox img)
+    // CSS for JS transitions
     lightboxImg.style.transition = 'opacity 0.2s ease-in-out';
+
+    // Start slideshow on load
+    startHomepageSlideshow();
 });
