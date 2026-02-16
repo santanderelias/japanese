@@ -5,7 +5,7 @@ const CONFIG = {
         slideshowMode: "sequence", // "sync" or "sequence"
         appName: "Santael",
         defaultLabel: "Medidas 2m x 1.50m x 0.40m",
-        visibleSectionsCount: 3
+        visibleSectionsCount: 2
     },
     sections: {
         'home-section': {
