@@ -14,26 +14,24 @@ const CONFIG = {
             isHome: true
         },
         'section-1': {
-            title: "Section 1",
-            menuTitle: "Sección 1",
-            description: "Living & Comfort",
+            title: "Muebles de cocina",
+            menuTitle: "Muebles de cocina",
+            description: "Mesas, Sillas y X",
             menuOrder: 1,
             images: [
-                { id: 'S1-A1', src: 'img/section1/armchair.jpg', imageLabel: '1.20m x 0.90m x 0.85m' },
-                { id: 'S1-B1', src: 'img/section1/bed.jpg', imageLabel: '2.00m x 1.80m x 0.45m' },
-                { id: 'S1-C1', src: 'img/section1/chair.jpg', imageLabel: '0.50m x 0.50m x 0.95m' },
-                { id: 'S1-D1', src: 'img/section1/desk.jpg', imageLabel: '1.40m x 0.70m x 0.75m' },
-                { id: 'S1-I1', src: 'img/section1/interior.jpg', imageLabel: 'Concept Room' },
-                { id: 'S1-L1', src: 'img/section1/lamp.jpg', imageLabel: '0.40m x 0.40m x 1.60m' },
-                { id: 'S1-S1', src: 'img/section1/shelf.jpg', imageLabel: '1.00m x 0.35m x 1.80m' },
-                { id: 'S1-SO1', src: 'img/section1/sofa.jpg', imageLabel: '2.10m x 0.95m x 0.85m' },
-                { id: 'S1-T1', src: 'img/section1/table.jpg', imageLabel: '1.80m x 0.90m x 0.75m' }
+                { id: 'Mesa-S1-019', src: 'img/section1/019.jpeg', imageLabel: 'Mesa: 1.20m x 0.90m x 0.85m' },
+                { id: 'Mesa-S1-020', src: 'img/section1/020.jpeg', imageLabel: 'Mesa: 2.00m x 1.80m x 0.45m' },
+                { id: 'Mesa-S1-026', src: 'img/section1/026.jpeg', imageLabel: 'Mesa: 0.50m x 0.50m x 0.95m' },
+                { id: 'Mesa-S1-028', src: 'img/section1/028.jpeg', imageLabel: 'Mesa: 1.40m x 0.70m x 0.75m' },
+                { id: 'Mesa-S1-030', src: 'img/section1/030.jpeg', imageLabel: 'Mesa: 1.40m x 0.70m x 0.75m' },
+                { id: 'Mesa-S1-031', src: 'img/section1/031.jpeg', imageLabel: 'Mesa: 1.40m x 0.70m x 0.75m' },
+                { id: 'Mesa-S1-032', src: 'img/section1/032.jpeg', imageLabel: 'Mesa: 1.40m x 0.70m x 0.75m' }
             ]
         },
         'section-2': {
-            title: "Section 2",
-            menuTitle: "Sección 2",
-            description: "Design & Elegance",
+            title: "Dormitorio",
+            menuTitle: "Dormitorio",
+            description: "Camas, Mesas de luz y X",
             menuOrder: 2,
             images: [
                 { id: 'S2-A1', src: 'img/section2/armchair.jpg', imageLabel: '1.20m x 0.90m x 0.85m' },

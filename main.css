@@ -208,6 +208,14 @@ body {
     transform: translateX(10px);
 }
 
+.menu-footer {
+    margin-top: auto;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0.6;
+    font-size: 0.85rem;
+}
+
 /* Main Container */
 #app-container {
     margin-top: var(--nav-height);
