@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Home Catalog Grid
         catalogGrid.innerHTML = ''; // Clear existing
+        catalogGrid.style.setProperty('--visible-count', visibleProductSectionIds.length);
+
         visibleProductSectionIds.forEach(sectionId => {
             const section = CONFIG.sections[sectionId];
             const item = document.createElement('div');

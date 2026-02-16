@@ -13,12 +13,12 @@
 }
 
 :root {
-    --primary-color: #0d1b2a;
-    --secondary-color: #1b263b;
-    --accent-color: #415a77;
-    --text-color: #e0e1dd;
-    --subtle-text: #778da9;
-    --bg-color: #0d1b2a;
+    --primary-color: #000000;
+    --secondary-color: #0a0a0a;
+    --accent-color: #1a1a1a;
+    --text-color: #ffffff;
+    --subtle-text: #a0a0a0;
+    --bg-color: #000000;
     --nav-height: 70px;
     --transition-speed: 0.5s;
     --font-family: 'Outfit', sans-serif;
@@ -41,7 +41,7 @@ body {
 /* Nav Bar */
 .top-nav {
     height: var(--nav-height);
-    background: rgba(13, 27, 42, 0.9);
+    background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(15px);
     display: flex;
     justify-content: space-between;
@@ -98,14 +98,23 @@ body {
 
 .nav-contact-btn {
     text-decoration: none;
-    font-size: 1.5rem;
-    transition: transform 0.3s;
-    line-height: 1;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+}
+
+.nav-contact-btn svg {
+    width: 28px;
+    height: 28px;
 }
 
 .nav-contact-btn:hover {
     transform: scale(1.15) rotate(5deg);
+    color: #25D366;
+    /* WhatsApp Green */
 }
 
 .menu-btn {
@@ -142,7 +151,7 @@ body {
 .menu-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(13, 27, 42, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
     opacity: 0;
     transition: opacity 0.5s;
@@ -233,7 +242,7 @@ body {
 
 .catalog-grid {
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(var(--visible-count, 4), 1fr);
     width: 100%;
 }
 
@@ -265,7 +274,7 @@ body {
 .item-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(13, 27, 42, 0.9), transparent 70%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 70%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -369,13 +378,11 @@ body {
     font-size: 1.2rem;
     font-weight: 500;
     transition: color 0.3s;
-    background: var(--accent-color);
-    padding: 15px 30px;
-    border-radius: 50px;
+    background: #333333;
 }
 
 .contact-link:hover {
-    background: #506f8c;
+    background: #444444;
 }
 
 .contact-note {
@@ -403,7 +410,7 @@ body {
 .lightbox-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(13, 27, 42, 0.97);
+    background: rgba(0, 0, 0, 0.98);
     backdrop-filter: blur(15px);
 }
 
@@ -429,7 +436,7 @@ body {
     position: fixed;
     top: 25px;
     left: 25px;
-    background: var(--accent-color);
+    background: rgba(30, 30, 30, 0.8);
     color: var(--text-color);
     text-decoration: none;
     font-size: 0.75rem;
@@ -498,7 +505,7 @@ body {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background: rgba(13, 27, 42, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     color: var(--text-color);
     font-size: 0.7rem;
     padding: 5px 10px;
@@ -512,7 +519,7 @@ body {
 /* Desktop Styles */
 @media (min-width: 768px) {
     .catalog-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(var(--visible-count, 4), 1fr);
         grid-template-rows: 1fr;
         height: 100%;
     }

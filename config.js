@@ -1,10 +1,10 @@
 const CONFIG = {
     settings: {
         whatsappPhone: "5491153892491",
-        slideshowInterval: 2000,
-        appName: "Webstore Alpha",
+        slideshowInterval: 1500,
+        appName: "Santael",
         defaultLabel: "Medidas 2m x 1.50m x 0.40m",
-        visibleSectionsCount: 4
+        visibleSectionsCount: 2
     },
     sections: {
         'home-section': {
@@ -14,7 +14,7 @@ const CONFIG = {
             isHome: true
         },
         'section-1': {
-            title: "Muebles de cocina",
+            title: "Cocina",
             menuTitle: "Muebles de cocina",
             description: "Mesas, Sillas y X",
             menuOrder: 1,
