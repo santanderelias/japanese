@@ -17,7 +17,7 @@ const CONFIG = {
         'section-1': {
             title: "Cocina",
             menuTitle: "Muebles de cocina",
-            description: "Mesas, Sillas",
+            description: "Mesas, Sillas.",
             menuOrder: 2,
             images: [
                 { id: 'Mesa-S1-019', src: 'img/section1/019.jpeg', imageLabel: 'Mesa: 1.20m x 0.90m x 0.85m' },
