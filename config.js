@@ -1,10 +1,11 @@
 const CONFIG = {
     settings: {
         whatsappPhone: "5491153892491",
-        slideshowInterval: 1500,
+        slideshowInterval: 1000,
+        slideshowMode: "sequence", // "sync" or "sequence"
         appName: "Santael",
         defaultLabel: "Medidas 2m x 1.50m x 0.40m",
-        visibleSectionsCount: 2
+        visibleSectionsCount: 3
     },
     sections: {
         'home-section': {

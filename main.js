@@ -121,29 +121,39 @@ document.addEventListener('DOMContentLoaded', () => {
     function startHomepageSlideshow() {
         if (slideshowInterval) return;
         const interval = CONFIG.settings?.slideshowInterval || 2000;
+        const mode = CONFIG.settings?.slideshowMode || 'sync';
         const catalogItems = document.querySelectorAll('.catalog-item');
+        let currentSequenceIndex = 0;
 
         slideshowInterval = setInterval(() => {
-            catalogItems.forEach(item => {
-                const sectionId = item.getAttribute('data-section');
-                const section = CONFIG.sections[sectionId];
-                if (!section || !section.images || section.images.length < 2) return;
-
-                const images = section.images;
-                const currentImg = item.style.getPropertyValue('--bg-image').replace(/url\(['"]?|['"]?\)/g, '');
-                let nextImg;
-                do {
-                    nextImg = images[Math.floor(Math.random() * images.length)].src;
-                } while (nextImg === currentImg);
-
-                item.style.setProperty('--bg-image-next', `url('${nextImg}')`);
-                item.classList.add('slide-transition');
-                setTimeout(() => {
-                    item.style.setProperty('--bg-image', `url('${nextImg}')`);
-                    item.classList.remove('slide-transition');
-                }, 1000);
-            });
+            if (mode === 'sequence') {
+                rotateItem(catalogItems[currentSequenceIndex]);
+                currentSequenceIndex = (currentSequenceIndex + 1) % catalogItems.length;
+            } else {
+                catalogItems.forEach(item => rotateItem(item));
+            }
         }, interval);
+    }
+
+    function rotateItem(item) {
+        if (!item) return;
+        const sectionId = item.getAttribute('data-section');
+        const section = CONFIG.sections[sectionId];
+        if (!section || !section.images || section.images.length < 2) return;
+
+        const images = section.images;
+        const currentImg = item.style.getPropertyValue('--bg-image').replace(/url\(['"]?|['"]?\)/g, '');
+        let nextImg;
+        do {
+            nextImg = images[Math.floor(Math.random() * images.length)].src;
+        } while (nextImg === currentImg);
+
+        item.style.setProperty('--bg-image-next', `url('${nextImg}')`);
+        item.classList.add('slide-transition');
+        setTimeout(() => {
+            item.style.setProperty('--bg-image', `url('${nextImg}')`);
+            item.classList.remove('slide-transition');
+        }, 1000);
     }
 
     function stopHomepageSlideshow() {
