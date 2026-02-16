@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let slideshowInterval = null;
 
     // --- Dynamic UI Generation ---
+    let settingsUnlocked = false;
+    let logoClickCount = 0;
+
     function generateUI() {
         const sectionsCount = CONFIG.settings?.visibleSectionsCount || 4;
 
@@ -48,19 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         sideMenuNav.innerHTML = ''; // Clear existing
         visibleSectionIds.forEach(sectionId => {
             const section = CONFIG.sections[sectionId];
-            const menuItem = document.createElement('a');
-            menuItem.href = '#';
-            menuItem.className = 'menu-item';
-            if (section.isHome) menuItem.classList.add('active');
-            menuItem.setAttribute('data-section', sectionId);
-            menuItem.textContent = section.menuTitle || section.title;
-            menuItem.addEventListener('click', (e) => {
-                e.preventDefault();
-                toggleMenu(false);
-                showSection(sectionId);
-            });
-            sideMenuNav.appendChild(menuItem);
+            addMenuItem(sectionId, section.menuTitle || section.title, section.isHome);
         });
+
+        // Add Settings if unlocked
+        if (settingsUnlocked) {
+            addMenuItem('settings-link', 'Configuración', false, () => {
+                toggleMenu(false);
+                openSettingsModal();
+            });
+        }
 
         // Home Catalog Grid
         catalogGrid.innerHTML = ''; // Clear existing
@@ -116,6 +116,178 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    function addMenuItem(id, label, isActive, customHandler = null) {
+        const menuItem = document.createElement('a');
+        menuItem.href = '#';
+        menuItem.className = 'menu-item';
+        if (isActive) menuItem.classList.add('active');
+        menuItem.setAttribute('data-section', id);
+        menuItem.textContent = label;
+        menuItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (customHandler) {
+                customHandler();
+            } else {
+                toggleMenu(false);
+                showSection(id);
+            }
+        });
+        sideMenuNav.appendChild(menuItem);
+    }
+
+    // Settings Modal Logic
+    const settingsModal = document.getElementById('settings-modal');
+    const settingsCloseBtn = document.getElementById('settings-close-btn');
+    const downloadBtn = document.getElementById('download-backup-btn');
+    const resetBtn = document.getElementById('reset-app-btn');
+    const logoElement = document.querySelector('.logo');
+
+    // Dev Image Selection Elements
+    const devToolsContainer = document.getElementById('lightbox-dev-tools');
+    const devMarkCheckbox = document.getElementById('dev-mark-img');
+    const devNotesInput = document.getElementById('dev-img-notes');
+
+    // Persistence: Initial load
+    let markedImages = JSON.parse(localStorage.getItem('santael_dev_notes') || '{}');
+    settingsUnlocked = localStorage.getItem('santael_dev_unlocked') === 'true';
+
+    function saveToPersistence() {
+        localStorage.setItem('santael_dev_notes', JSON.stringify(markedImages));
+        localStorage.setItem('santael_dev_unlocked', settingsUnlocked);
+    }
+
+    // Startup Notification
+    if (settingsUnlocked) {
+        setTimeout(() => {
+            showToast("Modo desarrollador activo. Puedes resetear o descargar notas en 'Menú > Configuración'");
+        }, 1000); // Small delay to let the app settle
+    }
+
+    function openSettingsModal() {
+        settingsModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSettingsModal() {
+        settingsModal.classList.remove('active');
+        if (!sideMenu.classList.contains('active')) {
+            document.body.style.overflow = '';
+        }
+    }
+
+    function downloadBackup() {
+        const reportData = Object.values(markedImages);
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(reportData, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "reporte.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+
+        // Start countdown for reset
+        let countdown = 5;
+        const interval = setInterval(() => {
+            showToast(`Descarga de notas iniciada, la app volverá a sus funciones originales en ${countdown}...`);
+            countdown--;
+            if (countdown < 0) {
+                clearInterval(interval);
+                localStorage.removeItem('santael_dev_notes');
+                localStorage.removeItem('santael_dev_unlocked');
+                location.reload();
+            }
+        }, 1000);
+    }
+
+    function resetApp() {
+        settingsUnlocked = false;
+        markedImages = {};
+        saveToPersistence();
+        closeSettingsModal();
+        generateUI();
+        showSection('home-section', true);
+    }
+
+    logoElement.addEventListener('click', () => {
+        logoClickCount++;
+        if (logoClickCount === 7) {
+            settingsUnlocked = true;
+            saveToPersistence();
+            generateUI();
+            logoClickCount = 0;
+            showToast("Modo desarrollador activado");
+        }
+    });
+
+    settingsCloseBtn.addEventListener('click', closeSettingsModal);
+    downloadBtn.addEventListener('click', downloadBackup);
+    resetBtn.addEventListener('click', resetApp);
+
+    function showToast(message) {
+        let toast = document.querySelector('.toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'toast';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.offsetHeight; // force reflow
+        toast.classList.add('show');
+
+        // Only auto-hide if it's not a countdown toast (which updates every second)
+        if (!message.includes('originales en')) {
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    }
+
+    // Dev Selection Events
+    devMarkCheckbox.addEventListener('change', () => {
+        const imgData = currentImages[currentImageIndex];
+        if (devMarkCheckbox.checked) {
+            const noteValue = devNotesInput.value.trim();
+            markedImages[imgData.id] = {
+                img: imgData,
+                notas: noteValue || "sin notas"
+            };
+            devNotesInput.focus();
+        } else {
+            delete markedImages[imgData.id];
+        }
+        saveToPersistence();
+    });
+
+    devNotesInput.addEventListener('input', () => {
+        const imgData = currentImages[currentImageIndex];
+        const noteValue = devNotesInput.value.trim();
+
+        // Auto-check logic
+        if (!devMarkCheckbox.checked && noteValue.length > 0) {
+            devMarkCheckbox.checked = true;
+        }
+
+        if (devMarkCheckbox.checked) {
+            markedImages[imgData.id] = {
+                img: imgData,
+                notas: noteValue || "sin notas"
+            };
+            saveToPersistence();
+        }
+    });
+
+    devNotesInput.addEventListener('blur', () => {
+        if (devMarkCheckbox.checked) {
+            showToast("Nota guardada. Exporta todas las notas en 'Menu > Configuración'");
+        }
+    });
+
+    devNotesInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            devNotesInput.blur();
+        }
+    });
 
     // --- Slideshow Logic ---
     function startHomepageSlideshow() {
@@ -247,6 +419,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dimensionsLabel = document.querySelector('.lightbox-dimensions');
         if (dimensionsLabel) dimensionsLabel.textContent = labelText;
+
+        // Dev Mode Updates
+        if (settingsUnlocked && devToolsContainer) {
+            devToolsContainer.style.display = 'flex';
+            const savedData = markedImages[imgData.id];
+            devMarkCheckbox.checked = !!savedData;
+            devNotesInput.value = savedData ? savedData.notas : '';
+        } else if (devToolsContainer) {
+            devToolsContainer.style.display = 'none';
+        }
 
         setTimeout(() => {
             lightboxImg.src = imgSrc;
