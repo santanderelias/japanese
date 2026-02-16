@@ -17,7 +17,7 @@ const CONFIG = {
         'section-1': {
             title: "Cocina",
             menuTitle: "Muebles de cocina",
-            description: "Mesas, Sillas y X",
+            description: "Mesas, Sillas",
             menuOrder: 2,
             images: [
                 { id: 'Mesa-S1-019', src: 'img/section1/019.jpeg', imageLabel: 'Mesa: 1.20m x 0.90m x 0.85m' },
@@ -32,7 +32,7 @@ const CONFIG = {
         'section-2': {
             title: "Dormitorio",
             menuTitle: "Dormitorio",
-            description: "Camas, Mesas de luz y X",
+            description: "Camas, Mesas de luz.",
             menuOrder: 1,
             images: [
                 { id: 'Cama-S2-037', src: 'img/section2/037.jpeg', imageLabel: '1.20m x 0.90m x 0.85m' },
