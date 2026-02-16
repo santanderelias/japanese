@@ -258,17 +258,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetId = this.getAttribute('data-copy');
         const targetElement = document.getElementById(targetId);
         const btn = this;
+        const originalIcon = btn.innerHTML;
 
         if (targetElement) {
             const textToCopy = (targetElement.innerText || targetElement.textContent).trim();
 
             const finalizeCopy = () => {
                 btn.classList.add('copied');
-                btn.blur(); // Force focus away for mobile
-                setTimeout(() => btn.classList.remove('copied'), 2000);
+                btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                btn.blur();
+
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalIcon;
+                }, 2000);
             };
 
-            // Modern Clipboard API
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(textToCopy)
                     .then(finalizeCopy)

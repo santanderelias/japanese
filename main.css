@@ -31,24 +31,20 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.nav-contact-btn,
-.menu-btn,
-.nav-back-btn,
-.menu-item,
-.catalog-item,
-.gallery-item,
-.lightbox-nav,
-.lightbox-close,
-.lightbox-consulta-badge {
-    user-select: none;
-}
-
 body {
     font-family: var(--font-family);
     background-color: var(--bg-color);
     color: var(--text-color);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    user-select: none;
+    /* Disable selection globally */
+}
+
+/* Utility to allow selection for specific content */
+.selectable {
+    user-select: text !important;
+    -webkit-user-select: text !important;
 }
 
 /* Nav Bar */
@@ -434,8 +430,6 @@ body {
     text-decoration: none;
     font-size: 1.1rem;
     word-break: break-word;
-    user-select: text;
-    /* Allow selection */
 }
 
 .action-cell {
