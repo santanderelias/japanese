@@ -21,6 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxOverlay = document.querySelector('.lightbox-overlay');
     const lightboxConsulta = document.getElementById('lightbox-consulta');
 
+    // Search Elements
+    const searchToggle = document.getElementById('search-toggle');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchClose = document.getElementById('search-close');
+    const searchInput = document.getElementById('search-input');
+    const searchResultsGrid = document.getElementById('search-results-grid');
+    const searchNoResults = document.getElementById('search-no-results');
+
     let currentImages = [];
     let currentImageIndex = 0;
     let slideshowInterval = null;
@@ -349,7 +357,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!immediate) {
+            // Place target section underneath current section for a true cross-fade
+            targetSection.style.position = 'absolute';
+            targetSection.style.top = '0';
+            targetSection.style.left = '0';
+            targetSection.style.width = '100%';
+            targetSection.style.display = (sectionId === 'home-section') ? 'flex' : 'block';
+            targetSection.style.opacity = '1';
+            targetSection.style.zIndex = '1';
+
+            currentActive.style.position = 'relative';
+            currentActive.style.zIndex = '2';
             currentActive.classList.add('fade-out');
+
             setTimeout(() => {
                 finalizeNavigation(currentActive, targetSection, sectionId);
             }, 400);
@@ -361,10 +381,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function finalizeNavigation(currentActive, targetSection, sectionId) {
         currentActive.classList.remove('active', 'fade-out');
         currentActive.style.display = 'none';
+        currentActive.style.position = '';
+        currentActive.style.zIndex = '';
 
         targetSection.style.display = (sectionId === 'home-section') ? 'flex' : 'block';
-
-        targetSection.offsetHeight;
+        targetSection.style.position = '';
+        targetSection.style.top = '';
+        targetSection.style.left = '';
+        targetSection.style.width = '';
+        targetSection.style.opacity = '';
+        targetSection.style.zIndex = '';
         targetSection.classList.add('active');
 
         navBackBtn.classList.toggle('hidden', sectionId === 'home-section');
@@ -408,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lightboxImg.style.opacity = '0';
         const imgData = currentImages[currentImageIndex];
         const imgSrc = imgData.src;
-        const labelText = imgData.imageLabel || CONFIG.settings.defaultLabel;
+        const labels = imgData.imageLabels || CONFIG.settings.defaultLabels || [];
         const itemId = imgData.id || 'Articulo';
 
         const phone = CONFIG.settings.whatsappPhone;
@@ -418,7 +444,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const dimensionsLabel = document.querySelector('.lightbox-dimensions');
-        if (dimensionsLabel) dimensionsLabel.textContent = labelText;
+        if (dimensionsLabel) {
+            dimensionsLabel.innerHTML = '';
+            const labelsArray = Array.isArray(labels) ? labels : [labels];
+            labelsArray.forEach(text => {
+                const div = document.createElement('div');
+                div.textContent = text;
+                dimensionsLabel.appendChild(div);
+            });
+        }
 
         // Dev Mode Updates
         if (settingsUnlocked && devToolsContainer) {
@@ -504,6 +538,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', handleCopy);
+    });
+
+    // Search Feature Logic
+    function toggleSearch(open) {
+        searchOverlay.classList.toggle('active', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (open) {
+            searchInput.value = '';
+            searchResultsGrid.innerHTML = '';
+            searchNoResults.classList.add('hidden');
+            setTimeout(() => searchInput.focus(), 100);
+        }
+    }
+
+    function performSearch(query) {
+        query = query.toLowerCase().trim();
+        if (!query) {
+            searchResultsGrid.innerHTML = '';
+            searchNoResults.classList.add('hidden');
+            return;
+        }
+
+        const keywords = query.split(/\s+/).filter(k => k.length > 0);
+        const matches = [];
+
+        Object.values(CONFIG.sections).forEach(section => {
+            if (section.images) {
+                section.images.forEach(img => {
+                    const tagString = (img.tags || []).join(' ').toLowerCase();
+                    const isMatch = keywords.every(kw => tagString.includes(kw));
+                    if (isMatch) {
+                        matches.push(img);
+                    }
+                });
+            }
+        });
+
+        renderSearchResults(matches);
+    }
+
+    function renderSearchResults(matches) {
+        searchResultsGrid.innerHTML = '';
+        if (matches.length === 0) {
+            searchNoResults.classList.remove('hidden');
+            return;
+        }
+
+        searchNoResults.classList.add('hidden');
+        matches.forEach((imgObj, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            const img = document.createElement('img');
+            img.src = imgObj.src;
+            img.alt = 'Resultado de búsqueda';
+            item.appendChild(img);
+
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLightbox(index, matches);
+            });
+            searchResultsGrid.appendChild(item);
+        });
+    }
+
+    searchToggle.addEventListener('click', () => toggleSearch(true));
+    searchClose.addEventListener('click', () => toggleSearch(false));
+    searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+
+    // Close search on escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+            toggleSearch(false);
+        }
     });
 
     document.addEventListener('keydown', (e) => {

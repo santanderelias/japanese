@@ -16,6 +16,13 @@
             <button id="nav-back" class="nav-back-btn hidden" aria-label="Volver">Volver</button>
         </div>
         <div class="nav-right">
+            <button id="search-toggle" class="nav-search-btn" aria-label="Buscar">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
             <a href="https://wa.me/5491153892491" target="_blank" class="nav-contact-btn" id="contact-btn">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                     <path
@@ -182,6 +189,22 @@
         </section>
     </main>
 
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-overlay-backdrop"></div>
+        <div class="search-header">
+            <input type="text" id="search-input" placeholder="Buscar por tags (ej: mesa, madera)..."
+                class="search-input" autocomplete="off">
+            <button id="search-close" class="search-close-btn">&times;</button>
+        </div>
+        <div class="search-results-container">
+            <div id="search-results-grid" class="gallery-grid">
+                <!-- Search results will appear here -->
+            </div>
+            <p id="search-no-results" class="search-no-results hidden">No se encontraron productos con esos tags.</p>
+        </div>
+    </div>
+
     <!-- Lightbox Overlay -->
     <div id="lightbox" class="lightbox">
         <div class="lightbox-overlay"></div>
@@ -191,9 +214,9 @@
         <a href="#" id="lightbox-consulta" target="_blank" class="lightbox-consulta-badge">Consulta por este
             articulo</a>
         <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="Galllery Image">
-            <div class="lightbox-dimensions">Medidas 2m x 1.50m x 0.40m</div>
+            <img id="lightbox-img" src="" alt="Producto aumentado">
         </div>
+        <div class="lightbox-dimensions">Medidas 2m x 1.50m x 0.40m</div>
         <div id="lightbox-dev-tools" class="lightbox-dev-tools">
             <label class="dev-checkbox-container">
                 <input type="checkbox" id="dev-mark-img">
