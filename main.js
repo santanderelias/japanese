@@ -254,11 +254,60 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLightboxImage();
     }
 
+    function handleCopy() {
+        const targetId = this.getAttribute('data-copy');
+        const targetElement = document.getElementById(targetId);
+        const btn = this;
+
+        if (targetElement) {
+            const textToCopy = (targetElement.innerText || targetElement.textContent).trim();
+
+            const finalizeCopy = () => {
+                btn.classList.add('copied');
+                btn.blur(); // Force focus away for mobile
+                setTimeout(() => btn.classList.remove('copied'), 2000);
+            };
+
+            // Modern Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(finalizeCopy)
+                    .catch(() => fallbackCopy(textToCopy, finalizeCopy));
+            } else {
+                fallbackCopy(textToCopy, finalizeCopy);
+            }
+        }
+    }
+
+    function fallbackCopy(text, callback) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        // Ensure textarea is not visible but reachable
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) callback();
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+        }
+        document.body.removeChild(textArea);
+    }
+
     // Event Listeners
     lightboxClose.addEventListener('click', closeLightbox);
     lightboxOverlay.addEventListener('click', closeLightbox);
     lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
     lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', handleCopy);
+    });
 
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;

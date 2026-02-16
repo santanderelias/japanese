@@ -28,6 +28,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-contact-btn,
+.menu-btn,
+.nav-back-btn,
+.menu-item,
+.catalog-item,
+.gallery-item,
+.lightbox-nav,
+.lightbox-close,
+.lightbox-consulta-badge {
+    user-select: none;
 }
 
 body {
@@ -364,30 +377,111 @@ body {
     margin-bottom: 25px;
 }
 
-.contact-methods {
-    margin-top: 50px;
+.contact-table-wrapper {
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
 }
 
-.contact-link {
-    text-decoration: none;
+.contact-table {
+    width: 100%;
+    max-width: 500px;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    margin-bottom: 30px;
+}
+
+.contact-row {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.contact-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.contact-table td {
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.icon-cell {
+    width: 60px;
+    text-align: center;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.contact-icon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--text-color);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.8;
+}
+
+.content-cell {
+    text-align: left;
+}
+
+.contact-value {
     color: var(--text-color);
-    font-size: 1.2rem;
-    font-weight: 500;
-    transition: color 0.3s;
-    background: #333333;
+    text-decoration: none;
+    font-size: 1.1rem;
+    word-break: break-word;
+    user-select: text;
+    /* Allow selection */
 }
 
-.contact-link:hover {
-    background: #444444;
+.action-cell {
+    width: 60px;
+    text-align: center;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--subtle-text);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    transform: scale(1.1);
+}
+
+.copy-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.copy-btn.copied {
+    color: #25D366;
 }
 
 .contact-note {
     font-size: 0.9rem !important;
     opacity: 0.7;
+    margin-top: 10px;
 }
 
 /* Lightbox */
