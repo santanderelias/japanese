@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo!</title>
-    <meta name="description" content="Catalogo de cosas.">
+    <title>SANTAEL</title>
+    <meta name="description" content="Muebles directo de fabrica.">
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
     <nav class="top-nav">
         <div class="nav-left">
-            <div class="logo">CATALOGO</div>
+            <div class="logo">SANTAEL</div>
             <button id="nav-back" class="nav-back-btn hidden" aria-label="Volver">Volver</button>
         </div>
         <div class="nav-right">
@@ -30,46 +30,20 @@
         <div class="menu-overlay"></div>
         <div class="menu-content">
             <button id="menu-close" class="close-btn">&times;</button>
-            <nav class="menu-nav">
-                <a href="#" class="menu-item active" data-section="home-section">Inicio</a>
-                <a href="#" class="menu-item" data-section="section-1">Sección 1</a>
-                <a href="#" class="menu-item" data-section="section-2">Sección 2</a>
-                <a href="#" class="menu-item" data-section="section-3">Sección 3</a>
-                <a href="#" class="menu-item" data-section="section-4">Sección 4</a>
-                <a href="#" class="menu-item" data-section="about-section">Sobre Nosotros</a>
-                <a href="#" class="menu-item" data-section="contact-section">Contacto</a>
+            <nav class="menu-nav" id="side-menu-nav">
+                <!-- Dynamic menu items will be added here -->
             </nav>
+            <div class="menu-footer">
+                <p>&copy; 2026 SANTAEL</p>
+            </div>
         </div>
     </div>
 
     <main id="app-container">
         <!-- Home Section -->
-        <section id="home-section" class="active">
-            <div class="catalog-grid">
-                <div class="catalog-item" data-section="section-1" style="--bg-image: url('img/section1/sofa.jpg');">
-                    <div class="item-overlay">
-                        <h3>Section 1</h3>
-                        <p>Living & Comfort</p>
-                    </div>
-                </div>
-                <div class="catalog-item" data-section="section-2" style="--bg-image: url('img/section2/chair.jpg');">
-                    <div class="item-overlay">
-                        <h3>Section 2</h3>
-                        <p>Design & Elegance</p>
-                    </div>
-                </div>
-                <div class="catalog-item" data-section="section-3" style="--bg-image: url('img/section3/table.jpg');">
-                    <div class="item-overlay">
-                        <h3>Section 3</h3>
-                        <p>Functionality & Style</p>
-                    </div>
-                </div>
-                <div class="catalog-item" data-section="section-4" style="--bg-image: url('img/section4/bed.jpg');">
-                    <div class="item-overlay">
-                        <h3>Section 4</h3>
-                        <p>Rest & Relaxation</p>
-                    </div>
-                </div>
+        <section id="home-section" class="content-section active">
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Dynamic catalog items will be added here -->
             </div>
         </section>
 
@@ -77,16 +51,7 @@
         <section id="section-1" class="content-section">
             <div class="section-content">
                 <div class="gallery-grid" id="gallery-1">
-                    <!-- Images will be populated by JS or static list -->
-                    <div class="gallery-item"><img src="img/section1/armchair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/bed.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/chair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/desk.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/interior.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/lamp.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/shelf.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/sofa.jpg"></div>
-                    <div class="gallery-item"><img src="img/section1/table.jpg"></div>
+                    <!-- Dynamic content -->
                 </div>
             </div>
         </section>
@@ -94,15 +59,7 @@
         <section id="section-2" class="content-section">
             <div class="section-content">
                 <div class="gallery-grid" id="gallery-2">
-                    <div class="gallery-item"><img src="img/section2/armchair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/bed.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/chair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/desk.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/interior.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/lamp.jpg"></div>
-                    <div class="gallery-item"><img src="img/placeholders/shelf.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/sofa.jpg"></div>
-                    <div class="gallery-item"><img src="img/section2/table.jpg"></div>
+                    <!-- Dynamic content -->
                 </div>
             </div>
         </section>
@@ -110,15 +67,7 @@
         <section id="section-3" class="content-section">
             <div class="section-content">
                 <div class="gallery-grid" id="gallery-3">
-                    <div class="gallery-item"><img src="img/section3/armchair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/bed.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/chair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/desk.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/interior.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/lamp.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/shelf.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/sofa.jpg"></div>
-                    <div class="gallery-item"><img src="img/section3/table.jpg"></div>
+                    <!-- Dynamic content -->
                 </div>
             </div>
         </section>
@@ -126,15 +75,7 @@
         <section id="section-4" class="content-section">
             <div class="section-content">
                 <div class="gallery-grid" id="gallery-4">
-                    <div class="gallery-item"><img src="img/section4/armchair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/bed.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/chair.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/desk.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/interior.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/lamp.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/shelf.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/sofa.jpg"></div>
-                    <div class="gallery-item"><img src="img/section4/table.jpg"></div>
+                    <!-- Dynamic content -->
                 </div>
             </div>
         </section>
@@ -177,14 +118,17 @@
         <button class="lightbox-close" aria-label="Close">&times;</button>
         <button class="lightbox-nav prev" aria-label="Anterior">&#10094;</button>
         <button class="lightbox-nav next" aria-label="Siguiente">&#10095;</button>
+        <a href="#" id="lightbox-consulta" target="_blank" class="lightbox-consulta-badge">Consulta por este
+            articulo</a>
         <div class="lightbox-content">
             <img id="lightbox-img" src="" alt="Galllery Image">
-            <a href="#" id="lightbox-consulta" target="_blank" class="lightbox-consulta-badge">Consulta</a>
+            <div class="lightbox-dimensions">Medidas 2m x 1.50m x 0.40m</div>
         </div>
     </div>
 
 
 
+    <script src="config.js"></script>
     <script src="main.js"></script>
 </body>
 

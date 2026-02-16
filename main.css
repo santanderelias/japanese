@@ -283,13 +283,17 @@ body {
     padding-bottom: 50px;
 }
 
+#home-section {
+    padding-bottom: 0;
+}
+
 .content-section.active {
     display: block;
 }
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 2px;
     background: var(--bg-color);
 }
@@ -397,8 +401,8 @@ body {
 
 .lightbox-content {
     position: relative;
-    max-width: 90%;
-    max-height: 90vh;
+    max-width: 95%;
+    max-height: 95vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -414,21 +418,22 @@ body {
 }
 
 .lightbox-consulta-badge {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+    position: fixed;
+    top: 25px;
+    left: 25px;
     background: var(--accent-color);
     color: var(--text-color);
     text-decoration: none;
     font-size: 0.75rem;
     font-weight: 600;
-    padding: 8px 16px;
+    padding: 12px 24px;
     border-radius: 4px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
+    z-index: 3010;
 }
 
 .lightbox-consulta-badge:hover {
@@ -453,7 +458,7 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-color);
     border: none;
     width: 60px;
@@ -468,11 +473,33 @@ body {
 }
 
 .lightbox-nav:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.lightbox-nav.prev { left: 0; border-radius: 0 4px 4px 0; }
-.lightbox-nav.next { right: 0; border-radius: 4px 0 0 4px; }
+.lightbox-nav.prev {
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.lightbox-nav.next {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+.lightbox-dimensions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(13, 27, 42, 0.6);
+    color: var(--text-color);
+    font-size: 0.7rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+}
 
 /* Desktop Styles */
 @media (min-width: 768px) {
@@ -487,7 +514,8 @@ body {
     }
 
     .gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 5px;
     }
 }
 
