@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; background: #f0f0f0; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        button { background: #6200ee; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        nav { display: flex; gap: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <button onclick="loadModule('home.js')">Home</button>
+        <button onclick="loadModule('sectionX.js')">Section X</button>
+    </nav>
+    <div id="content"></div>
+
+    <script>
+        function loadModule(scriptName) {
+            const content = document.getElementById('content');
+            content.innerHTML = '<p>Loading ' + scriptName + '...</p>';
+
+            // In a real app, we might use import() or fetch the script text.
+            // For simplicity, we just inject a script tag.
+            const oldScript = document.getElementById('module-script');
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'module-script';
+            script.src = scriptName;
+            document.body.appendChild(script);
+        }
+
+        // Initialize with home
+        window.onload = () => loadModule('home.js');
+    </script>
+</body>
+</html>
