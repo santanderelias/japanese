@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "files": ["index.html", "home.js", "sectionX.js", "widget.js"],
+    "files": ["index.html", "home.js", "sectionX.js", "widget.js", "notes.js"],
     "widgetData": [
         {
             "title": "Welcome",

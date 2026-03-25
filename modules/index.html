@@ -2,6 +2,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onerror = function(msg, url, line) {
+            if(window.Android) window.Android.log('ERR: ' + msg + ' @ ' + url + ':' + line);
+            return false;
+        };
+        console.log = function(m) { if(window.Android) window.Android.log(m); };
+        console.error = function(m) { if(window.Android) window.Android.log('ERROR: ' + m); };
+    </script>
     <style>
         body { font-family: sans-serif; background: #f0f0f0; padding: 20px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
@@ -10,17 +18,39 @@
     </style>
 </head>
 <body>
-    <nav>
-        <button onclick="loadModule('home.js')">Home</button>
-        <button onclick="loadModule('sectionX.js')">Section X</button>
+    <nav id="navbar">
+        <!-- Dynamic buttons will be injected here -->
     </nav>
     <div id="content"></div>
 
     <script>
+        function updateNavigation() {
+            const navbar = document.getElementById('navbar');
+            navbar.innerHTML = '';
+
+            let settings = {
+                "show_home": "true",
+                "show_sectionX": "true"
+            };
+
+            if (window.Android && window.Android.getSetting) {
+                settings.show_home = window.Android.getSetting("show_home", "true");
+                settings.show_sectionX = window.Android.getSetting("show_sectionX", "true");
+            }
+
+            if (settings.show_home === "true") {
+                navbar.innerHTML += '<button onclick="loadModule(\'home.js\')">Home</button>';
+            }
+            if (settings.show_sectionX === "true") {
+                navbar.innerHTML += '<button onclick="loadModule(\'sectionX.js\')">Section X</button>';
+            }
+            navbar.innerHTML += '<button onclick="loadModule(\'notes.js\')">Notepad</button>';
+        }
+
         function loadModule(scriptName) {
             const content = document.getElementById('content');
             content.innerHTML = '<p>Loading ' + scriptName + '...</p>';
-
+            
             // In a real app, we might use import() or fetch the script text.
             // For simplicity, we just inject a script tag.
             const oldScript = document.getElementById('module-script');
@@ -33,7 +63,12 @@
         }
 
         // Initialize with home
-        window.onload = () => loadModule('home.js');
+        window.onload = () => {
+            updateNavigation();
+            // Load home if visible, else settings
+            const showHome = (window.Android && window.Android.getSetting) ? window.Android.getSetting("show_home", "true") : "true";
+            loadModule(showHome === "true" ? 'home.js' : 'settings.js');
+        };
     </script>
 </body>
 </html>
