@@ -1,4 +1,4 @@
-const CACHE_NAME = 'renshu-cards-v1';
+const CACHE_NAME = 'cards-v1';
 const ASSETS = [
   '/',
   '/index.html',
