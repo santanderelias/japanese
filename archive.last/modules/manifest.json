@@ -1,0 +1,14 @@
+{
+    "version": "1.0.0",
+    "files": ["index.html", "home.js", "sectionX.js", "widget.js", "notes.js"],
+    "widgetData": [
+        {
+            "title": "Welcome",
+            "body": "This is your first note in the StackView."
+        },
+        {
+            "title": "Modular",
+            "body": "All content here is delivered via JS modules."
+        }
+    ]
+}

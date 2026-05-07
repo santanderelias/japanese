@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onerror = function(msg, url, line) {
+            if(window.Android) window.Android.log('JS_ERR: ' + msg + ' @ ' + url + ':' + line);
+            return false;
+        };
+        console.log = function(m) { if(window.Android) window.Android.log(m); };
+        console.error = function(m) { if(window.Android) window.Android.log('ERROR: ' + m); };
+    </script>
+    <style>
+        :root {
+            --primary: #6200ee;
+            --primary-variant: #3700b3;
+            --secondary: #03dac6;
+            --background: #f8f9fa;
+            --surface: #ffffff;
+            --on-surface: #212529;
+            --border: #dee2e6;
+        }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background: var(--background); 
+            margin: 0; 
+            padding: 16px;
+            color: var(--on-surface);
+        }
+        .card { 
+            background: var(--surface); 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        h1 { font-size: 24px; margin-top: 0; color: var(--primary); }
+        h3 { font-size: 18px; margin-bottom: 12px; }
+        
+        /* Standard Elements */
+        button { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 500;
+            font-size: 14px;
+            transition: background 0.2s;
+            display: inline-block;
+        }
+        button:active { background: var(--primary-variant); }
+        
+        input[type="text"], textarea, input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        
+        nav { 
+            display: flex; 
+            gap: 8px; 
+            margin-bottom: 24px; 
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        nav button {
+            background: #e9ecef;
+            color: #495057;
+            padding: 8px 16px;
+            white-space: nowrap;
+        }
+        nav button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .list-item {
+            background: #fff;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        .list-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <nav id="navbar"></nav>
+    <div id="content"></div>
+
+    <script>
+        let currentModule = '';
+
+        function updateNavigation() {
+            const navbar = document.getElementById('navbar');
+            navbar.innerHTML = '';
+
+            let settings = { "show_home": "true", "show_sectionX": "true" };
+            if (window.Android && window.Android.getSetting) {
+                settings.show_home = window.Android.getSetting("show_home", "true");
+                settings.show_sectionX = window.Android.getSetting("show_sectionX", "true");
+            }
+
+            const modules = [
+                { id: 'home.js', label: 'Home', visible: settings.show_home === "true" },
+                { id: 'sectionX.js', label: 'Section X', visible: settings.show_sectionX === "true" },
+                { id: 'notes.js', label: 'Notepad', visible: true }
+            ];
+
+            modules.forEach(m => {
+                if (m.visible) {
+                    const btn = document.createElement('button');
+                    btn.innerText = m.label;
+                    btn.className = currentModule === m.id ? 'active' : '';
+                    btn.onclick = () => loadModule(m.id);
+                    navbar.appendChild(btn);
+                }
+            });
+        }
+
+        function loadModule(scriptName) {
+            currentModule = scriptName;
+            updateNavigation();
+            const content = document.getElementById('content');
+            content.innerHTML = '<p>Loading...</p>';
+            
+            const oldScript = document.getElementById('module-script');
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'module-script';
+            script.src = scriptName;
+            document.body.appendChild(script);
+        }
+
+        window.onload = () => {
+            updateNavigation();
+            const showHome = (window.Android && window.Android.getSetting) ? window.Android.getSetting("show_home", "true") : "true";
+            loadModule(showHome === "true" ? 'home.js' : 'notes.js');
+        };
+    </script>
+</body>
+</html>
