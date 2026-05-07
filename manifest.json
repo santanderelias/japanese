@@ -1,6 +1,6 @@
 {
-  "name": "Renshu Cards",
-  "short_name": "Renshu",
+  "name": "Cards",
+  "short_name": "Cards",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
