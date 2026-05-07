@@ -124,7 +124,7 @@ body {
     opacity: 0.1;
     transition: opacity 0.3s;
     background: transparent;
-    width: 15%;
+    max-width: 8%;
     height: 80vh; /* 80% height as requested */
     position: absolute;
     top: 50%;
