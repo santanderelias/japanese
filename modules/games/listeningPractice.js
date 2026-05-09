@@ -1,9 +1,8 @@
-import { recordAnswer } from '../statsTracker.js';
+import { recordAnswer, getStats } from '../statsTracker.js';
 
 let allCards = [];
 let currentCard = null;
-let score = 0;
-let totalPlayed = 0;
+let lastWordId = null;
 
 export async function initListeningGame() {
     const response = await fetch('data.json');
@@ -16,7 +15,30 @@ export async function initListeningGame() {
 function startNewRound() {
     if (allCards.length < 4) return;
 
-    currentCard = allCards[Math.floor(Math.random() * allCards.length)];
+    // SRS Selection Logic
+    const stats = getStats();
+    const now = Date.now();
+    
+    // 1. Find cards that are due
+    let dueCards = allCards.filter(card => {
+        const wordStats = stats.words[String(card.id)];
+        return (!wordStats || !wordStats.dueDate || wordStats.dueDate <= now) && card.id !== lastWordId;
+    });
+
+    // 2. If nothing due, pick cards with oldest lastSeen or never seen
+    if (dueCards.length === 0) {
+        dueCards = allCards
+            .filter(c => c.id !== lastWordId)
+            .sort((a, b) => {
+                const sA = stats.words[String(a.id)] || { lastSeen: 0 };
+                const sB = stats.words[String(b.id)] || { lastSeen: 0 };
+                return sA.lastSeen - sB.lastSeen;
+            });
+    }
+
+    // Pick the most urgent card
+    currentCard = dueCards[0];
+    lastWordId = currentCard.id;
 
     let options = [currentCard];
     while (options.length < 4) {
@@ -65,7 +87,11 @@ function renderGame(options) {
 }
 
 function cleanMeaning(meaning) {
-    return meaning.replace(/^\(.*?\)\s*/, '');
+    // 1. Remove (Adjective/-な) etc.
+    let cleaned = meaning.replace(/^\(.*?\)\s*/, '');
+    // 2. Remove numbers like "1. ", "2. "
+    cleaned = cleaned.replace(/\d+\.\s*/g, '');
+    return cleaned.trim();
 }
 
 function handleOptionClick(e) {
@@ -80,13 +106,10 @@ function handleOptionClick(e) {
 
     if (isCorrect) {
         btn.classList.add('correct');
-        score++;
     } else {
         btn.classList.add('wrong');
         document.querySelector(`.listening-option[data-id="${currentCard.id}"]`).classList.add('correct');
     }
-
-    totalPlayed++;
 
     setTimeout(() => {
         startNewRound();
