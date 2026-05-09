@@ -7,7 +7,9 @@
     "sentence": "私は今日は暇です。",
     "englishSentence": "I am free today. ",
     "image": "hima_taikutsu.png",
-    "meaning": "(Adjective/-な) 1. spare time, free time, leisure; 2. time (it takes to do something)"
+    "meaning": "(Adjective/-な) 1. spare time, free time, leisure; 2. time (it takes to do something)",
+    "sentenceAudio": "sent_audio_1777990083306.ogg",
+    "hidden": false
   },
   {
     "id": 2,
@@ -17,7 +19,8 @@
     "sentence": "あの小さい星が一番明るい。",
     "englishSentence": "That small star is the brightest. ",
     "image": "img_1777990275637.png",
-    "meaning": "(Adjective/-い) 1. light, well-lit, well-lighted; 2. bright (of a colour); 3. cheerful, bright"
+    "meaning": "(Adjective/-い) 1. light, well-lit, well-lighted; 2. bright (of a colour); 3. cheerful, bright",
+    "sentenceAudio": "sent_audio_1777990275637.ogg"
   },
   {
     "id": 3,
@@ -27,7 +30,8 @@
     "sentence": "バスは安いでしょう。",
     "englishSentence": "The bus is probably cheap. ",
     "image": "img_1777990329221.png",
-    "meaning": "(Adjective/-い) 1. cheap, inexpensive; 2. calm, peaceful, quiet"
+    "meaning": "(Adjective/-い) 1. cheap, inexpensive; 2. calm, peaceful, quiet",
+    "sentenceAudio": "sent_audio_1777990329221.ogg"
   },
   {
     "id": 4,
@@ -37,7 +41,8 @@
     "sentence": "昨日の晩は楽しかったです。",
     "englishSentence": "I had a good time last evening. ",
     "image": "img_1777990480646.png",
-    "meaning": "(Adjective/-い) enjoyable, fun, pleasant, happy, delightful"
+    "meaning": "(Adjective/-い) enjoyable, fun, pleasant, happy, delightful",
+    "sentenceAudio": "sent_audio_1777990480646.ogg"
   },
   {
     "id": 5,
@@ -47,7 +52,8 @@
     "sentence": "彼女の話す言葉は美しい。",
     "englishSentence": "The words she speaks are beautiful. ",
     "image": "img_1777990524173.png",
-    "meaning": "(Adjective/-い) beautiful, pretty, lovely, sweet, pure (heart, friendship, etc.)"
+    "meaning": "(Adjective/-い) beautiful, pretty, lovely, sweet, pure (heart, friendship, etc.)",
+    "sentenceAudio": "sent_audio_1777990524173.ogg"
   },
   {
     "id": 6,
@@ -57,7 +63,8 @@
     "sentence": "私は彼に雑誌を貸した。",
     "englishSentence": "I lent him a magazine. ",
     "image": "img_1777990569376.png",
-    "meaning": "(noun) journal, magazine, periodical"
+    "meaning": "(noun) journal, magazine, periodical",
+    "sentenceAudio": "sent_audio_1777990569376.ogg"
   },
   {
     "id": 7,
@@ -67,7 +74,8 @@
     "sentence": "私は先週忙しくありませんでした。",
     "englishSentence": "I wasn't busy last week. ",
     "image": "img_1777990615478.png",
-    "meaning": "(Adjective/-い) 1. busy, occupied, hectic; 2. restless, hurried, fidgety"
+    "meaning": "(Adjective/-い) 1. busy, occupied, hectic; 2. restless, hurried, fidgety",
+    "sentenceAudio": "sent_audio_1777990615478.ogg"
   },
   {
     "id": 8,
@@ -77,7 +85,8 @@
     "sentence": "今日は特に暑い日です。",
     "englishSentence": "It's a particularly hot day today. ",
     "image": "img_1777990656901.png",
-    "meaning": "(Adjective/-い) 1. hot, warm, sultry, heated; 2. passionate; 3. on everybody's mind"
+    "meaning": "(Adjective/-い) 1. hot, warm, sultry, heated; 2. passionate; 3. on everybody's mind",
+    "sentenceAudio": "sent_audio_1777990656901.ogg"
   },
   {
     "id": 9,
@@ -87,7 +96,8 @@
     "sentence": "漢字は読むのが難しい。",
     "englishSentence": "Kanji are difficult to read. ",
     "image": "img_1777990729362.png",
-    "meaning": "(Adjective/-い) 1. difficult, hard, troublesome, complicated; 2. (euphemistic) impossible"
+    "meaning": "(Adjective/-い) 1. difficult, hard, troublesome, complicated; 2. (euphemistic) impossible",
+    "sentenceAudio": "sent_audio_1777990729362.ogg"
   },
   {
     "id": 10,
@@ -97,7 +107,8 @@
     "sentence": "優しい人です。",
     "englishSentence": "He is kind.",
     "image": "img_1777990781732.png",
-    "meaning": "(Adjective/-い) tender, kind, gentle, graceful, affectionate, amiable"
+    "meaning": "(Adjective/-い) (Personality-Esence of someone) kind, friendly, gentle",
+    "sentenceAudio": "sent_audio_1777990781732.ogg"
   },
   {
     "id": 11,
@@ -107,7 +118,8 @@
     "sentence": "今日は波が高い。",
     "englishSentence": "The waves are high today. ",
     "image": "img_1777990836092.png",
-    "meaning": "(Adjective/-い) 1. high, tall; 2. expensive, high-priced; 3. high (level); 4. loud; 5. high-pitched, shrill"
+    "meaning": "(Adjective/-い) 1. high, tall; 2. expensive, high-priced; 3. high (level); 4. loud; 5. high-pitched, shrill",
+    "sentenceAudio": "sent_audio_1777990836092.ogg"
   },
   {
     "id": 12,
@@ -117,7 +129,8 @@
     "sentence": "それは簡単な問題です。",
     "englishSentence": "That is a simple problem. ",
     "image": "img_1777990887302.png",
-    "meaning": "(Adjective/-な) 1. simple, easy, uncomplicated; 2. brief, quick, light"
+    "meaning": "(Adjective/-な) 1. simple, easy, uncomplicated; 2. brief, quick, light",
+    "sentenceAudio": "sent_audio_1777990887302.ogg"
   },
   {
     "id": 13,
@@ -127,7 +140,8 @@
     "sentence": "彼女は親切だ",
     "englishSentence": "She is kind. ",
     "image": "img_1777990937140.png",
-    "meaning": "(Adjective/-な) kind, gentle, considerate, generous, friendly, nice"
+    "meaning": "(Adjective/-な) (Actions-Beheaviour-What does he do) kind, gentle, considerate, generous, friendly, nice",
+    "sentenceAudio": "sent_audio_1777990937140.ogg"
   },
   {
     "id": 14,
@@ -137,7 +151,8 @@
     "sentence": "明日会社に行きます。",
     "englishSentence": "I will go to work tomorrow. ",
     "image": "img_1777990988294.png",
-    "meaning": "(noun/adverb) tomorrow"
+    "meaning": "(noun/adverb) tomorrow",
+    "sentenceAudio": "sent_audio_1777990988294.ogg"
   },
   {
     "id": 15,
@@ -147,7 +162,8 @@
     "sentence": "本棚の右に荷物があります。",
     "englishSentence": "There is luggage to the right of the bookshelves. ",
     "image": "img_1777991575366.png",
-    "meaning": "(noun) 1. luggage, baggage, package; 2. burden; 3. payload (of a packet, cell, etc.)"
+    "meaning": "(noun) 1. luggage, baggage, package; 2. burden; 3. payload (of a packet, cell, etc.)",
+    "sentenceAudio": "sent_audio_1777991575366.ogg"
   },
   {
     "id": 16,
@@ -157,7 +173,8 @@
     "sentence": "彼女は広い家に住んでいます。",
     "englishSentence": "She lives in a large house. ",
     "image": "img_1777991773792.png",
-    "meaning": "(Adjective/-い) spacious, vast, wide"
+    "meaning": "(Adjective/-い) spacious, vast, wide",
+    "sentenceAudio": "sent_audio_1777991773792.ogg"
   },
   {
     "id": 17,
@@ -167,7 +184,8 @@
     "sentence": "ホテルに続く道は狭い。",
     "englishSentence": "The road which leads to the hotel is narrow. ",
     "image": "img_1777991903706.png",
-    "meaning": "(Adjective/-い) 1. narrow, confined, small, cramped; 2. limited, narrow-minded, confining"
+    "meaning": "(Adjective/-い) 1. narrow, confined, small, cramped; 2. limited, narrow-minded, confining",
+    "sentenceAudio": "sent_audio_1777991903706.ogg"
   },
   {
     "id": 18,
@@ -177,7 +195,8 @@
     "sentence": "今日は晴れだ。",
     "englishSentence": "It is sunny today. ",
     "image": "img_1777991944768.png",
-    "meaning": "(noun/adverb) today, this day"
+    "meaning": "(noun/adverb) today, this day",
+    "sentenceAudio": "sent_audio_1777991944768.ogg"
   },
   {
     "id": 19,
@@ -187,7 +206,8 @@
     "sentence": "元気ですか。",
     "englishSentence": "Are you doing fine? ",
     "image": "img_1777991998070.png",
-    "meaning": "(Adjective/-な) 1. lively, full of spirit, energetic, vigorous; 2. healthy, well, fit, in good health"
+    "meaning": "(Adjective/-な) 1. lively, full of spirit, energetic, vigorous; 2. healthy, well, fit, in good health",
+    "sentenceAudio": "sent_audio_1777991998070.ogg"
   },
   {
     "id": 20,
@@ -197,7 +217,8 @@
     "sentence": "彼女は有名な歌手だ。",
     "englishSentence": "She is a famous singer. ",
     "image": "img_1777992087689.png",
-    "meaning": "(Adjective/-な) famous, well-known"
+    "meaning": "(Adjective/-な) famous, well-known",
+    "sentenceAudio": "sent_audio_1777992087689.ogg"
   },
   {
     "id": 21,
@@ -207,7 +228,8 @@
     "sentence": "色々なお菓子があった。",
     "englishSentence": "There were various kinds of sweets. ",
     "image": "img_1777992207297.png",
-    "meaning": "(noun) confections, sweets, candy, cake"
+    "meaning": "(noun) confections, sweets, candy, cake",
+    "sentenceAudio": "sent_audio_1777992207297.ogg"
   },
   {
     "id": 22,
@@ -217,7 +239,8 @@
     "sentence": "来週試験があります。",
     "englishSentence": "There's an exam next week. ",
     "image": "img_1777992255998.png",
-    "meaning": "(noun/する verb) 1. examination, exam, test; 2. trial, experiment, test"
+    "meaning": "(noun/する verb) 1. examination, exam, test; 2. trial, experiment, test",
+    "sentenceAudio": "sent_audio_1777992255998.ogg"
   },
   {
     "id": 23,
@@ -227,7 +250,8 @@
     "sentence": "私は息子を医者に診察させた。",
     "englishSentence": "I made my son see the doctor. ",
     "image": "img_1777992320202.png",
-    "meaning": "(noun) doctor, physician"
+    "meaning": "(noun) doctor, physician",
+    "sentenceAudio": "sent_audio_1777992320202.ogg"
   },
   {
     "id": 24,
@@ -237,7 +261,8 @@
     "sentence": "彼は鉛筆を手に持った。",
     "englishSentence": "He took a pencil in his hand. ",
     "image": "img_1777992422442.png",
-    "meaning": "(noun) pencil"
+    "meaning": "(noun) pencil",
+    "sentenceAudio": "sent_audio_1777992422442.ogg"
   },
   {
     "id": 25,
@@ -247,7 +272,8 @@
     "sentence": "いつも会社に歩く。",
     "englishSentence": "I always walk to work. ",
     "image": "img_1777992647149.png",
-    "meaning": "(noun) 1. company, corporation, firm; 2. one's workplace"
+    "meaning": "(noun) 1. company, corporation, firm; 2. one's workplace",
+    "sentenceAudio": "sent_audio_1777992647149.ogg"
   },
   {
     "id": 26,
@@ -257,7 +283,8 @@
     "sentence": "私は学生です。",
     "englishSentence": "I am a student. ",
     "image": "img_1777992687369.png",
-    "meaning": "(noun) student (esp. a university student)"
+    "meaning": "(noun) student (esp. a university student)",
+    "sentenceAudio": "sent_audio_1777992687369.ogg"
   },
   {
     "id": 27,
@@ -267,7 +294,8 @@
     "sentence": "あの鞄が欲しい。",
     "englishSentence": "I want that bag. ",
     "image": "img_1777992744742.png",
-    "meaning": "(noun) bag, satchel, briefcase, basket"
+    "meaning": "(noun) bag, satchel, briefcase, basket",
+    "sentenceAudio": "sent_audio_1777992744742.ogg"
   },
   {
     "id": 28,
@@ -277,7 +305,8 @@
     "sentence": "彼は私の肩を軽く叩いた。",
     "englishSentence": "He patted me on the shoulder. ",
     "image": "img_1777992867526.png",
-    "meaning": "(Adjective/-い) light (i.e. not heavy), feeling light (i.e. offering little resistance, moving easily)"
+    "meaning": "(Adjective/-い) light (i.e. not heavy), feeling light (i.e. offering little resistance, moving easily)",
+    "sentenceAudio": "sent_audio_1777992867526.ogg"
   },
   {
     "id": 29,
@@ -287,7 +316,8 @@
     "sentence": "子供は可愛いね。",
     "englishSentence": "Children are cute. ",
     "image": "img_1777992908002.png",
-    "meaning": "(Adjective/-い) 1. cute, adorable, charming, lovely, pretty; 2. dear, precious, darling"
+    "meaning": "(Adjective/-い) 1. cute, adorable, charming, lovely, pretty; 2. dear, precious, darling",
+    "sentenceAudio": "sent_audio_1777992908002.ogg"
   },
   {
     "id": 30,
@@ -297,7 +327,8 @@
     "sentence": "日本は美しい国です。",
     "englishSentence": "Japan is a beautiful country. ",
     "image": "img_1777992955084.png",
-    "meaning": "(noun) 1. country, state; 2. region; 3. national government; 4. home (i.e. hometown, home country)"
+    "meaning": "(noun) 1. country, state; 2. region; 3. national government; 4. home (i.e. hometown, home country)",
+    "sentenceAudio": "sent_audio_1777992955084.ogg"
   },
   {
     "id": 31,
@@ -307,7 +338,8 @@
     "sentence": "車に乗って。",
     "englishSentence": "Get into the car. ",
     "image": "img_1777992993637.png",
-    "meaning": "(noun) 1. car, automobile, vehicle; 2. wheel, castor, caster"
+    "meaning": "(noun) 1. car, automobile, vehicle; 2. wheel, castor, caster",
+    "sentenceAudio": "sent_audio_1777992993637.ogg"
   },
   {
     "id": 32,
@@ -317,7 +349,8 @@
     "sentence": "これは日本語の辞書です。",
     "englishSentence": "This is a Japanese dictionary. ",
     "image": "img_1777993041900.png",
-    "meaning": "(noun) 1. dictionary, lexicon; 2. (archaism) letter of resignation"
+    "meaning": "(noun) 1. dictionary, lexicon; 2. (archaism) letter of resignation",
+    "sentenceAudio": "sent_audio_1777993041900.ogg"
   },
   {
     "id": 33,
@@ -327,7 +360,8 @@
     "sentence": "彼女は歴史の先生です。",
     "englishSentence": "She is a history teacher. ",
     "image": "img_1777993083469.png",
-    "meaning": "(noun) 1. teacher, instructor, master; 2. (honorific) sensei; 3. (archaism) one's elder (orig. meaning)"
+    "meaning": "(noun) 1. teacher, instructor, master; 2. (honorific) sensei; 3. (archaism) one's elder (orig. meaning)",
+    "sentenceAudio": "sent_audio_1777993083469.ogg"
   },
   {
     "id": 34,
@@ -337,7 +371,8 @@
     "sentence": "もう外は暗いよ。",
     "englishSentence": "It's already dark outside. ",
     "image": "img_1777993120337.png",
-    "meaning": "(noun) 1. outside, exterior; 2. the open (air); 3. other place"
+    "meaning": "(noun) 1. outside, exterior; 2. the open (air); 3. other place",
+    "sentenceAudio": "sent_audio_1777993120337.ogg"
   },
   {
     "id": 35,
@@ -347,7 +382,8 @@
     "sentence": "これは大切な手紙だ。",
     "englishSentence": "This is an important letter. ",
     "image": "img_1777993184179.png",
-    "meaning": "(Adjective/-な) 1. important, significant, serious, crucial; 2. precious, valuable, dear"
+    "meaning": "(Adjective/-な) 1. important, significant, serious, crucial; 2. precious, valuable, dear",
+    "sentenceAudio": "sent_audio_1777993184179.ogg"
   },
   {
     "id": 36,
@@ -357,7 +393,8 @@
     "sentence": "今日はいい天気です。",
     "englishSentence": "The weather today is good. ",
     "image": "img_1777993232982.png",
-    "meaning": "(noun) 1. weather; 2. fair weather, fine weather"
+    "meaning": "(noun) 1. weather; 2. fair weather, fine weather",
+    "sentenceAudio": "sent_audio_1777993232982.ogg"
   },
   {
     "id": 37,
@@ -367,7 +404,8 @@
     "sentence": "彼は動物が好きだ。",
     "englishSentence": "He loves animals. ",
     "image": "img_1777993273448.png",
-    "meaning": "(noun) animal"
+    "meaning": "(noun) animal",
+    "sentenceAudio": "sent_audio_1777993273448.ogg"
   },
   {
     "id": 38,
@@ -377,7 +415,8 @@
     "sentence": "私はマイクと友達です。",
     "englishSentence": "I am friends with Mike. ",
     "image": "img_1777993320541.png",
-    "meaning": "(noun) friend, companion"
+    "meaning": "(noun) friend, companion",
+    "sentenceAudio": "sent_audio_1777993320541.ogg"
   },
   {
     "id": 39,
@@ -387,7 +426,8 @@
     "sentence": "土曜日の次は日曜日が来る。",
     "englishSentence": "Sunday follows Saturday. ",
     "image": "img_1777993363178.png",
-    "meaning": "(noun/adverb) Saturday"
+    "meaning": "(noun/adverb) Saturday",
+    "sentenceAudio": "sent_audio_1777993363178.ogg"
   },
   {
     "id": 40,
@@ -397,7 +437,8 @@
     "sentence": "今日は日曜日だ。",
     "englishSentence": "Today is Sunday. ",
     "image": "img_1777993425323.png",
-    "meaning": "(noun/adverb) Sunday"
+    "meaning": "(noun/adverb) Sunday",
+    "sentenceAudio": "sent_audio_1777993425323.ogg"
   },
   {
     "id": 41,
@@ -407,7 +448,8 @@
     "sentence": "安い部屋を借ります。",
     "englishSentence": "I'll rent a cheap room. ",
     "image": "img_1777993470346.png",
-    "meaning": "(noun) 1. room, chamber; 2. apartment, flat, pad; 3. (sumo) (abbreviation) stable"
+    "meaning": "(noun) 1. room, chamber; 2. apartment, flat, pad; 3. (sumo) (abbreviation) stable",
+    "sentenceAudio": "sent_audio_1777993470346.ogg"
   },
   {
     "id": 42,
@@ -417,7 +459,8 @@
     "sentence": "店は午前９時に開きます。",
     "englishSentence": "The store opens at 9 a.m.",
     "image": "img_1777993514052.png",
-    "meaning": "(noun) store, shop, establishment, restaurant"
+    "meaning": "(noun) store, shop, establishment, restaurant",
+    "sentenceAudio": "sent_audio_1777993514052.ogg"
   },
   {
     "id": 43,
@@ -427,7 +470,8 @@
     "sentence": "何も問題はありません。",
     "englishSentence": "There's no problem at all. ",
     "image": "img_1777993603164.png",
-    "meaning": "(noun) 1. question (e.g. on a test), problem; 2. problem (e.g. societal, political)"
+    "meaning": "(noun) 1. question (e.g. on a test), problem; 2. problem (e.g. societal, political)",
+    "sentenceAudio": "sent_audio_1777993603164.ogg"
   },
   {
     "id": 44,
@@ -437,7 +481,8 @@
     "sentence": "彼は料理が上手だ。",
     "englishSentence": "He is good at cooking.",
     "image": "img_1777993651179.png",
-    "meaning": "(noun/する verb) 1. cooking, cookery, cuisine, meal, food, dish; 2. (easily) dealing with something"
+    "meaning": "(noun/する verb) 1. cooking, cookery, cuisine, meal, food, dish; 2. (easily) dealing with something",
+    "sentenceAudio": "sent_audio_1777993651179.ogg"
   },
   {
     "id": 45,
@@ -457,7 +502,8 @@
     "sentence": "あの店は８人の店員を雇っている。",
     "englishSentence": "That store employs eight clerks. ",
     "image": "img_1777993753756.png",
-    "meaning": "(noun) employee (of a store), shop assistant, clerk, salesperson"
+    "meaning": "(noun) employee (of a store), shop assistant, clerk, salesperson",
+    "sentenceAudio": "sent_audio_1777993753756.ogg"
   },
   {
     "id": 47,
@@ -467,7 +513,8 @@
     "sentence": "そのビルの後ろですよ。",
     "englishSentence": "It's at the back of the building. ",
     "image": "img_1777993791916.png",
-    "meaning": "(noun) (abbreviation) multi-floor building, multi-storey building"
+    "meaning": "(noun) (abbreviation) multi-floor building, multi-storey building",
+    "sentenceAudio": "sent_audio_1777993791916.ogg"
   },
   {
     "id": 48,
@@ -477,7 +524,8 @@
     "sentence": "彼女は有名な歌手だ。",
     "englishSentence": "She is a famous singer. ",
     "image": "img_1777994002226.png",
-    "meaning": "(noun) singer"
+    "meaning": "(noun) singer",
+    "sentenceAudio": "sent_audio_1777994002226.ogg"
   },
   {
     "id": 49,
@@ -487,7 +535,8 @@
     "sentence": "彼女は私の恋人だ。",
     "englishSentence": "She is my girlfriend. ",
     "image": "img_1777994068049.png",
-    "meaning": "(noun) lover, sweetheart, boyfriend, girlfriend"
+    "meaning": "(noun) lover, sweetheart, boyfriend, girlfriend",
+    "sentenceAudio": "sent_audio_1777994068049.ogg"
   },
   {
     "id": 50,
@@ -497,7 +546,8 @@
     "sentence": "父は真面目じゃない人です。",
     "englishSentence": "Dad is a person who isn't serious (in manner). ",
     "image": "img_1777994291801.png",
-    "meaning": "(Adjective/-な) 1. serious, earnest, sober, grave; 2. honest, sincere"
+    "meaning": "(Adjective/-な) 1. serious, earnest, sober, grave; 2. honest, sincere",
+    "sentenceAudio": "sent_audio_1777994291801.ogg"
   },
   {
     "id": 51,
@@ -507,7 +557,8 @@
     "sentence": "私の母は会社員じゃないです。",
     "englishSentence": "My mother is not a company employee. ",
     "image": "img_1777994386864.png",
-    "meaning": "(noun) company employee, office worker, white-collar worker"
+    "meaning": "(noun) company employee, office worker, white-collar worker",
+    "sentenceAudio": "sent_audio_1777994386864.ogg"
   },
   {
     "id": 52,
@@ -517,7 +568,8 @@
     "sentence": "明日は海に行く予定です。",
     "englishSentence": "I plan to go to the beach tomorrow. ",
     "image": "img_1777994470508.png",
-    "meaning": "(noun) 1. sea, ocean, waters; 2. beach"
+    "meaning": "(noun) 1. sea, ocean, waters; 2. beach",
+    "sentenceAudio": "sent_audio_1777994470508.ogg"
   },
   {
     "id": 53,
@@ -527,7 +579,8 @@
     "sentence": "音楽を聞きませんか？ ",
     "englishSentence": "Shall we listen to music? ",
     "image": "img_1777994513123.png",
-    "meaning": "(noun) music"
+    "meaning": "(noun) music",
+    "sentenceAudio": "sent_audio_1777994513123.ogg"
   },
   {
     "id": 54,
@@ -537,7 +590,8 @@
     "sentence": "もう外は暗いよ。",
     "englishSentence": "It's already dark outside. ",
     "image": "img_1777994566045.png",
-    "meaning": "(Adjective/-い) 1. dark, gloomy, murky; 2. depressed, dispirited; 3. dark (in colour), dull"
+    "meaning": "(Adjective/-い) 1. dark, gloomy, murky; 2. depressed, dispirited; 3. dark (in colour), dull",
+    "sentenceAudio": "sent_audio_1777994566045.ogg"
   },
   {
     "id": 55,
@@ -547,7 +601,8 @@
     "sentence": "冬は寒いです。",
     "englishSentence": "Winter is cold. ",
     "image": "img_1777994624206.png",
-    "meaning": "(Adjective/-い) 1. cold (e.g. weather); 2. uninteresting (esp. joke), lame, dull, weak, corny"
+    "meaning": "(Adjective/-い) 1. cold (e.g. weather); 2. uninteresting (esp. joke), lame, dull, weak, corny",
+    "sentenceAudio": "sent_audio_1777994624206.ogg"
   },
   {
     "id": 56,
@@ -557,7 +612,8 @@
     "sentence": "冷たい水をください。",
     "englishSentence": "Please give me some cold water. ",
     "image": "img_1777994664638.png",
-    "meaning": "(Adjective/-い) 1. cold (to the touch), chilly, icy, freezing; 2. (emotionally) cold, coldhearted"
+    "meaning": "(Adjective/-い) 1. cold (to the touch), chilly, icy, freezing; 2. (emotionally) cold, coldhearted",
+    "sentenceAudio": "sent_audio_1777994664638.ogg"
   },
   {
     "id": 57,
@@ -567,7 +623,8 @@
     "sentence": "冬は寒いです。",
     "englishSentence": "Winter is cold. ",
     "image": "img_1777994704767.png",
-    "meaning": "(noun/adverb) winter"
+    "meaning": "(noun/adverb) winter",
+    "sentenceAudio": "sent_audio_1777994704767.ogg"
   },
   {
     "id": 58,
@@ -577,7 +634,8 @@
     "sentence": "今日は勉強しなくてよろしい。",
     "englishSentence": "You don't need to study today. ",
     "image": "img_1777994754628.png",
-    "meaning": "(noun/する verb) 1. study; 2. diligence; 3. experience, lesson (for the future); 4. discount"
+    "meaning": "(noun/する verb) 1. study; 2. diligence; 3. experience, lesson (for the future); 4. discount",
+    "sentenceAudio": "sent_audio_1777994754628.ogg"
   },
   {
     "id": 59,
@@ -587,7 +645,8 @@
     "sentence": "これは簡単で便利です。",
     "englishSentence": "This is simple and handy. ",
     "image": "img_1777994809989.png",
-    "meaning": "(Adjective/-な) convenient, handy, useful"
+    "meaning": "(Adjective/-な) convenient, handy, useful",
+    "sentenceAudio": "sent_audio_1777994809989.ogg"
   },
   {
     "id": 60,
@@ -597,7 +656,8 @@
     "sentence": "そう心配しなくてもいいよ。",
     "englishSentence": "You don't have to worry so much.",
     "image": "img_1777994877241.png",
-    "meaning": "(Adjective/-な) 1. worry, concern, anxiety, uneasiness, fear; 2. (dated term) care, help, aid, assistance"
+    "meaning": "(Adjective/-な) 1. worry, concern, anxiety, uneasiness, fear; 2. (dated term) care, help, aid, assistance",
+    "sentenceAudio": "sent_audio_1777994877241.ogg"
   },
   {
     "id": 61,
@@ -607,7 +667,8 @@
     "sentence": "私は眠くないです。",
     "englishSentence": "I am not sleepy. ",
     "image": "img_1777994940028.png",
-    "meaning": "(Adjective/-い) sleepy, drowsy, somnolent"
+    "meaning": "(Adjective/-い) sleepy, drowsy, somnolent",
+    "sentenceAudio": "sent_audio_1777994940028.ogg"
   },
   {
     "id": 62,
@@ -617,7 +678,8 @@
     "sentence": "この問題は複雑です。",
     "englishSentence": "This problem is difficult. ",
     "image": "img_1777994998066.png",
-    "meaning": "(Adjective/-な) complex, complicated, intricate, mixed (feelings)"
+    "meaning": "(Adjective/-な) complex, complicated, intricate, mixed (feelings)",
+    "sentenceAudio": "sent_audio_1777994998066.ogg"
   },
   {
     "id": 63,
@@ -627,7 +689,8 @@
     "sentence": "毎日漫画を読む。",
     "englishSentence": "I read manga every day. ",
     "image": "img_1777995045035.png",
-    "meaning": "(noun) cartoon, comic, comic strip, manga"
+    "meaning": "(noun) cartoon, comic, comic strip, manga",
+    "sentenceAudio": "sent_audio_1777995045035.ogg"
   },
   {
     "id": 64,
@@ -637,7 +700,8 @@
     "sentence": "賑やかなところが好きだ。",
     "englishSentence": "I like lively places. ",
     "image": "img_1777995104807.png",
-    "meaning": "(Adjective/-な) 1. bustling, busy, crowded, lively, prosperous; 2. lively (party, voices, etc.)"
+    "meaning": "(Adjective/-な) 1. bustling, busy, crowded, lively, prosperous; 2. lively (party, voices, etc.)",
+    "sentenceAudio": "sent_audio_1777995104807.ogg"
   },
   {
     "id": 65,
@@ -647,7 +711,8 @@
     "sentence": "なんて素敵な衣装だ。",
     "englishSentence": "What a darling outfit. ",
     "image": "img_1777995190056.png",
-    "meaning": "(Adjective/-な) lovely, wonderful, nice, great, fantastic, superb, cool"
+    "meaning": "(Adjective/-な) lovely, wonderful, nice, great, fantastic, superb, cool",
+    "sentenceAudio": "sent_audio_1777995190056.ogg"
   },
   {
     "id": 66,
@@ -657,6 +722,7 @@
     "sentence": "赤ちゃんはぐっすり寝ている。",
     "englishSentence": "The baby is fast asleep. ",
     "image": "img_1777995223898.png",
-    "meaning": "(noun) baby, infant"
+    "meaning": "(noun) baby, infant",
+    "sentenceAudio": "sent_audio_1777995223898.ogg"
   }
 ]

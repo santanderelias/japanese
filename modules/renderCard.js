@@ -5,16 +5,23 @@ let allCardsData = [];
 let currentDeck = []; // The actual ordered cards being studied
 let currentIndex = -1;
 
+// Cache DOM elements
+const elements = {
+    container: document.getElementById('cards-container'),
+    homeSection: document.getElementById('home-section'),
+    cardViewSection: document.getElementById('card-view-section'),
+    studyContainer: document.getElementById('study-container'),
+    answerSection: null // Will be assigned after study view render
+};
+
 export async function loadAndRenderCards() {
-    const container = document.getElementById('cards-container');
-    if (!container) return;
+    if (!elements.container) return;
 
     try {
-        const response = await fetch(`data.json?v=${Date.now()}`);
+        const response = await fetch('data.json');
         if (!response.ok) throw new Error('Failed to fetch data.json');
         
         allCardsData = await response.json();
-        
         renderCardsGrid();
         
     } catch (error) {
@@ -24,26 +31,41 @@ export async function loadAndRenderCards() {
 }
 
 export function renderCardsGrid() {
-    const container = document.getElementById('cards-container');
+    if (!elements.container) return;
+    
     const isRandom = localStorage.getItem('randomize') === 'true';
     
-    currentDeck = [...allCardsData];
+    // Filter out hidden cards
+    currentDeck = allCardsData.filter(card => !card.hidden);
+    
     if (isRandom) {
-        currentDeck = currentDeck.sort(() => Math.random() - 0.5);
+        // Fisher-Yates shuffle
+        for (let i = currentDeck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
+        }
     }
     
-    container.innerHTML = currentDeck.map(card => createCardFrontTemplate(card)).join('');
+    const fragment = document.createDocumentFragment();
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = currentDeck.map(card => createCardFrontTemplate(card)).join('');
     
-    // Add event listeners for the cards on home
-    document.querySelectorAll('.card-home').forEach(cardEl => {
-        cardEl.addEventListener('click', () => {
-            const id = parseInt(cardEl.getAttribute('data-id'));
-            const index = currentDeck.findIndex(c => c.id === id);
-            if (index !== -1) {
-                showFullScreenCard(index);
-            }
-        });
-    });
+    while (tempContainer.firstChild) {
+        const cardEl = tempContainer.firstChild;
+        if (cardEl.nodeType === 1) { 
+            cardEl.addEventListener('click', (e) => {
+                const homeCard = e.currentTarget.querySelector('.card-home');
+                if (!homeCard) return;
+                const id = parseInt(homeCard.getAttribute('data-id'));
+                const index = currentDeck.findIndex(c => c.id === id);
+                if (index !== -1) showFullScreenCard(index);
+            });
+        }
+        fragment.appendChild(cardEl);
+    }
+    
+    elements.container.innerHTML = '';
+    elements.container.appendChild(fragment);
 }
 
 export function showFullScreenCard(index) {
@@ -51,19 +73,24 @@ export function showFullScreenCard(index) {
     
     currentIndex = index;
     const cardData = currentDeck[currentIndex];
-    const homeSection = document.getElementById('home-section');
-    const cardViewSection = document.getElementById('card-view-section');
-    const container = document.getElementById('study-container');
     
-    // Render the single study view
-    container.innerHTML = renderStudyView(cardData);
+    // Optimized update: Only replace innerHTML if studyContainer is empty, 
+    // otherwise update specific fields (optional, starting with full render for stability)
+    elements.studyContainer.innerHTML = renderStudyView(cardData);
     
-    // Ensure hidden initially
-    document.getElementById('answer-reveal-section').classList.add('d-none');
+    // Re-cache answer section reference
+    elements.answerSection = document.getElementById('answer-reveal-section');
+    if (elements.answerSection) elements.answerSection.classList.add('d-none');
     
-    homeSection.classList.add('d-none');
-    cardViewSection.classList.remove('d-none');
+    elements.homeSection.classList.add('d-none');
+    elements.cardViewSection.classList.remove('d-none');
     document.body.classList.add('card-open');
+
+    // Preload next image
+    if (currentIndex < currentDeck.length - 1) {
+        const nextImg = new Image();
+        nextImg.src = `assets/${currentDeck[currentIndex + 1].image}`;
+    }
 }
 
 export function showNextCard() {
@@ -81,28 +108,24 @@ export function showPrevCard() {
 }
 
 export function hideFullScreenCard() {
-    const homeSection = document.getElementById('home-section');
-    const cardViewSection = document.getElementById('card-view-section');
-    
-    homeSection.classList.remove('d-none');
-    cardViewSection.classList.add('d-none');
+    elements.homeSection.classList.remove('d-none');
+    elements.cardViewSection.classList.add('d-none');
     document.body.classList.remove('card-open');
     currentIndex = -1;
 }
 
 export function toggleAnswer() {
-    const section = document.getElementById('answer-reveal-section');
-    if (!section) return;
+    if (!elements.answerSection) return;
 
-    if (section.classList.contains('show')) {
+    if (elements.answerSection.classList.contains('show')) {
         // Exiting
-        section.classList.remove('show');
-        setTimeout(() => section.classList.add('d-none'), 400);
+        elements.answerSection.classList.remove('show');
+        setTimeout(() => elements.answerSection.classList.add('d-none'), 400);
     } else {
         // Appearing
-        section.classList.remove('d-none');
+        elements.answerSection.classList.remove('d-none');
         // Force reflow for animation to trigger
-        section.offsetWidth; 
-        section.classList.add('show');
+        elements.answerSection.offsetWidth; 
+        elements.answerSection.classList.add('show');
     }
 }

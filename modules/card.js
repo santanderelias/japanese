@@ -8,9 +8,13 @@ export function createCardFrontTemplate(data) {
     const { id, reading, kanji, image, audio } = data;
     const displayImage = image ? `assets/${image}` : 'assets/placeholder.jpg';
 
+    // Added loading="lazy" for the background image via a hidden img tag 
+    // to hint to the browser, though CSS bg-images don't support it directly.
+    // Instead, we ensure the template is clean.
     return `
         <div class="col" id="card-${id}">
             <div class="card card-home h-100 shadow-sm" style="background-image: url('${displayImage}')" data-id="${id}">
+                <img src="${displayImage}" loading="lazy" style="display:none;" />
                 <div class="card-overlay">
                     <div class="d-flex align-items-center mb-1">
                         <h5 class="card-title mb-0">${kanji || reading}</h5>
@@ -33,10 +37,13 @@ export function renderStudyView(data) {
 
     return `
         <div class="study-card-wrapper" style="background-image: url('${displayImage}')">
+            <!-- Hidden img for faster browser prioritization -->
+            <img src="${displayImage}" style="display:none;" />
+
             <div class="card-content-overlay">
                 <!-- Answer Section (Revealed at Top) -->
                 <div id="answer-reveal-section" class="answer-section w-100 mt-4 d-none">
-
+...
                     <div class="d-flex justify-content-center">
                         <div class="col-lg-8">
                             <div class="answer-box p-3 rounded-4 shadow-lg text-center">
