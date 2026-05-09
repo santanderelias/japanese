@@ -1,11 +1,15 @@
 import { loadAndRenderCards, hideFullScreenCard, renderCardsGrid, toggleAnswer, showNextCard, showPrevCard } from './modules/renderCard.js';
 import { showNotification } from './modules/notifications.js';
+import { initMeaningGame } from './modules/games/meaningMatch.js';
+import { initListeningGame } from './modules/games/listeningPractice.js';
+import { initStatistics } from './modules/statistics.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initRandomize();
     loadAndRenderCards();
     initAudioHelper();
+    initNavigation();
 
     // Event Listeners
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
@@ -119,4 +123,48 @@ function initAudioHelper() {
         currentAudio = new Audio(src);
         currentAudio.play().catch(err => console.error('Audio playback failed:', err));
     };
+}
+
+function initNavigation() {
+    const views = {
+        'dashboard': document.getElementById('dashboard-view'),
+        'all-cards': document.getElementById('all-cards-view'),
+        'meaning-game': document.getElementById('meaning-game-view'),
+        'listening-game': document.getElementById('listening-game-view'),
+        'statistics': document.getElementById('statistics-view')
+    };
+
+    window.navigateTo = (viewName) => {
+        Object.keys(views).forEach(name => {
+            if (name === viewName) {
+                views[name].classList.remove('d-none');
+            } else {
+                views[name].classList.add('d-none');
+            }
+        });
+    };
+
+    // Dashboard Buttons
+    document.getElementById('btn-all-cards').addEventListener('click', () => navigateTo('all-cards'));
+    document.getElementById('btn-meaning-game').addEventListener('click', () => {
+        navigateTo('meaning-game');
+        // Start meaning game will be implemented in Phase 3
+        if (window.startMeaningGame) window.startMeaningGame();
+    });
+    document.getElementById('btn-listening-game').addEventListener('click', () => {
+        navigateTo('listening-game');
+        // Start listening game will be implemented in Phase 4
+        if (window.startListeningGame) window.startListeningGame();
+    });
+    document.getElementById('btn-statistics').addEventListener('click', () => {
+        navigateTo('statistics');
+        if (window.initStatistics) window.initStatistics();
+    });
+
+    // Back Buttons
+    const backToDashboard = () => navigateTo('dashboard');
+    document.getElementById('back-to-dashboard-cards').addEventListener('click', backToDashboard);
+    document.getElementById('back-to-dashboard-meaning').addEventListener('click', backToDashboard);
+    document.getElementById('back-to-dashboard-listening').addEventListener('click', backToDashboard);
+    document.getElementById('back-to-dashboard-stats').addEventListener('click', backToDashboard);
 }

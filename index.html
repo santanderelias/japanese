@@ -12,8 +12,9 @@
 <body>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+            /* navigator.serviceWorker.register('sw.js'); */
+            console.log('sw.js disabled')
+        } 
     </script>
     <!-- Home Section -->
     <section id="home-section">
@@ -49,8 +50,86 @@
         </nav>
 
         <main class="container">
-            <div id="cards-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <!-- Cards will be rendered here -->
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view-section row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="dashboard-card" id="btn-all-cards">
+                        <div class="dashboard-card-icon">🗂️</div>
+                        <div class="dashboard-card-title">All Cards</div>
+                        <div class="dashboard-card-desc">Review and study all vocabulary cards.</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dashboard-card" id="btn-meaning-game">
+                        <div class="dashboard-card-icon">🧠</div>
+                        <div class="dashboard-card-title">Meaning Match</div>
+                        <div class="dashboard-card-desc">Test your knowledge of Kanji meanings.</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dashboard-card" id="btn-listening-game">
+                        <div class="dashboard-card-icon">🎧</div>
+                        <div class="dashboard-card-title">Listening Practice</div>
+                        <div class="dashboard-card-desc">Identify words from audio clips.</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dashboard-card" id="btn-statistics">
+                        <div class="dashboard-card-icon">📊</div>
+                        <div class="dashboard-card-title">Statistics</div>
+                        <div class="dashboard-card-desc">Track your progress and problematic words.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Cards View -->
+            <div id="all-cards-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-4">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-cards" title="Back to Dashboard">
+                        ←
+                    </button>
+                    <h2 class="mb-0">All Cards</h2>
+                </div>
+                <div id="cards-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Cards will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Meaning Game View -->
+            <div id="meaning-game-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-2">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-meaning" title="Back to Dashboard">
+                        ←
+                    </button>
+                </div>
+                <div id="meaning-game-container" class="game-container">
+                    <!-- Game content via JS -->
+                </div>
+            </div>
+
+            <!-- Listening Game View -->
+            <div id="listening-game-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-2">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-listening" title="Back to Dashboard">
+                        ←
+                    </button>
+                </div>
+                <div id="listening-game-container" class="game-container">
+                    <!-- Game content via JS -->
+                </div>
+            </div>
+
+            <!-- Statistics View -->
+            <div id="statistics-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-4">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-stats" title="Back to Dashboard">
+                        ←
+                    </button>
+                    <h2 class="mb-0">Statistics</h2>
+                </div>
+                <div id="statistics-container" class="container pb-4">
+                    <!-- Stats content via JS -->
+                </div>
             </div>
         </main>
 
