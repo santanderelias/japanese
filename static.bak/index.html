@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renshu Cards</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Renshu Cards</a>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-outline-secondary me-2" id="theme-toggle">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <div id="cards-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <!-- Cards will be rendered here -->
+        </div>
+    </main>
+
+    <div id="notification-container" class="toast-container position-fixed bottom-0 end-0 p-3">
+        <!-- Notifications will be rendered here -->
+    </div>
+
+    <script src="vendor/bootstrap.bundle.min.js"></script>
+    <script type="module" src="index.js"></script>
+</body>
+</html>

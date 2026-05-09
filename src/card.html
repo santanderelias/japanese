@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="card-view">
+        <div class="scene" id="scene">
+            <div class="card-inner" id="inner">
+                <div class="face front" id="front"></div>
+                <div class="face back" id="back"></div>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="back-to-gallery" title="Gallery">🏠</button>
+            <div class="nav-group">
+                <button id="prev">←</button>
+                <button id="flip">Flip</button>
+                <button id="next">→</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentId = parseInt(urlParams.get('id')) || 1;
+        let cards = [];
+
+        fetch('/data.json').then(res => res.json()).then(data => {
+            cards = data;
+            render();
+        });
+
+        function render() {
+            const card = cards.find(c => c.id === currentId);
+            if (!card) return;
+            
+            const frontEl = document.getElementById('front');
+            const backEl = document.getElementById('back');
+
+            // Set Background Image for Front
+            if (card.image && card.image !== 'not-found.svg') {
+                frontEl.style.backgroundImage = `url('assets/${card.image}')`;
+            } else {
+                frontEl.style.backgroundImage = `url('not-found.svg')`;
+            }
+
+            frontEl.innerHTML = `
+                <h1>${card.kanji || ''}</h1>
+                <p class="reading">${card.reading || ''}</p>
+            `;
+            
+            backEl.innerHTML = `
+                <p class="meaning">${card.meaning || ''}</p>
+                <p class="sentence">${card.sentence || ''}</p>
+                <p class="english">${card.englishSentence || ''}</p>
+            `;
+            
+            // Update URL without reloading
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + currentId;
+            window.history.pushState({path:newUrl},'',newUrl);
+        }
+
+        document.getElementById('scene').onclick = () => document.getElementById('inner').classList.toggle('flipped');
+        document.getElementById('flip').onclick = (e) => { e.stopPropagation(); document.getElementById('inner').classList.toggle('flipped'); };
+        document.getElementById('next').onclick = (e) => { e.stopPropagation(); if(currentId < cards.length) { currentId++; document.getElementById('inner').classList.remove('flipped'); render(); } };
+        document.getElementById('prev').onclick = (e) => { e.stopPropagation(); if(currentId > 1) { currentId--; document.getElementById('inner').classList.remove('flipped'); render(); } };
+        document.getElementById('back-to-gallery').onclick = () => location.href = 'index.html';
+    </script>
+</body>
+</html>
