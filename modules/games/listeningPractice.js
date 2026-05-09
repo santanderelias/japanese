@@ -25,6 +25,9 @@ function startNewRound() {
         return (!wordStats || !wordStats.dueDate || wordStats.dueDate <= now) && card.id !== lastWordId;
     });
 
+    // Shuffle due cards to avoid index-based ordering
+    dueCards.sort(() => Math.random() - 0.5);
+
     // 2. If nothing due, pick cards with oldest lastSeen or never seen
     if (dueCards.length === 0) {
         dueCards = allCards
