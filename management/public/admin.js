@@ -90,7 +90,9 @@ function showModal(id = null) {
         document.getElementById('form-englishSentence').value = card.englishSentence || '';
         document.getElementById('form-image').value = card.image || '';
         document.getElementById('form-audio').value = card.audio || '';
+        document.getElementById('form-audio-url').value = '';
         document.getElementById('form-sentenceAudio').value = card.sentenceAudio || '';
+        document.getElementById('form-sentenceAudio-url').value = '';
         document.getElementById('form-hidden').checked = card.hidden || false;
         
         if (card.image) {
@@ -100,9 +102,28 @@ function showModal(id = null) {
     } else {
         document.getElementById('modalTitle').textContent = 'Add New Card';
         document.getElementById('card-id').value = '';
+        document.getElementById('form-audio').value = '';
+        document.getElementById('form-audio-url').value = '';
+        document.getElementById('form-sentenceAudio').value = '';
+        document.getElementById('form-sentenceAudio-url').value = '';
         document.getElementById('form-hidden').checked = false;
     }
     modal.show();
+}
+
+// Add event listeners for TTS buttons
+document.getElementById('tts-audio-btn').addEventListener('click', () => generateTTS('audio', document.getElementById('form-kanji').value));
+document.getElementById('tts-sentenceAudio-btn').addEventListener('click', () => generateTTS('sentenceAudio', document.getElementById('form-sentence').value));
+
+async function generateTTS(type, text) {
+    if (!text) return alert('Enter text first');
+    const res = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+    });
+    const result = await res.json();
+    if (result.filename) document.getElementById(`form-${type}`).value = result.filename;
 }
 
 async function handleFile(file, type) {
@@ -126,6 +147,11 @@ async function handleFile(file, type) {
 
 async function saveCard() {
     const id = document.getElementById('card-id').value;
+    
+    // Determine audio values: prefer uploaded/hidden field, fallback to URL input
+    const audio = document.getElementById('form-audio').value || document.getElementById('form-audio-url').value;
+    const sentenceAudio = document.getElementById('form-sentenceAudio').value || document.getElementById('form-sentenceAudio-url').value;
+
     const cardData = {
         id: id ? parseInt(id) : (allCards.length ? Math.max(...allCards.map(c => c.id)) + 1 : 1),
         kanji: document.getElementById('form-kanji').value,
@@ -134,8 +160,8 @@ async function saveCard() {
         sentence: document.getElementById('form-sentence').value,
         englishSentence: document.getElementById('form-englishSentence').value,
         image: document.getElementById('form-image').value,
-        audio: document.getElementById('form-audio').value,
-        sentenceAudio: document.getElementById('form-sentenceAudio').value,
+        audio: audio,
+        sentenceAudio: sentenceAudio,
         hidden: document.getElementById('form-hidden').checked
     };
 

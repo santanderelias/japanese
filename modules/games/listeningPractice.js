@@ -7,8 +7,8 @@ let lastWordId = null;
 export async function initListeningGame() {
     const response = await fetch('data.json');
     const data = await response.json();
-    // Filter cards that have audio
-    allCards = data.filter(c => c.audio);
+    // Filter cards that have audio AND are not hidden
+    allCards = data.filter(c => c.audio && !c.hidden);
     startNewRound();
 }
 

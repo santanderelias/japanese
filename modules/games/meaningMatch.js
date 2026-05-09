@@ -7,7 +7,8 @@ let hintUsedInRound = false;
 
 export async function initMeaningGame() {
     const response = await fetch('data.json');
-    allCards = await response.json();
+    const data = await response.json();
+    allCards = data.filter(c => !c.hidden);
     startNewRound();
 }
 

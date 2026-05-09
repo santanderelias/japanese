@@ -80,10 +80,19 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-secondary small">Audio Asset</label>
-                                <input type="file" class="form-control form-control-sm mb-2" id="audio-input" accept="audio/*">
+                                <div class="input-group input-group-sm mb-2">
+                                    <input type="file" class="form-control" id="audio-input" accept="audio/*">
+                                    <input type="text" class="form-control" id="form-audio-url" placeholder="or paste URL">
+                                    <button type="button" class="btn btn-outline-secondary" id="tts-audio-btn">TTS</button>
+                                </div>
                                 <input type="hidden" id="form-audio">
+                                
                                 <label class="form-label text-secondary small">Sentence Audio</label>
-                                <input type="file" class="form-control form-control-sm" id="sentence-audio-input" accept="audio/*">
+                                <div class="input-group input-group-sm">
+                                    <input type="file" class="form-control" id="sentence-audio-input" accept="audio/*">
+                                    <input type="text" class="form-control" id="form-sentenceAudio-url" placeholder="or paste URL">
+                                    <button type="button" class="btn btn-outline-secondary" id="tts-sentenceAudio-btn">TTS</button>
+                                </div>
                                 <input type="hidden" id="form-sentenceAudio">
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 const fileSystem = require('./fileSystem');
 const url = require('url');
+const https = require('https');
 
 function handle(req, res) {
     const parsedUrl = url.parse(req.url, true);
@@ -31,10 +32,44 @@ function handle(req, res) {
         handleUpload(req, res);
     }
 
+    else if (parsedUrl.pathname === '/api/tts' && method === 'POST') {
+        let body = '';
+        req.on('data', chunk => body += chunk.toString());
+        req.on('end', async () => {
+            try {
+                const { text } = JSON.parse(body);
+                const filename = await generateTTS(text);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ filename }));
+            } catch (err) {
+                res.writeHead(500);
+                res.end('TTS Error');
+            }
+        });
+    }
+
     else {
         res.writeHead(404);
         res.end('Not Found');
     }
+}
+
+async function generateTTS(text) {
+    const encodedText = encodeURIComponent(text);
+    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ja&client=tw-ob`;
+    
+    return new Promise((resolve, reject) => {
+        https.get(ttsUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+            let chunks = [];
+            res.on('data', chunk => chunks.push(chunk));
+            res.on('end', () => {
+                const buffer = Buffer.concat(chunks);
+                const filename = `audio_${Date.now()}.mp3`;
+                fileSystem.saveAsset(filename, buffer);
+                resolve(filename);
+            });
+        }).on('error', reject);
+    });
 }
 
 function handleUpload(req, res) {
