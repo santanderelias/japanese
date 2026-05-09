@@ -153,10 +153,9 @@ function initNavigation() {
     });
     document.getElementById('btn-listening-game').addEventListener('click', () => {
         navigateTo('listening-game');
-        // Start listening game will be implemented in Phase 4
         if (window.startListeningGame) window.startListeningGame();
     });
-    document.getElementById('btn-statistics').addEventListener('click', () => {
+    document.getElementById('btn-statistics-top').addEventListener('click', () => {
         navigateTo('statistics');
         if (window.initStatistics) window.initStatistics();
     });
