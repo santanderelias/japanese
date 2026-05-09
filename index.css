@@ -193,3 +193,31 @@ body.card-open { overflow: hidden; }
 ::-webkit-scrollbar-track { background: var(--bs-body-bg); }
 ::-webkit-scrollbar-thumb { background: var(--bs-secondary-bg); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--bs-secondary); }
+
+/* center footer horizontally */
+#footer {
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.5;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0;
+    line-height: 1;
+    color: var(--bs-body-color);
+    transition: transform 0.3s ease;
+}
+
+.settings-btn:hover {
+    transform: rotate(45deg);
+}
+
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+}

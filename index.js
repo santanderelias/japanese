@@ -9,8 +9,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event Listeners
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-    document.getElementById('dev-reset').addEventListener('click', () => {
+    document.getElementById('dev-reset').addEventListener('click', async () => {
+        if (!confirm('This will reset ALL data, caches, and settings. Are you sure?')) return;
+
+        // 1. Clear Storage
         localStorage.clear();
+        sessionStorage.clear();
+
+        // 2. Clear Caches
+        if ('caches' in window) {
+            const cacheNames = await caches.keys();
+            await Promise.all(cacheNames.map(name => caches.delete(name)));
+        }
+
+        // 3. Unregister Service Workers
+        if ('serviceWorker' in navigator) {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(registrations.map(reg => reg.unregister()));
+        }
+
+        // 4. Reload
         location.reload();
     });
     document.getElementById('back-to-home').addEventListener('click', (e) => {

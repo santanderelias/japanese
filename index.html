@@ -20,18 +20,30 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Cards</a>
-                <div class="d-flex align-items-center">
-                    <div class="form-check form-switch me-3">
-                        <input class="form-check-input" type="checkbox" id="randomize-toggle">
-                        <label class="form-check-label small" for="randomize-toggle">Randomize</label>
-                    </div>
-                    <button class="btn btn-outline-danger btn-sm me-2" id="dev-reset" title="Reset Storage & Cache">
-                        Reset
+                <div class="dropdown">
+                    <button class="settings-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Settings">
+                        ⚙️
                     </button>
-                    <button class="btn btn-outline-secondary me-2" id="theme-toggle">
-
-                        <span id="theme-icon">🌙</span>
-                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end p-3" style="min-width: 200px;">
+                        <li class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="randomize-toggle">
+                                <label class="form-check-label" for="randomize-toggle">Randomize</label>
+                            </div>
+                        </li>
+                        <li class="mb-3">
+                            <button class="btn btn-outline-secondary w-100 d-flex justify-content-between align-items-center" id="theme-toggle">
+                                <span>Theme</span>
+                                <span id="theme-icon">🌙</span>
+                            </button>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <button class="btn btn-outline-danger w-100" id="dev-reset" title="Full Reset">
+                                Full Reset
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -41,6 +53,8 @@
                 <!-- Cards will be rendered here -->
             </div>
         </main>
+
+        <footer id="footer">Santael - v1.0</footer>
     </section>
 
     <!-- Full-Screen Study View (Hidden by default) -->
@@ -68,6 +82,5 @@
 
     <script src="vendor/bootstrap.bundle.min.js"></script>
     <script type="module" src="index.js"></script>
-    <div id="footer">Santael - v1.0</div>
 </body>
 </html>
