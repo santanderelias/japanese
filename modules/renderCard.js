@@ -29,25 +29,22 @@ export async function loadAndRenderCards() {
         showNotification('Error loading cards. Please try again.', 'danger');
     }
 }
-
 export function renderCardsGrid(filter = '') {
     if (!elements.container) return;
-    
+
     const isRandom = localStorage.getItem('randomize') === 'true';
     const query = filter.toLowerCase();
-    
-    // Filter cards
+
+    // Include all cards, but sort hidden ones to the bottom
     currentDeck = allCardsData.filter(card => {
-        if (card.hidden) return false;
         if (!query) return true;
-        
         return (
             card.kanji?.toLowerCase().includes(query) ||
             card.reading?.toLowerCase().includes(query) ||
             card.meaning?.toLowerCase().includes(query)
         );
-    });
-    
+    }).sort((a, b) => a.hidden - b.hidden);
+
     if (isRandom) {
         // Fisher-Yates shuffle
         for (let i = currentDeck.length - 1; i > 0; i--) {
@@ -55,12 +52,22 @@ export function renderCardsGrid(filter = '') {
             [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
         }
     }
-    
+
     const fragment = document.createDocumentFragment();
     const tempContainer = document.createElement('div');
-    tempContainer.innerHTML = currentDeck.map(card => createCardFrontTemplate(card)).join('');
-    
+    tempContainer.innerHTML = currentDeck.map(card => {
+        const html = createCardFrontTemplate(card);
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        if (card.hidden) {
+            div.querySelector('.card').classList.add('hidden-card');
+        }
+        return div.innerHTML;
+    }).join('');
+
     while (tempContainer.firstChild) {
+...
+
         const cardEl = tempContainer.firstChild;
         if (cardEl.nodeType === 1) { 
             cardEl.addEventListener('click', (e) => {

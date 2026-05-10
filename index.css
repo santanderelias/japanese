@@ -226,9 +226,20 @@ body.card-open { overflow: hidden; }
     transition: opacity 0.3s ease;
 }
 
-.view-section.d-none {
-    display: none !important;
-    opacity: 0;
+.card.hidden-card {
+    opacity: 0.6;
+    filter: grayscale(1);
+}
+.card.hidden-card::after {
+    content: 'Hidden';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 0.7rem;
 }
 
 .search-container {

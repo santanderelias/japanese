@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchBtn = document.getElementById('search-btn');
     const searchInput = document.getElementById('search-input');
     const searchClear = document.getElementById('search-clear');
+    
+    // Log version
+    console.log('App loaded version: cards-v11');
 
     searchBtn.addEventListener('click', () => {
         searchInput.classList.toggle('active');
@@ -83,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCardsGrid('');
         searchClear.style.display = 'none';
     });
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
         const isCardOpen = document.body.classList.contains('card-open');
         if (!isCardOpen) return;
 
@@ -166,6 +172,20 @@ function initNavigation() {
                 views[name].classList.add('d-none');
             }
         });
+
+        // Search container visibility
+        const searchContainer = document.getElementById('search-container-top');
+        if (viewName === 'all-cards') {
+            searchContainer.classList.remove('d-none');
+        } else {
+            searchContainer.classList.add('d-none');
+            // Optionally reset search when leaving
+            const searchInput = document.getElementById('search-input');
+            searchInput.value = '';
+            renderCardsGrid('');
+            searchInput.classList.remove('active');
+            document.getElementById('search-clear').style.display = 'none';
+        }
     };
 
     // Dashboard Buttons
