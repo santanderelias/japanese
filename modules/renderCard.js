@@ -66,8 +66,6 @@ export function renderCardsGrid(filter = '') {
     }).join('');
 
     while (tempContainer.firstChild) {
-...
-
         const cardEl = tempContainer.firstChild;
         if (cardEl.nodeType === 1) { 
             cardEl.addEventListener('click', (e) => {
