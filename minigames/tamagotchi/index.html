@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>たまごっち - Tamagotchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1><ruby>電子<rt>でんし</rt></ruby>ペット</h1>
+        </header>
+
+        <section id="status-board">
+            <div class="status-item">
+                <label><ruby>空腹<rt>くうふく</rt></ruby></label>
+                <div class="progress-container">
+                    <div id="hunger-bar" class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="status-item">
+                <label><ruby>機嫌<rt>きげん</rt></ruby></label>
+                <div class="progress-container">
+                    <div id="mood-bar" class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="status-item">
+                <label><ruby>体力<rt>たいりょく</rt></ruby></label>
+                <div class="progress-container">
+                    <div id="energy-bar" class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="status-item">
+                <label><ruby>清潔<rt>せいけつ</rt></ruby></label>
+                <div class="progress-container">
+                    <div id="clean-bar" class="progress-bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pet-area">
+            <div id="pet-svg-container">
+                <!-- SVG will be injected here by JS -->
+            </div>
+            <div id="message-area"></div>
+        </section>
+
+        <nav id="action-bar">
+            <button id="feed-btn" title="食べる">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                    <line x1="6" y1="1" x2="6" y2="4"></line>
+                    <line x1="10" y1="1" x2="10" y2="4"></line>
+                    <line x1="14" y1="1" x2="14" y2="4"></line>
+                </svg>
+                <span><ruby>食<rt>た</rt></ruby>べる</span>
+            </button>
+            <button id="play-btn" title="遊ぶ">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+                <span><ruby>遊<rt>あそ</rt></ruby>ぶ</span>
+            </button>
+            <button id="sleep-btn" title="寝る">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 4v16"></path>
+                    <path d="M2 8h18a2 2 0 0 1 2 2v10"></path>
+                    <path d="M2 17h20"></path>
+                    <path d="M6 8v9"></path>
+                </svg>
+                <span><ruby>寝<rt>ね</rt></ruby>る</span>
+            </button>
+            <button id="clean-btn" title="掃除">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                </svg>
+                <span><ruby>掃除<rt>そうじ</rt></ruby></span>
+            </button>
+        </nav>
+
+        <footer>
+            <div id="settings">
+                <label for="difficulty-select"><ruby>難易度<rt>なんいど</rt></ruby>:</label>
+                <select id="difficulty-select">
+                    <option value="casual"><ruby>易<rt>やさ</rt></ruby>しい</option>
+                    <option value="normal" selected><ruby>普通<rt>ふつう</rt></ruby></option>
+                    <option value="hard"><ruby>難<rt>むずか</rt></ruby>しい</option>
+                </select>
+            </div>
+            <div id="age-display"><ruby>年齢<rt>ねんれい</rt></ruby>: <span id="pet-age">0</span><ruby>日<rt>にち</rt></ruby></div>
+        </footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

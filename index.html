@@ -82,12 +82,12 @@
                         </div>
                         <div class="fs-4 ms-3">🎧</div>
                     </div>
-                    <div class="list-group-item d-flex align-items-center py-3 px-0 border-bottom" id="btn-new-game" style="cursor: pointer;">
+                    <div class="list-group-item d-flex align-items-center py-3 px-0 border-bottom" id="btn-tamagotchi-game" style="cursor: pointer;">
                         <div class="flex-grow-1">
-                            <div class="fw-bold">New Game (Coming Soon)</div>
-                            <div class="small text-muted">Another way to practice Japanese.</div>
+                            <div class="fw-bold">電子ペット (Tamagotchi)</div>
+                            <div class="small text-muted">Take care of your Japanese digital pet.</div>
                         </div>
-                        <div class="fs-4 ms-3">✨</div>
+                        <div class="fs-4 ms-3">🥚</div>
                     </div>
                 </div>
             </div>
@@ -141,9 +141,19 @@
                     <!-- Stats content via JS -->
                 </div>
             </div>
+
+            <!-- Tamagotchi View -->
+            <div id="tamagotchi-view" class="view-section d-none" style="height: calc(100vh - 150px);">
+                <div class="d-flex align-items-center mb-2">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-tamagotchi" title="Back to Dashboard">
+                        ←
+                    </button>
+                </div>
+                <iframe id="tamagotchi-iframe" src="about:blank" style="width: 100%; height: 100%; border: none; border-radius: 1rem;"></iframe>
+            </div>
         </main>
 
-        <footer id="footer">Santael - <span id="version-display"></span></footer>
+        <footer id="footer">Santael - v1.2</footer>
     </section>
 
     <!-- Full-Screen Study View (Hidden by default) -->

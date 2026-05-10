@@ -10,17 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAndRenderCards();
     initAudioHelper();
     initNavigation();
-    
-    // Fetch version dynamically from SW
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        const messageChannel = new MessageChannel();
-        messageChannel.port1.onmessage = (event) => {
-            const version = event.data;
-            console.log('App loaded version:', version);
-            document.getElementById('version-display').textContent = version;
-        };
-        navigator.serviceWorker.controller.postMessage('get-version', [messageChannel.port2]);
-    }
 
     // Event Listeners
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
@@ -171,7 +160,8 @@ function initNavigation() {
         'all-cards': document.getElementById('all-cards-view'),
         'meaning-game': document.getElementById('meaning-game-view'),
         'listening-game': document.getElementById('listening-game-view'),
-        'statistics': document.getElementById('statistics-view')
+        'statistics': document.getElementById('statistics-view'),
+        'tamagotchi': document.getElementById('tamagotchi-view')
     };
 
     window.navigateTo = (viewName) => {
@@ -191,10 +181,20 @@ function initNavigation() {
             searchContainer.classList.add('d-none');
             // Optionally reset search when leaving
             const searchInput = document.getElementById('search-input');
-            searchInput.value = '';
-            renderCardsGrid('');
-            searchInput.classList.remove('active');
-            document.getElementById('search-clear').style.display = 'none';
+            if (searchInput) {
+                searchInput.value = '';
+                renderCardsGrid('');
+                searchInput.classList.remove('active');
+                document.getElementById('search-clear').style.display = 'none';
+            }
+        }
+
+        // Tamagotchi lazy load
+        const tamagotchiIframe = document.getElementById('tamagotchi-iframe');
+        if (viewName === 'tamagotchi') {
+            if (tamagotchiIframe.src === 'about:blank' || tamagotchiIframe.src === '') {
+                tamagotchiIframe.src = 'minigames/tamagotchi/index.html';
+            }
         }
     };
 
@@ -202,12 +202,14 @@ function initNavigation() {
     document.getElementById('btn-all-cards').addEventListener('click', () => navigateTo('all-cards'));
     document.getElementById('btn-meaning-game').addEventListener('click', () => {
         navigateTo('meaning-game');
-        // Start meaning game will be implemented in Phase 3
         if (window.startMeaningGame) window.startMeaningGame();
     });
     document.getElementById('btn-listening-game').addEventListener('click', () => {
         navigateTo('listening-game');
         if (window.startListeningGame) window.startListeningGame();
+    });
+    document.getElementById('btn-tamagotchi-game').addEventListener('click', () => {
+        navigateTo('tamagotchi');
     });
     document.getElementById('btn-statistics-top').addEventListener('click', () => {
         navigateTo('statistics');
@@ -220,4 +222,5 @@ function initNavigation() {
     document.getElementById('back-to-dashboard-meaning').addEventListener('click', backToDashboard);
     document.getElementById('back-to-dashboard-listening').addEventListener('click', backToDashboard);
     document.getElementById('back-to-dashboard-stats').addEventListener('click', backToDashboard);
+    document.getElementById('back-to-dashboard-tamagotchi').addEventListener('click', backToDashboard);
 }

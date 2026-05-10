@@ -1,13 +1,7 @@
-const CACHE_NAME = '1.1';
+const CACHE_NAME = '1.2';
 
 const ASSETS = [
-...
-self.addEventListener('message', (event) => {
-    if (event.data === 'get-version') {
-        event.ports[0].postMessage(CACHE_NAME);
-    }
-});
-
+  '/',
   '/index.html',
   '/index.css',
   '/index.js',
@@ -21,6 +15,9 @@ self.addEventListener('message', (event) => {
   '/modules/games/listeningPractice.js',
   '/modules/statsTracker.js',
   '/modules/statistics.js',
+  '/minigames/tamagotchi/index.html',
+  '/minigames/tamagotchi/style.css',
+  '/minigames/tamagotchi/game.js',
   '/favicon.svg',
   '/icon-192.svg',
   '/icon-512.svg',
@@ -128,6 +125,7 @@ self.addEventListener('message', (event) => {
   '/assets/img_1777993083469.png',
   '/assets/img_1777993120337.png',
   '/assets/img_1777993184179.png',
+  '/assets/img_1777993232982.ogg',
   '/assets/img_1777993232982.png',
   '/assets/img_1777993273448.png',
   '/assets/img_1777993320541.png',
@@ -252,3 +250,8 @@ self.addEventListener('fetch', (e) => {
     );
 });
 
+self.addEventListener('message', (event) => {
+    if (event.data === 'get-version') {
+        event.ports[0].postMessage(CACHE_NAME);
+    }
+});
