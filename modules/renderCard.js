@@ -30,13 +30,23 @@ export async function loadAndRenderCards() {
     }
 }
 
-export function renderCardsGrid() {
+export function renderCardsGrid(filter = '') {
     if (!elements.container) return;
     
     const isRandom = localStorage.getItem('randomize') === 'true';
+    const query = filter.toLowerCase();
     
-    // Filter out hidden cards
-    currentDeck = allCardsData.filter(card => !card.hidden);
+    // Filter cards
+    currentDeck = allCardsData.filter(card => {
+        if (card.hidden) return false;
+        if (!query) return true;
+        
+        return (
+            card.kanji?.toLowerCase().includes(query) ||
+            card.reading?.toLowerCase().includes(query) ||
+            card.meaning?.toLowerCase().includes(query)
+        );
+    });
     
     if (isRandom) {
         // Fisher-Yates shuffle

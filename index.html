@@ -93,7 +93,12 @@
                     <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-cards" title="Back to Dashboard">
                         ←
                     </button>
-                    <h2 class="mb-0">All Cards</h2>
+                    <h2 class="mb-0 flex-grow-1">All Cards</h2>
+                    <div class="search-container">
+                        <button class="btn btn-outline-secondary" id="search-btn">🔍</button>
+                        <input type="text" id="search-input" placeholder="Search...">
+                        <span id="search-clear">&times;</span>
+                    </div>
                 </div>
                 <div id="cards-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <!-- Cards will be rendered here -->

@@ -57,8 +57,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Keyboard Shortcuts
-    document.addEventListener('keydown', (e) => {
+    // Search Handlers
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    const searchClear = document.getElementById('search-clear');
+
+    searchBtn.addEventListener('click', () => {
+        searchInput.classList.toggle('active');
+        if (searchInput.classList.contains('active')) {
+            searchInput.focus();
+        } else {
+            searchInput.value = '';
+            renderCardsGrid('');
+            searchClear.style.display = 'none';
+        }
+    });
+
+    searchInput.addEventListener('input', (e) => {
+        renderCardsGrid(e.target.value);
+        searchClear.style.display = e.target.value ? 'block' : 'none';
+    });
+
+    searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        renderCardsGrid('');
+        searchClear.style.display = 'none';
+    });
         const isCardOpen = document.body.classList.contains('card-open');
         if (!isCardOpen) return;
 
