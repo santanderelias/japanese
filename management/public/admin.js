@@ -85,6 +85,7 @@ function showModal(id = null) {
         document.getElementById('card-id').value = card.id;
         document.getElementById('form-kanji').value = card.kanji || '';
         document.getElementById('form-reading').value = card.reading;
+        document.getElementById('form-romaji').value = card.romaji || '';
         document.getElementById('form-meaning').value = card.meaning;
         document.getElementById('form-sentence').value = card.sentence || '';
         document.getElementById('form-englishSentence').value = card.englishSentence || '';
@@ -157,6 +158,7 @@ async function saveCard() {
         kanji: document.getElementById('form-kanji').value,
         reading: document.getElementById('form-reading').value,
         meaning: document.getElementById('form-meaning').value,
+        romaji: document.getElementById('form-romaji').value,
         sentence: document.getElementById('form-sentence').value,
         englishSentence: document.getElementById('form-englishSentence').value,
         image: document.getElementById('form-image').value,

@@ -1,13 +1,7 @@
 const CACHE_NAME = '1.1';
 
 const ASSETS = [
-...
-self.addEventListener('message', (event) => {
-    if (event.data === 'get-version') {
-        event.ports[0].postMessage(CACHE_NAME);
-    }
-});
-
+  '/',
   '/index.html',
   '/index.css',
   '/index.js',
@@ -250,5 +244,11 @@ self.addEventListener('fetch', (e) => {
             return response || fetch(e.request);
         })
     );
+});
+
+self.addEventListener('message', (event) => {
+    if (event.data === 'get-version') {
+        event.ports[0].postMessage(CACHE_NAME);
+    }
 });
 

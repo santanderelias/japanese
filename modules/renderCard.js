@@ -41,6 +41,7 @@ export function renderCardsGrid(filter = '') {
         return (
             card.kanji?.toLowerCase().includes(query) ||
             card.reading?.toLowerCase().includes(query) ||
+            card.romaji?.toLowerCase().includes(query) ||
             card.meaning?.toLowerCase().includes(query)
         );
     }).sort((a, b) => a.hidden - b.hidden);

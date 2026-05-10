@@ -10,6 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAndRenderCards();
     initAudioHelper();
     initNavigation();
+    
+    // Fetch version dynamically from SW
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        const messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = (event) => {
+            const version = event.data;
+            console.log('App loaded version:', version);
+            document.getElementById('version-display').textContent = version;
+        };
+        navigator.serviceWorker.controller.postMessage('get-version', [messageChannel.port2]);
+    }
 
     // Event Listeners
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
@@ -63,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchClear = document.getElementById('search-clear');
     
     // Log version
-    console.log('App loaded version: cards-v11');
 
     searchBtn.addEventListener('click', () => {
         searchInput.classList.toggle('active');
