@@ -11,6 +11,17 @@
     --border-radius: 20px;
 }
 
+[data-bs-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --container-bg: #2d2d2d;
+    --text-color: #e0e0e0;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --primary-green: #3d5a4a;
+    --primary-blue: #3d4a5a;
+    --primary-yellow: #5a532d;
+    --accent-color: #5a3d4a;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -93,6 +104,10 @@ header h1 {
     padding: 20px;
 }
 
+[data-bs-theme="dark"] #pet-area {
+    background: #1e1e1e;
+}
+
 #pet-svg-container {
     width: 120px;
     height: 120px;
@@ -140,6 +155,11 @@ button svg {
 #sleep-btn { background-color: var(--primary-yellow); color: #5a532d; }
 #clean-btn { background-color: var(--accent-color); color: #5a2d48; }
 
+[data-bs-theme="dark"] #feed-btn { color: #a8d5ba; }
+[data-bs-theme="dark"] #play-btn { color: #a8c4d5; }
+[data-bs-theme="dark"] #sleep-btn { color: #f5e6a8; }
+[data-bs-theme="dark"] #clean-btn { color: #d5a8c4; }
+
 button:hover {
     filter: brightness(1.05);
 }
@@ -153,11 +173,17 @@ footer {
     border-top: 1px solid #eee;
 }
 
+[data-bs-theme="dark"] footer {
+    border-top-color: #444;
+}
+
 #settings select {
     padding: 2px 5px;
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 0.8rem;
+    background-color: var(--container-bg);
+    color: var(--text-color);
 }
 
 @keyframes float {

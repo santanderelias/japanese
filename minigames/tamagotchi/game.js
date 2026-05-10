@@ -258,4 +258,11 @@ class Tamagotchi {
 // Start the game
 window.onload = () => {
     new Tamagotchi();
+
+    // Listen for theme sync messages
+    window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'set-theme') {
+            document.documentElement.setAttribute('data-bs-theme', event.data.theme);
+        }
+    });
 };

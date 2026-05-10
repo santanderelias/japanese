@@ -10,6 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAndRenderCards();
     initAudioHelper();
     initNavigation();
+    
+    // SW Asset Download Indicator
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+            const indicator = document.getElementById('download-indicator');
+            
+            // Check if there is an installing worker (assets being downloaded)
+            const checkInstalling = (worker) => {
+                if (worker) {
+                    worker.addEventListener('statechange', (e) => {
+                        if (e.target.state === 'installing') {
+                            indicator.classList.remove('d-none');
+                        } else if (e.target.state === 'activated' || e.target.state === 'redundant') {
+                            indicator.classList.add('d-none');
+                        }
+                    });
+                    if (worker.state === 'installing') indicator.classList.remove('d-none');
+                }
+            };
+
+            registration.addEventListener('updatefound', () => {
+                checkInstalling(registration.installing);
+            });
+
+            // Initial check
+            if (registration.installing) checkInstalling(registration.installing);
+        });
+    }
 
     // Event Listeners
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
@@ -134,6 +162,10 @@ function setTheme(theme) {
     if (themeIcon) {
         themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
     }
+
+    // Sync theme with active minigame iframes
+    const tamagotchiIframe = document.getElementById('tamagotchi-iframe');
+    if (tamagotchiIframe) syncMinigameTheme(tamagotchiIframe);
 }
 
 function initRandomize() {
@@ -164,6 +196,9 @@ function initNavigation() {
         'tamagotchi': document.getElementById('tamagotchi-view')
     };
 
+    const brand = document.getElementById('app-brand');
+    const backBtn = document.getElementById('global-back-btn');
+
     window.navigateTo = (viewName) => {
         Object.keys(views).forEach(name => {
             if (name === viewName) {
@@ -172,6 +207,15 @@ function initNavigation() {
                 views[name].classList.add('d-none');
             }
         });
+
+        // Toggle Top Bar Navigation (Brand vs Back Button)
+        if (viewName === 'dashboard' || viewName === 'all-cards') {
+            brand.classList.remove('d-none');
+            backBtn.classList.add('d-none');
+        } else {
+            brand.classList.add('d-none');
+            backBtn.classList.remove('d-none');
+        }
 
         // Search container visibility
         const searchContainer = document.getElementById('search-container-top');
@@ -189,11 +233,14 @@ function initNavigation() {
             }
         }
 
-        // Tamagotchi lazy load
+        // Tamagotchi lazy load & Theme Sync
         const tamagotchiIframe = document.getElementById('tamagotchi-iframe');
         if (viewName === 'tamagotchi') {
             if (tamagotchiIframe.src === 'about:blank' || tamagotchiIframe.src === '') {
                 tamagotchiIframe.src = 'minigames/tamagotchi/index.html';
+                tamagotchiIframe.onload = () => syncMinigameTheme(tamagotchiIframe);
+            } else {
+                syncMinigameTheme(tamagotchiIframe);
             }
         }
     };
@@ -216,11 +263,13 @@ function initNavigation() {
         if (window.initStatistics) window.initStatistics();
     });
 
-    // Back Buttons
-    const backToDashboard = () => navigateTo('dashboard');
-    document.getElementById('back-to-dashboard-cards').addEventListener('click', backToDashboard);
-    document.getElementById('back-to-dashboard-meaning').addEventListener('click', backToDashboard);
-    document.getElementById('back-to-dashboard-listening').addEventListener('click', backToDashboard);
-    document.getElementById('back-to-dashboard-stats').addEventListener('click', backToDashboard);
-    document.getElementById('back-to-dashboard-tamagotchi').addEventListener('click', backToDashboard);
+    // Global Back Button
+    backBtn.addEventListener('click', () => navigateTo('dashboard'));
+}
+
+function syncMinigameTheme(iframe) {
+    const theme = document.documentElement.getAttribute('data-bs-theme');
+    if (iframe && iframe.contentWindow && iframe.src !== 'about:blank') {
+        iframe.contentWindow.postMessage({ type: 'set-theme', theme }, '*');
+    }
 }
