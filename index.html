@@ -16,21 +16,11 @@
             console.log('sw.js enabled')
         } 
     </script>
+    <!-- Home Section -->
     <section id="home-section">
         <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
             <div class="container-fluid">
-                <div class="d-flex align-items-center">
-                    <a class="navbar-brand" href="#" id="app-brand">Cards</a>
-                    <button class="btn btn-link link-body-emphasis p-0 text-decoration-none d-none" id="global-back-btn">
-                        <span class="fs-4">←</span> <span class="ms-1">Back</span>
-                    </button>
-                    <div id="download-indicator" class="ms-3 d-none">
-                        <div class="spinner-border spinner-border-sm text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <span class="ms-2 small text-primary fw-bold">Syncing Assets...</span>
-                    </div>
-                </div>
+                <a class="navbar-brand" href="#">Cards</a>
                 <div class="d-flex align-items-center">
                     <div id="search-container-top" class="search-container d-none">
                         <button class="btn btn-outline-secondary me-2" id="search-btn">🔍</button>
@@ -99,11 +89,24 @@
                         </div>
                         <div class="fs-4 ms-3">🥚</div>
                     </div>
+                    <div class="list-group-item d-flex align-items-center py-3 px-0 border-bottom" id="btn-resolution-race" style="cursor: pointer;">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold">Resolution Race</div>
+                            <div class="small text-muted">Guess the word before the image unblurs.</div>
+                        </div>
+                        <div class="fs-4 ms-3">🏎️</div>
+                    </div>
                 </div>
             </div>
 
             <!-- All Cards View -->
             <div id="all-cards-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-4">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-cards" title="Back to Dashboard">
+                        ←
+                    </button>
+                    <h2 class="mb-0 flex-grow-1">All Cards</h2>
+                </div>
                 <div id="cards-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <!-- Cards will be rendered here -->
                 </div>
@@ -111,6 +114,11 @@
 
             <!-- Meaning Game View -->
             <div id="meaning-game-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-2">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-meaning" title="Back to Dashboard">
+                        ←
+                    </button>
+                </div>
                 <div id="meaning-game-container" class="game-container">
                     <!-- Game content via JS -->
                 </div>
@@ -118,6 +126,11 @@
 
             <!-- Listening Game View -->
             <div id="listening-game-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-2">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-listening" title="Back to Dashboard">
+                        ←
+                    </button>
+                </div>
                 <div id="listening-game-container" class="game-container">
                     <!-- Game content via JS -->
                 </div>
@@ -125,6 +138,12 @@
 
             <!-- Statistics View -->
             <div id="statistics-view" class="view-section d-none">
+                <div class="d-flex align-items-center mb-4">
+                    <button class="btn btn-outline-secondary back-btn me-3" id="back-to-dashboard-stats" title="Back to Dashboard">
+                        ←
+                    </button>
+                    <h2 class="mb-0">Statistics</h2>
+                </div>
                 <div id="statistics-container" class="container pb-4">
                     <!-- Stats content via JS -->
                 </div>
@@ -134,9 +153,14 @@
             <div id="tamagotchi-view" class="view-section d-none" style="height: calc(100vh - 150px);">
                 <iframe id="tamagotchi-iframe" src="about:blank" style="width: 100%; height: 100%; border: none; border-radius: 1rem;"></iframe>
             </div>
+
+            <!-- Resolution Race View -->
+            <div id="resolution-race-view" class="view-section d-none" style="height: calc(100vh - 150px);">
+                <iframe id="resolution-race-iframe" src="about:blank" style="width: 100%; height: 100%; border: none; border-radius: 1rem;"></iframe>
+            </div>
         </main>
 
-        <footer id="footer">Santael - v1.2</footer>
+        <footer id="footer">Santael - v1.4</footer>
     </section>
 
     <!-- Full-Screen Study View (Hidden by default) -->

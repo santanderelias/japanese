@@ -193,7 +193,8 @@ function initNavigation() {
         'meaning-game': document.getElementById('meaning-game-view'),
         'listening-game': document.getElementById('listening-game-view'),
         'statistics': document.getElementById('statistics-view'),
-        'tamagotchi': document.getElementById('tamagotchi-view')
+        'tamagotchi': document.getElementById('tamagotchi-view'),
+        'resolution-race': document.getElementById('resolution-race-view')
     };
 
     const brand = document.getElementById('app-brand');
@@ -243,6 +244,17 @@ function initNavigation() {
                 syncMinigameTheme(tamagotchiIframe);
             }
         }
+
+        // Resolution Race lazy load & Theme Sync
+        const resolutionIframe = document.getElementById('resolution-race-iframe');
+        if (viewName === 'resolution-race') {
+            if (resolutionIframe.src === 'about:blank' || resolutionIframe.src === '') {
+                resolutionIframe.src = 'minigames/resolution-race/index.html';
+                resolutionIframe.onload = () => syncMinigameTheme(resolutionIframe);
+            } else {
+                syncMinigameTheme(resolutionIframe);
+            }
+        }
     };
 
     // Dashboard Buttons
@@ -257,6 +269,9 @@ function initNavigation() {
     });
     document.getElementById('btn-tamagotchi-game').addEventListener('click', () => {
         navigateTo('tamagotchi');
+    });
+    document.getElementById('btn-resolution-race').addEventListener('click', () => {
+        navigateTo('resolution-race');
     });
     document.getElementById('btn-statistics-top').addEventListener('click', () => {
         navigateTo('statistics');

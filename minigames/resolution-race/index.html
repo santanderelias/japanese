@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolution Race</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="status-bar">
+            <div id="score-display">Score: 0</div>
+            <div id="timer-container">
+                <div id="timer-bar"></div>
+            </div>
+        </div>
+
+        <div id="image-container">
+            <img id="word-image" src="" alt="Vocabulary Image">
+            <button id="play-audio-btn">🔊</button>
+        </div>
+
+        <div id="input-area">
+            <input type="text" id="user-input" placeholder="Type reading or meaning..." autocomplete="off" autofocus>
+            <div id="feedback-msg"></div>
+        </div>
+
+        <div id="start-screen">
+            <h2>Resolution Race</h2>
+            <p>Listen to the word and guess before the image resolves!</p>
+            <button id="start-btn">Start Game</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

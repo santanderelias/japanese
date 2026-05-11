@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.3';
+const CACHE_NAME = '1.4';
 
 const ASSETS = [
   '/',
@@ -18,7 +18,11 @@ const ASSETS = [
   '/minigames/tamagotchi/index.html',
   '/minigames/tamagotchi/style.css',
   '/minigames/tamagotchi/game.js',
+  '/minigames/resolution-race/index.html',
+  '/minigames/resolution-race/style.css',
+  '/minigames/resolution-race/game.js',
   '/favicon.svg',
+
   '/icon-192.svg',
   '/icon-512.svg',
   '/assets/audio_1777990083306.ogg',
