@@ -200,7 +200,7 @@ function initNavigation() {
     const brand = document.getElementById('app-brand');
     const backBtn = document.getElementById('global-back-btn');
 
-    window.navigateTo = (viewName) => {
+    window.navigateTo = (viewName, pushState = true) => {
         Object.keys(views).forEach(name => {
             if (name === viewName) {
                 views[name].classList.remove('d-none');
@@ -209,8 +209,13 @@ function initNavigation() {
             }
         });
 
+        // Add history state if navigating away from dashboard
+        if (pushState && viewName !== 'dashboard') {
+            window.history.pushState({ view: viewName }, '');
+        }
+
         // Toggle Top Bar Navigation (Brand vs Back Button)
-        if (viewName === 'dashboard' || viewName === 'all-cards') {
+        if (viewName === 'dashboard') {
             brand.classList.remove('d-none');
             backBtn.classList.add('d-none');
         } else {
@@ -254,8 +259,21 @@ function initNavigation() {
             } else {
                 syncMinigameTheme(resolutionIframe);
             }
+        } else {
+            // Stop minigames if navigating away
+            if (tamagotchiIframe.contentWindow?.gameInstance) tamagotchiIframe.contentWindow.gameInstance.stopGame?.();
+            if (resolutionIframe.contentWindow?.gameInstance) resolutionIframe.contentWindow.gameInstance.stopGame?.();
         }
     };
+
+    // Native Back Button Support
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.view) {
+            navigateTo(event.state.view, false);
+        } else {
+            navigateTo('dashboard', false);
+        }
+    });
 
     // Dashboard Buttons
     document.getElementById('btn-all-cards').addEventListener('click', () => navigateTo('all-cards'));

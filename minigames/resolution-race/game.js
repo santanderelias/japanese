@@ -38,15 +38,22 @@ class ResolutionRace {
             
             this.elements.input.oninput = (e) => this.checkInput(e.target.value);
 
+            // Set initial theme
+            this.applyTheme(window.localStorage.getItem('theme') || 'dark');
+
             // Theme sync listener
             window.addEventListener('message', (event) => {
                 if (event.data && event.data.type === 'set-theme') {
-                    document.documentElement.setAttribute('data-bs-theme', event.data.theme);
+                    this.applyTheme(event.data.theme);
                 }
             });
         } catch (err) {
             console.error('Failed to load game data:', err);
         }
+    }
+
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-bs-theme', theme);
     }
 
     startGame() {
@@ -148,8 +155,14 @@ class ResolutionRace {
     updateScore() {
         this.elements.score.textContent = `Score: ${this.score}`;
     }
+
+    stopGame() {
+        clearInterval(this.timerInterval);
+        this.isGameOver = true;
+    }
 }
 
+window.ResolutionRace = ResolutionRace;
 window.onload = () => {
-    new ResolutionRace();
+    window.gameInstance = new ResolutionRace();
 };
