@@ -4,8 +4,7 @@ let displayLimit = 5;
 
 export async function initStatistics() {
     displayLimit = 5; // Reset limit on each entry
-    const response = await fetch('data.json');
-    const allCards = await response.json();
+    const allCards = window.allCardsData || [];
     const stats = getStats();
     
     renderStatistics(allCards, stats);

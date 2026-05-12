@@ -4,7 +4,16 @@ import { initMeaningGame } from './modules/games/meaningMatch.js';
 import { initListeningGame } from './modules/games/listeningPractice.js';
 import { initStatistics } from './modules/statistics.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Fetch data once
+    try {
+        const response = await fetch('data.json');
+        window.allCardsData = await response.json();
+    } catch (e) {
+        console.error('Failed to load data:', e);
+        window.allCardsData = [];
+    }
+
     initTheme();
     initRandomize();
     loadAndRenderCards();

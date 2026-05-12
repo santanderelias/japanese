@@ -14,20 +14,10 @@ const elements = {
     answerSection: null // Will be assigned after study view render
 };
 
-export async function loadAndRenderCards() {
+export function loadAndRenderCards() {
     if (!elements.container) return;
-
-    try {
-        const response = await fetch('data.json');
-        if (!response.ok) throw new Error('Failed to fetch data.json');
-        
-        allCardsData = await response.json();
-        renderCardsGrid();
-        
-    } catch (error) {
-        console.error('Error rendering cards:', error);
-        showNotification('Error loading cards. Please try again.', 'danger');
-    }
+    allCardsData = window.allCardsData || [];
+    renderCardsGrid();
 }
 export function renderCardsGrid(filter = '') {
     if (!elements.container) return;

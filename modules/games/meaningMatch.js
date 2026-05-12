@@ -6,9 +6,7 @@ let lastWordId = null;
 let hintUsedInRound = false;
 
 export async function initMeaningGame() {
-    const response = await fetch('data.json');
-    const data = await response.json();
-    allCards = data.filter(c => !c.hidden);
+    allCards = window.allCardsData ? window.allCardsData.filter(c => !c.hidden) : [];
     startNewRound();
 }
 
