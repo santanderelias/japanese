@@ -2,8 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const DATA_PATH = path.join(__dirname, '../data.json');
+const SW_TEMPLATE_PATH = path.join(__dirname, 'cache/sw_template.js');
 const SW_PATH = path.join(__dirname, '../sw.js');
 const ASSETS_DIR = path.join(__dirname, '../assets');
+const VERSION_PATH = path.join(__dirname, '../version.json');
 
 function readData() {
     try {
@@ -19,15 +21,6 @@ function writeData(data) {
     fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2), 'utf8');
     updateServiceWorker();
 }
-
-const fs = require('fs');
-const path = require('path');
-
-const DATA_PATH = path.join(__dirname, '../data.json');
-const SW_TEMPLATE_PATH = path.join(__dirname, 'cache/sw_template.js');
-const SW_PATH = path.join(__dirname, '../sw.js');
-const ASSETS_DIR = path.join(__dirname, '../assets');
-const VERSION_PATH = path.join(__dirname, '../version.json'); // New config for version
 
 function getVersion() {
     try {
@@ -45,7 +38,7 @@ function updateServiceWorker() {
         
         // Build asset list
         const assetFiles = fs.readdirSync(ASSETS_DIR)
-            .filter(f => /\.(ogg|png|jpg|svg|mp3|css|js)$/.test(f)); // Only valid types
+            .filter(f => /\.(ogg|mp3|png|jpg|jpeg|svg|webp|wav)$/i.test(f)); // Strict filter
         
         const coreAssets = [
             '/', '/index.html', '/index.css', '/index.js', '/data.json',
@@ -82,5 +75,6 @@ module.exports = {
     readData,
     writeData,
     saveAsset,
-    ASSETS_DIR
+    ASSETS_DIR,
+    updateServiceWorker
 };
