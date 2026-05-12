@@ -1,4 +1,5 @@
-const CACHE_NAME = '1.04b';
+const CACHE_NAME = '1.5';
+
 
 const ASSETS = [
   '/',

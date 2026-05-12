@@ -20,43 +20,52 @@ function writeData(data) {
     updateServiceWorker();
 }
 
+const fs = require('fs');
+const path = require('path');
+
+const DATA_PATH = path.join(__dirname, '../data.json');
+const SW_TEMPLATE_PATH = path.join(__dirname, 'cache/sw_template.js');
+const SW_PATH = path.join(__dirname, '../sw.js');
+const ASSETS_DIR = path.join(__dirname, '../assets');
+const VERSION_PATH = path.join(__dirname, '../version.json'); // New config for version
+
+function getVersion() {
+    try {
+        const content = fs.readFileSync(VERSION_PATH, 'utf8');
+        return JSON.parse(content).version;
+    } catch (e) {
+        return '1.0';
+    }
+}
+
 function updateServiceWorker() {
     try {
-        let swContent = fs.readFileSync(SW_PATH, 'utf8');
+        let template = fs.readFileSync(SW_TEMPLATE_PATH, 'utf8');
+        const version = getVersion();
         
-        // 1. Bump Cache Name
-        swContent = swContent.replace(/const CACHE_NAME = 'cards-v(\d+)';/, (match, version) => {
-            return `const CACHE_NAME = 'cards-v${parseInt(version) + 1}';`;
-        });
-
-        // 2. Update ASSETS array
-        const cards = readData();
-        const assetFiles = fs.readdirSync(ASSETS_DIR);
+        // Build asset list
+        const assetFiles = fs.readdirSync(ASSETS_DIR)
+            .filter(f => /\.(ogg|png|jpg|svg|mp3|css|js)$/.test(f)); // Only valid types
         
         const coreAssets = [
-            '/',
-            '/index.html',
-            '/index.css',
-            '/index.js',
-            '/data.json',
-            '/vendor/bootstrap.min.css',
-            '/vendor/bootstrap.bundle.min.js',
-            '/modules/card.js',
-            '/modules/notifications.js',
-            '/modules/renderCard.js',
-            '/favicon.svg',
-            '/icon-192.svg',
-            '/icon-512.svg'
+            '/', '/index.html', '/index.css', '/index.js', '/data.json',
+            '/vendor/bootstrap.min.css', '/vendor/bootstrap.bundle.min.js',
+            '/modules/card.js', '/modules/notifications.js', '/modules/renderCard.js',
+            '/modules/games/meaningMatch.js', '/modules/games/listeningPractice.js',
+            '/modules/statsTracker.js', '/modules/statistics.js',
+            '/minigames/tamagotchi/index.html', '/minigames/tamagotchi/style.css',
+            '/minigames/tamagotchi/game.js', '/minigames/resolution-race/index.html',
+            '/minigames/resolution-race/style.css', '/minigames/resolution-race/game.js'
         ];
-
         const allAssets = [...coreAssets, ...assetFiles.map(f => `/assets/${f}`)];
-        
-        const assetsString = `const ASSETS = [\n  '${allAssets.join("',\n  '")}'\n];`;
-        
-        swContent = swContent.replace(/const ASSETS = \[[\s\S]*?\];/, assetsString);
-        
+        const assetsJson = JSON.stringify(allAssets, null, 2);
+
+        // Populate template
+        let swContent = template
+            .replace('APP_VERSION_PLACEHOLDER', version)
+            .replace('ASSETS_PLACEHOLDER', assetsJson);
+            
         fs.writeFileSync(SW_PATH, swContent, 'utf8');
-        console.log('sw.js updated with new assets and bumped version.');
     } catch (err) {
         console.error('Error updating sw.js:', err);
     }

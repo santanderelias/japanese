@@ -88,34 +88,32 @@ function handleUpload(req, res) {
 
     req.on('end', () => {
         const parts = buffer.split(Buffer.from('--' + boundary));
-        let filename = '';
         let fileBuffer = null;
+        let fileType = ''; // 'image' or 'audio'
 
         for (let part of parts) {
             if (part.includes('filename=')) {
                 const headerEnd = part.indexOf('\r\n\r\n');
                 const header = part.slice(0, headerEnd).toString();
-                const content = part.slice(headerEnd + 4, part.lastIndexOf('\r\n'));
+                fileBuffer = part.slice(headerEnd + 4, part.lastIndexOf('\r\n'));
 
-                const nameMatch = header.match(/filename="(.+?)"/);
-                if (nameMatch) {
-                    filename = nameMatch[1];
-                    // Ensure unique filename with timestamp
-                    const ext = filename.split('.').pop();
-                    const type = header.includes('image') ? 'img' : 'audio';
-                    filename = `${type}_${Date.now()}.${ext}`;
-                    fileBuffer = content;
-                }
+                if (header.includes('image/')) fileType = 'img';
+                else if (header.includes('audio/')) fileType = 'audio';
             }
         }
 
-        if (fileBuffer) {
+        if (fileBuffer && fileType) {
+            // Determine extension from MIME type
+            const mimeType = buffer.toString().match(/(image|audio)\/([a-zA-Z0-9]+)/);
+            const ext = mimeType ? (mimeType[2] === 'jpeg' ? 'jpg' : mimeType[2]) : 'bin';
+            const filename = `${fileType}_${Date.now()}.${ext}`;
+
             fileSystem.saveAsset(filename, fileBuffer);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ filename }));
         } else {
             res.writeHead(400);
-            res.end('No file uploaded');
+            res.end('Unsupported file or no file uploaded');
         }
     });
 }
