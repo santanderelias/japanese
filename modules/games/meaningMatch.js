@@ -5,8 +5,8 @@ let currentCard = null;
 let lastWordId = null;
 let hintUsedInRound = false;
 
-export async function initMeaningGame() {
-    allCards = window.allCardsData ? window.allCardsData.filter(c => !c.hidden) : [];
+export function initMeaningGame(data) {
+    allCards = data ? data.filter(c => !c.hidden) : [];
     startNewRound();
 }
 

@@ -14,9 +14,9 @@ const elements = {
     answerSection: null // Will be assigned after study view render
 };
 
-export function loadAndRenderCards() {
+export function loadAndRenderCards(data) {
     if (!elements.container) return;
-    allCardsData = window.allCardsData || [];
+    allCardsData = data || [];
     renderCardsGrid();
 }
 export function renderCardsGrid(filter = '') {

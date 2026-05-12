@@ -16,35 +16,37 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     initTheme();
     initRandomize();
-    loadAndRenderCards();
+    
+    // 2. Initialize with injected data
+    loadAndRenderCards(window.allCardsData);
     initAudioHelper();
     initNavigation();
     
+    // SW Asset Download Indicator logic...
+    
     // SW Asset Download Indicator
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => {
+        navigator.serviceWorker.getRegistration().then(registration => {
+            if (!registration) return;
+
             const indicator = document.getElementById('download-indicator');
             
-            // Check if there is an installing worker (assets being downloaded)
             const checkInstalling = (worker) => {
-                if (worker) {
-                    worker.addEventListener('statechange', (e) => {
-                        if (e.target.state === 'installing') {
-                            indicator.classList.remove('d-none');
-                        } else if (e.target.state === 'activated' || e.target.state === 'redundant') {
-                            indicator.classList.add('d-none');
-                        }
-                    });
-                    if (worker.state === 'installing') indicator.classList.remove('d-none');
-                }
+                if (!worker) return;
+                worker.addEventListener('statechange', (e) => {
+                    if (e.target.state === 'installing') indicator.classList.remove('d-none');
+                    else if (e.target.state === 'activated') indicator.classList.add('d-none');
+                });
+                if (worker.state === 'installing') indicator.classList.remove('d-none');
             };
 
+            // Existing worker
+            if (registration.installing) checkInstalling(registration.installing);
+            if (registration.waiting) console.log('New version waiting...');
+            
             registration.addEventListener('updatefound', () => {
                 checkInstalling(registration.installing);
             });
-
-            // Initial check
-            if (registration.installing) checkInstalling(registration.installing);
         });
     }
 
@@ -288,11 +290,11 @@ function initNavigation() {
     document.getElementById('btn-all-cards').addEventListener('click', () => navigateTo('all-cards'));
     document.getElementById('btn-meaning-game').addEventListener('click', () => {
         navigateTo('meaning-game');
-        if (window.startMeaningGame) window.startMeaningGame();
+        if (window.startMeaningGame) window.startMeaningGame(window.allCardsData);
     });
     document.getElementById('btn-listening-game').addEventListener('click', () => {
         navigateTo('listening-game');
-        if (window.startListeningGame) window.startListeningGame();
+        if (window.startListeningGame) window.startListeningGame(window.allCardsData);
     });
     document.getElementById('btn-tamagotchi-game').addEventListener('click', () => {
         navigateTo('tamagotchi');
@@ -302,7 +304,7 @@ function initNavigation() {
     });
     document.getElementById('btn-statistics-top').addEventListener('click', () => {
         navigateTo('statistics');
-        if (window.initStatistics) window.initStatistics();
+        if (window.initStatistics) window.initStatistics(window.allCardsData);
     });
 
     // Global Back Button

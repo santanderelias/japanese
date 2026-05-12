@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
         showModal();
     });
 
+    document.getElementById('save-version-btn').addEventListener('click', saveVersion);
+    loadVersion();
+
     document.getElementById('save-card-btn').addEventListener('click', saveCard);
 
     // Image Upload Handlers
@@ -58,10 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-async function fetchCards() {
-    const res = await fetch('/api/cards');
-    allCards = await res.json();
-    renderTable();
+async function loadVersion() {
+    const res = await fetch('/api/version');
+    const data = await res.json();
+    document.getElementById('app-version').value = data.version;
+}
+
+async function saveVersion() {
+    const version = document.getElementById('app-version').value;
+    await fetch('/api/version', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ version })
+    });
+    alert('Version updated and Service Worker regenerated.');
 }
 
 function renderTable() {

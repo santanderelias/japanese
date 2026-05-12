@@ -31,6 +31,11 @@ function getVersion() {
     }
 }
 
+function writeVersion(version) {
+    fs.writeFileSync(VERSION_PATH, JSON.stringify({ version }, null, 2), 'utf8');
+    updateServiceWorker();
+}
+
 function updateServiceWorker() {
     try {
         let template = fs.readFileSync(SW_TEMPLATE_PATH, 'utf8');
@@ -76,5 +81,7 @@ module.exports = {
     writeData,
     saveAsset,
     ASSETS_DIR,
-    updateServiceWorker
+    updateServiceWorker,
+    getVersion,
+    writeVersion
 };

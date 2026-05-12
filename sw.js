@@ -244,7 +244,10 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
     e.respondWith(
         caches.match(e.request, { ignoreSearch: true }).then((response) => {
-            return response || fetch(e.request);
+            if (response) return response;
+            return fetch(e.request).then(networkResponse => {
+                return networkResponse;
+            });
         })
     );
 });

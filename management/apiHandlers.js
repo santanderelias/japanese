@@ -28,6 +28,28 @@ function handle(req, res) {
         });
     }
 
+    else if (parsedUrl.pathname === '/api/version' && method === 'GET') {
+        const version = fileSystem.getVersion();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ version }));
+    }
+
+    else if (parsedUrl.pathname === '/api/version' && method === 'POST') {
+        let body = '';
+        req.on('data', chunk => body += chunk.toString());
+        req.on('end', () => {
+            try {
+                const { version } = JSON.parse(body);
+                fileSystem.writeVersion(version);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true }));
+            } catch (err) {
+                res.writeHead(400);
+                res.end('Invalid JSON');
+            }
+        });
+    }
+
     else if (parsedUrl.pathname === '/api/upload' && method === 'POST') {
         handleUpload(req, res);
     }

@@ -15,7 +15,24 @@
         </header>
 
         <main>
-            <table class="table table-hover align-middle mb-0" id="cards-table">
+            <div class="card mb-4">
+            <div class="card-header">App Settings</div>
+            <div class="card-body">
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="app-version" class="col-form-label">App Version</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="app-version" class="form-control" placeholder="1.0">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary" id="save-version-btn">Save & Regenerate SW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-hover align-middle mb-0" id="cards-table">
                 <thead>
                     <tr>
                         <th style="width: 100px;">Image</th>

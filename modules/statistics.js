@@ -2,9 +2,9 @@ import { getStats } from './statsTracker.js';
 
 let displayLimit = 5;
 
-export async function initStatistics() {
+export function initStatistics(data) {
     displayLimit = 5; // Reset limit on each entry
-    const allCards = window.allCardsData || [];
+    const allCards = data || [];
     const stats = getStats();
     
     renderStatistics(allCards, stats);
