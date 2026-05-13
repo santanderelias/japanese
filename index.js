@@ -1,7 +1,6 @@
 import { loadAndRenderCards, hideFullScreenCard, renderCardsGrid, toggleAnswer, showNextCard, showPrevCard } from './modules/renderCard.js';
 import { showNotification } from './modules/notifications.js';
-import { initMeaningGame } from './modules/games/meaningMatch.js';
-import { initListeningGame } from './modules/games/listeningPractice.js';
+// Note: These will be dynamically imported/injected
 import { initStatistics } from './modules/statistics.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -201,8 +200,8 @@ function initNavigation() {
     const views = {
         'dashboard': document.getElementById('dashboard-view'),
         'all-cards': document.getElementById('all-cards-view'),
-        'meaning-game': document.getElementById('meaning-game-view'),
-        'listening-game': document.getElementById('listening-game-view'),
+        'meaning-match': document.getElementById('meaning-match-view'),
+        'listening-practice': document.getElementById('listening-practice-view'),
         'statistics': document.getElementById('statistics-view'),
         'tamagotchi': document.getElementById('tamagotchi-view'),
         'resolution-race': document.getElementById('resolution-race-view')
@@ -250,32 +249,45 @@ function initNavigation() {
             }
         }
 
-        // Tamagotchi lazy load & Theme Sync
-        const tamagotchiIframe = document.getElementById('tamagotchi-iframe');
-        if (viewName === 'tamagotchi') {
-            if (tamagotchiIframe.src === 'about:blank' || tamagotchiIframe.src === '') {
-                tamagotchiIframe.src = 'minigames/tamagotchi/index.html';
-                tamagotchiIframe.onload = () => syncMinigameTheme(tamagotchiIframe);
-            } else {
-                syncMinigameTheme(tamagotchiIframe);
-            }
-        }
+        // Clear previous game instances
+        if (window.gameInstance && window.gameInstance.stopGame) window.gameInstance.stopGame();
 
-        // Resolution Race lazy load & Theme Sync
-        const resolutionIframe = document.getElementById('resolution-race-iframe');
-        if (viewName === 'resolution-race') {
-            if (resolutionIframe.src === 'about:blank' || resolutionIframe.src === '') {
-                resolutionIframe.src = 'minigames/resolution-race/index.html';
-                resolutionIframe.onload = () => syncMinigameTheme(resolutionIframe);
-            } else {
-                syncMinigameTheme(resolutionIframe);
+        // Minigame Loader & Theme Sync
+        if (['tamagotchi', 'resolution-race', 'meaning-match', 'listening-practice'].includes(viewName)) {
+            const rootId = `${viewName}-game-root`;
+            const root = document.getElementById(rootId);
+
+            if (root.innerHTML === '') {
+                // Add CSS
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = `minigames/${viewName}/style.css`;
+                document.head.appendChild(link);
+
+                // Load Script
+                const script = document.createElement('script');
+                script.type = 'module';
+                script.src = `minigames/${viewName}/game.js`;
+                script.onload = () => {
+                     let gameClass;
+                     if (viewName === 'tamagotchi') gameClass = Tamagotchi;
+                     if (viewName === 'resolution-race') gameClass = ResolutionRace;
+                     if (viewName === 'meaning-match') gameClass = MeaningMatch;
+                     if (viewName === 'listening-practice') gameClass = ListeningPractice;
+                     
+                     if (gameClass) {
+                         window.gameInstance = new gameClass(rootId);
+                         window.gameInstance.init(window.allCardsData);
+                     }
+                };
+                document.body.appendChild(script);
+            } else if (window.gameInstance && window.gameInstance.init) {
+                // Re-init if already loaded but returning
+                window.gameInstance.init(window.allCardsData);
             }
-        } else {
-            // Stop minigames if navigating away
-            if (tamagotchiIframe.contentWindow?.gameInstance) tamagotchiIframe.contentWindow.gameInstance.stopGame?.();
-            if (resolutionIframe.contentWindow?.gameInstance) resolutionIframe.contentWindow.gameInstance.stopGame?.();
         }
-    };
+        };
+
 
     // Native Back Button Support
     window.addEventListener('popstate', (event) => {
@@ -289,12 +301,10 @@ function initNavigation() {
     // Dashboard Buttons
     document.getElementById('btn-all-cards').addEventListener('click', () => navigateTo('all-cards'));
     document.getElementById('btn-meaning-game').addEventListener('click', () => {
-        navigateTo('meaning-game');
-        if (window.startMeaningGame) window.startMeaningGame(window.allCardsData);
+        navigateTo('meaning-match');
     });
     document.getElementById('btn-listening-game').addEventListener('click', () => {
-        navigateTo('listening-game');
-        if (window.startListeningGame) window.startListeningGame(window.allCardsData);
+        navigateTo('listening-practice');
     });
     document.getElementById('btn-tamagotchi-game').addEventListener('click', () => {
         navigateTo('tamagotchi');

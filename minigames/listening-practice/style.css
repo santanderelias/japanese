@@ -1,0 +1,7 @@
+.lp_game .lp_game-container { max-width: 600px; margin: 0 auto; padding: 1rem; text-align: center; }
+.lp_game .lp_play-audio-btn-large { background-color: #007bff; color: white; border: none; border-radius: 50%; width: 90px; height: 90px; font-size: 2.5rem; display: flex; align-items: center; justify-content: center; margin: 1rem auto; cursor: pointer; box-shadow: 0 5px 15px rgba(0,123,255,0.4); }
+.lp_game .lp_listening-option { background-color: var(--bs-tertiary-bg); border: 2px solid var(--bs-border-color); border-radius: 1rem; padding: 0.8rem; font-size: 1rem; width: 100%; text-align: center; color: var(--bs-body-color); }
+.lp_game .lp_correct { background-color: #28a745 !important; border-color: #28a745 !important; color: white !important; }
+.lp_game .lp_wrong { background-color: #dc3545 !important; border-color: #dc3545 !important; color: white !important; }
+.lp_game .lp_game-option-btn { background-color: var(--bs-tertiary-bg); border: 2px solid var(--bs-border-color); border-radius: 1rem; color: var(--bs-body-color); transition: all 0.2s ease; }
+.lp_game .lp_game-option-btn:hover { background-color: var(--bs-secondary-bg); transform: translateY(-2px); }

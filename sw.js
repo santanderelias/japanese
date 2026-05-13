@@ -241,13 +241,11 @@ self.addEventListener('activate', (e) => {
     );
 });
 
+// Cache-First strategy: Only serve from cache, never hit network for these assets
 self.addEventListener('fetch', (e) => {
     e.respondWith(
         caches.match(e.request, { ignoreSearch: true }).then((response) => {
-            if (response) return response;
-            return fetch(e.request).then(networkResponse => {
-                return networkResponse;
-            });
+            return response || new Response(null, { status: 404 });
         })
     );
 });

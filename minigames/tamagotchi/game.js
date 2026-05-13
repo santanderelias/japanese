@@ -4,41 +4,125 @@
  */
 
 class Tamagotchi {
-    constructor() {
-        // Initial state or load from localStorage
+    constructor(rootId) {
+        this.root = document.getElementById(rootId);
+        
+        // Load state or defaults
         const savedState = JSON.parse(localStorage.getItem('tamagotchiState')) || {};
-        
         this.stats = {
-            hunger: savedState.hunger ?? 100,      // 空腹 (100 = full)
-            mood: savedState.mood ?? 100,          // 機嫌
-            energy: savedState.energy ?? 100,      // 体力
-            cleanliness: savedState.cleanliness ?? 100 // 清潔
+            hunger: savedState.hunger ?? 80,
+            mood: savedState.mood ?? 80,
+            energy: savedState.energy ?? 80,
+            cleanliness: savedState.cleanliness ?? 80
         };
-        
         this.age = savedState.age ?? 0;
         this.lastTick = savedState.lastTick ?? Date.now();
         this.difficulty = savedState.difficulty ?? 'normal';
         this.isSleeping = savedState.isSleeping ?? false;
-        
+
         this.difficultySettings = {
-            casual: 0.5,
-            normal: 1.0,
-            hard: 2.0
+            easy: 0.5,
+            normal: 1,
+            hard: 1.5
         };
 
-        this.init();
+        this.gameLoop = null;
+
+        this.injectHTML();
+        this.bindEvents();
     }
 
-    init() {
-        // Calculate offline progress
+    injectHTML() {
+        this.root.innerHTML = `
+            <div class="tamagotchi_game">
+                <header class="tamagotchi_header mb-4">
+                    <h1 class="display-6 fw-bold text-primary"><ruby>電子<rt>でんし</rt></ruby>ペット</h1>
+                </header>
+                
+                <section class="tamagotchi_status_board px-3 mb-4">
+                    <div class="tamagotchi_status_item mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span><ruby>空腹<rt>くうふく</rt></ruby> (Hunger)</span>
+                            <span id="hunger-val">80%</span>
+                        </div>
+                        <div class="tamagotchi_progress_bar">
+                            <div id="hunger-bar" class="tamagotchi_bar_fill"></div>
+                        </div>
+                    </div>
+                    <div class="tamagotchi_status_item mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span><ruby>機嫌<rt>きげん</rt></ruby> (Mood)</span>
+                            <span id="mood-val">80%</span>
+                        </div>
+                        <div class="tamagotchi_progress_bar">
+                            <div id="mood-bar" class="tamagotchi_bar_fill"></div>
+                        </div>
+                    </div>
+                    <div class="tamagotchi_status_item mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span><ruby>元気<rt>げんき</rt></ruby> (Energy)</span>
+                            <span id="energy-val">80%</span>
+                        </div>
+                        <div class="tamagotchi_progress_bar">
+                            <div id="energy-bar" class="tamagotchi_bar_fill"></div>
+                        </div>
+                    </div>
+                    <div class="tamagotchi_status_item mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span><ruby>清潔<rt>せいけつ</rt></ruby> (Clean)</span>
+                            <span id="clean-val">80%</span>
+                        </div>
+                        <div class="tamagotchi_progress_bar">
+                            <div id="clean-bar" class="tamagotchi_bar_fill"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="text-center mb-4">
+                    <div id="pet-svg-container" style="height: 180px;"></div>
+                    <div id="message-area" class="mt-2 fw-bold text-primary" style="height: 1.5em;"></div>
+                    <div class="mt-2 text-muted small">Age: <span id="pet-age">0</span> days</div>
+                </div>
+
+                <div id="action-bar" class="d-grid gap-2" style="grid-template-columns: 1fr 1fr;">
+                    <button id="feed-btn" class="btn btn-outline-success py-3">🍙 Feed</button>
+                    <button id="play-btn" class="btn btn-outline-info py-3">🎾 Play</button>
+                    <button id="sleep-btn" class="btn btn-outline-primary py-3">💤 Sleep</button>
+                    <button id="clean-btn" class="btn btn-outline-warning py-3">✨ Clean</button>
+                </div>
+
+                <div class="mt-4 px-3">
+                    <label class="form-label small text-muted">Difficulty</label>
+                    <select id="difficulty-select" class="form-select form-select-sm bg-body-tertiary">
+                        <option value="easy">Easy (Study Mode)</option>
+                        <option value="normal">Normal</option>
+                        <option value="hard">Hard (Survivor)</option>
+                    </select>
+                </div>
+            </div>
+            <style>
+                .pet-happy { animation: float 3s ease-in-out infinite; }
+                .pet-sleeping { animation: breathe 4s ease-in-out infinite; opacity: 0.8; }
+                @keyframes float {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-10px); }
+                }
+                @keyframes breathe {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.02); }
+                }
+            </style>
+        `;
+    }
+
+    init(data) {
+        // Tamagotchi doesn't strictly need the cards data but we follow the signature
         this.calculateOfflineProgress();
-        
-        // Start game loop
-        this.gameLoop = setInterval(() => this.tick(), 3000); // Tick every 3 seconds
-        
-        // Bind UI elements
-        this.bindEvents();
+        this.gameLoop = setInterval(() => this.tick(), 3000);
         this.render();
+        
+        const diffSelect = this.root.querySelector('#difficulty-select');
+        if (diffSelect) diffSelect.value = this.difficulty;
     }
 
     calculateOfflineProgress() {
@@ -46,9 +130,8 @@ class Tamagotchi {
         const elapsedSeconds = Math.floor((now - this.lastTick) / 1000);
         
         if (elapsedSeconds > 0) {
-            // Deplete stats based on time away
             const factor = this.difficultySettings[this.difficulty];
-            const depletionRate = 0.1 * factor; // 0.1% per second away
+            const depletionRate = 0.05 * factor; // Decreased slightly for better balance
             
             const totalDepletion = elapsedSeconds * depletionRate;
             
@@ -57,9 +140,7 @@ class Tamagotchi {
             this.stats.energy = Math.max(0, this.stats.energy - (this.isSleeping ? -totalDepletion * 2 : totalDepletion));
             this.stats.cleanliness = Math.max(0, this.stats.cleanliness - totalDepletion);
             
-            // Age increases (e.g., 1 day per 24 hours real time)
             this.age += elapsedSeconds / (24 * 3600);
-            
             this.lastTick = now;
             this.save();
         }
@@ -70,26 +151,23 @@ class Tamagotchi {
 
         const factor = this.difficultySettings[this.difficulty];
         
-        // Natural depletion
         if (this.isSleeping) {
             this.updateStat('energy', 5);
-            this.updateStat('hunger', -0.5 * factor);
-            this.updateStat('cleanliness', -0.2 * factor);
+            this.updateStat('hunger', -0.2 * factor);
+            this.updateStat('cleanliness', -0.1 * factor);
             
             if (this.stats.energy >= 100) {
                 this.isSleeping = false;
-                this.showMessage('おはよう！');
+                this.showMessage('おはよう！ (Good morning!)');
             }
         } else {
-            this.updateStat('hunger', -1 * factor);
-            this.updateStat('mood', -0.8 * factor);
-            this.updateStat('energy', -0.5 * factor);
-            this.updateStat('cleanliness', -0.3 * factor);
+            this.updateStat('hunger', -0.5 * factor);
+            this.updateStat('mood', -0.4 * factor);
+            this.updateStat('energy', -0.2 * factor);
+            this.updateStat('cleanliness', -0.1 * factor);
         }
 
-        // Increase age slightly
         this.age += 0.001;
-        
         this.lastTick = Date.now();
         this.save();
         this.render();
@@ -114,94 +192,89 @@ class Tamagotchi {
         localStorage.setItem('tamagotchiState', JSON.stringify(state));
     }
 
-    // Actions
     feed() {
-        if (this.isSleeping) return;
+        if (this.isSleeping || this.isDead()) return;
         this.updateStat('hunger', 20);
         this.updateStat('cleanliness', -5);
-        this.showMessage('おいしい！');
+        this.showMessage('おいしい！ (Delicious!)');
         this.render();
     }
 
     play() {
-        if (this.isSleeping) return;
+        if (this.isSleeping || this.isDead()) return;
         if (this.stats.energy < 10) {
-            this.showMessage('疲れている...');
+            this.showMessage('疲れている... (Tired...)');
             return;
         }
         this.updateStat('mood', 30);
         this.updateStat('energy', -15);
         this.updateStat('hunger', -10);
-        this.showMessage('たのしい！');
+        this.showMessage('たのしい！ (Fun!)');
         this.render();
     }
 
     sleep() {
-        if (this.isSleeping) {
-            this.isSleeping = false;
-            this.showMessage('起きた！');
-        } else {
-            this.isSleeping = true;
-            this.showMessage('おやすみ...');
-        }
+        if (this.isDead()) return;
+        this.isSleeping = !this.isSleeping;
+        this.showMessage(this.isSleeping ? 'おやすみ... (Goodnight...)' : '起きた！ (Woke up!)');
         this.render();
     }
 
     clean() {
-        if (this.isSleeping) return;
+        if (this.isSleeping || this.isDead()) return;
         this.updateStat('cleanliness', 40);
         this.updateStat('mood', 10);
-        this.showMessage('ピカピカ！');
+        this.showMessage('ピカピカ！ (Sparkling!)');
         this.render();
     }
 
     showMessage(text) {
-        const area = document.getElementById('message-area');
+        const area = this.root.querySelector('#message-area');
+        if (!area) return;
         area.textContent = text;
         setTimeout(() => {
             if (area.textContent === text) area.textContent = '';
-        }, 2000);
+        }, 3000);
     }
 
-    // UI Rendering
     render() {
-        // Update Bars
-        this.renderBar('hunger-bar', this.stats.hunger);
-        this.renderBar('mood-bar', this.stats.mood);
-        this.renderBar('energy-bar', this.stats.energy);
-        this.renderBar('clean-bar', this.stats.cleanliness);
+        this.renderBar('hunger-bar', this.stats.hunger, 'hunger-val');
+        this.renderBar('mood-bar', this.stats.mood, 'mood-val');
+        this.renderBar('energy-bar', this.stats.energy, 'energy-val');
+        this.renderBar('clean-bar', this.stats.cleanliness, 'clean-val');
 
-        // Update Age
-        document.getElementById('pet-age').textContent = Math.floor(this.age);
-
-        // Update SVG
+        this.root.querySelector('#pet-age').textContent = this.age.toFixed(2);
         this.renderPet();
 
-        // Handle Death
         if (this.isDead()) {
             clearInterval(this.gameLoop);
-            this.showMessage('お亡くなりになりました...');
-            document.getElementById('action-bar').style.pointerEvents = 'none';
-            document.getElementById('action-bar').style.opacity = '0.5';
+            this.showMessage('お亡くなりになりました... (Died...)');
+            this.root.querySelector('#action-bar').style.pointerEvents = 'none';
+            this.root.querySelector('#action-bar').style.opacity = '0.5';
         }
     }
 
-    renderBar(id, value) {
-        const bar = document.getElementById(id);
+    renderBar(id, value, valId) {
+        const bar = this.root.querySelector(`#${id}`);
+        const valSpan = this.root.querySelector(`#${valId}`);
+        if (!bar || !valSpan) return;
+
         bar.style.width = `${value}%`;
+        valSpan.textContent = `${Math.floor(value)}%`;
         
-        bar.className = 'progress-bar';
-        if (value > 60) bar.classList.add('status-good');
-        else if (value > 20) bar.classList.add('status-warn');
-        else bar.classList.add('status-danger');
+        bar.className = 'tamagotchi_bar_fill';
+        if (value > 60) bar.classList.add('tamagotchi_status_good');
+        else if (value > 20) bar.classList.add('tamagotchi_status_warn');
+        else bar.classList.add('tamagotchi_status_danger');
     }
 
     renderPet() {
-        const container = document.getElementById('pet-svg-container');
+        const container = this.root.querySelector('#pet-svg-container');
         let state = 'happy';
 
-        if (this.isSleeping) state = 'sleeping';
-        else if (this.stats.hunger < 30 || this.stats.mood < 30 || this.isDead()) state = 'sad';
+        if (this.isDead()) state = 'sad';
+        else if (this.isSleeping) state = 'sleeping';
+        else if (this.stats.hunger < 30 || this.stats.mood < 30) state = 'sad';
 
         container.innerHTML = this.getPetSVG(state);
         container.className = this.isSleeping ? 'pet-sleeping' : 'pet-happy';
@@ -233,7 +306,7 @@ class Tamagotchi {
         }
 
         return `
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
                 <circle cx="50" cy="55" r="40" fill="${color}" />
                 <path d="M20 25 Q15 5 35 15" fill="${color}" />
                 <path d="M80 25 Q85 5 65 15" fill="${color}" />
@@ -243,26 +316,23 @@ class Tamagotchi {
     }
 
     bindEvents() {
-        document.getElementById('feed-btn').onclick = () => this.feed();
-        document.getElementById('play-btn').onclick = () => this.play();
-        document.getElementById('sleep-btn').onclick = () => this.sleep();
-        document.getElementById('clean-btn').onclick = () => this.clean();
+        this.root.querySelector('#feed-btn').onclick = () => this.feed();
+        this.root.querySelector('#play-btn').onclick = () => this.play();
+        this.root.querySelector('#sleep-btn').onclick = () => this.sleep();
+        this.root.querySelector('#clean-btn').onclick = () => this.clean();
         
-        document.getElementById('difficulty-select').onchange = (e) => {
-            this.difficulty = e.target.value;
-            this.save();
-        };
+        const diffSelect = this.root.querySelector('#difficulty-select');
+        if (diffSelect) {
+            diffSelect.onchange = (e) => {
+                this.difficulty = e.target.value;
+                this.save();
+            };
+        }
+    }
+
+    stopGame() {
+        if (this.gameLoop) clearInterval(this.gameLoop);
     }
 }
 
-// Start the game
-window.onload = () => {
-    new Tamagotchi();
-
-    // Listen for theme sync messages
-    window.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'set-theme') {
-            document.documentElement.setAttribute('data-bs-theme', event.data.theme);
-        }
-    });
-};
+window.Tamagotchi = Tamagotchi;

@@ -1,28 +1,31 @@
-# Unified Architecture Specification
+# Unified Architecture Specification (v1.5)
 
-This document defines the architectural standard for the Japanese study application, ensuring data integrity, modularity, and offline reliability.
+This document defines the architectural standard for the Japanese study application, ensuring data integrity, modularity, and strict style isolation.
 
 ## 1. Data Management (Single Source of Truth)
-*   **Centralization:** The application must load `data.json` exactly **once** during the initialization of the main document (`index.js`).
-*   **Global Access:** The loaded data must be stored in a single global object (e.g., `window.appData`). No other section or minigame is permitted to perform a `fetch` for `data.json`.
-*   **Dependency Injection:** Practice games and UI components will receive this data object through initialization functions (e.g., `initGame(data)`) or by direct reference to the global object.
-*   **Persistence:** All performance data (SRS, stats) must be managed by `statsTracker.js` using `localStorage` as the backing store, ensuring state is shared across the entire app ecosystem.
+*   **Centralized Loading:** The application must load `data.json` exactly **once** upon initialization in `index.js`.
+*   **Global State:** The data is stored in `window.allCardsData`. This object serves as the single reference for all application sections, minigames, and statistics.
+*   **Dependency Injection:** Minigames and UI modules **must not** perform network fetches for data. Instead, they must implement an `init(data)` method to receive the global data object upon dynamic loading.
 
-## 2. Asset Resolution
-*   **Absolute Pathing:** All asset references in `data.json` must point to `/assets/[filename]`.
-*   **Consistency:** The `management` app must enforce this naming standard, and the `renderCard.js` (and game modules) must use this absolute pathing to resolve resources.
-*   **Extension Enforcement:** The management tool must sanitize file uploads, ensuring MIME-type alignment (e.g., audio is always saved as `.ogg`/`.mp3`, images as `.png`/`.jpg`).
+## 2. Minigame Standardization (Native DOM Injection)
+*   **Directory Structure:** All minigames are located in `/minigames/[game-name]/`.
+*   **Native Mounting:** Games are injected directly into the main DOM via parent containers (e.g., `[game-name]-game-root`). Iframes are **not** used.
+*   **Class-Based Lifecycle:** Each game must implement a class with:
+    *   `constructor(rootId)`: Accepts the mount point.
+    *   `init(data)`: Accepts the shared `window.allCardsData`.
+    *   `stopGame()`: Cleans up internal intervals, audio, and event listeners when navigating away.
+*   **Dynamic Loading:** The parent `index.js` manages loading the game's JS/CSS files dynamically, ensuring no overhead for unused components.
 
-## 3. Minigame Integration (Iframe Communication)
-*   **Data Passing:** Minigames inside iframes must not fetch data. The parent `index.js` must pass the necessary data to the iframe via `postMessage` immediately upon loading or theme-syncing.
-*   **Isolation:** Minigames are responsible for their own internal rendering but must accept external data provided by the parent.
-*   **Theme Sync:** The parent app is responsible for pushing theme changes (`postMessage`) to iframe components.
+## 3. Style Isolation (Strict Namespacing)
+*   **Namespace Enforcement:** All CSS rules for minigames must be prefixed with a unique game-specific namespace (e.g., `.tamagotchi_`, `.race_`, `.mm_`, `.lp_`).
+*   **No Global Leakage:** Minigame styles are strictly local to their folder. Styles must never be appended to `index.css`.
+*   **Theme Integration:** Minigames must support light/dark mode by responding to `data-bs-theme` changes (via `postMessage` or observer) to maintain visual consistency with the main app.
 
-## 4. Lifecycle & Performance
-*   **Initialization:** The app must render only after the single fetch operation is complete.
-*   **Offline-First:** All static assets must be cached via the Service Worker using a "Cache-Only" strategy for the `/assets/` and `/minigames/` routes to eliminate network-dependency flickers.
-*   **Version Control:** The version string (Single Source of Truth) is located in `version.json`. The `management` app generates `sw.js` using this version.
+## 4. Asset Handling
+*   **Absolute Pathing:** All references to assets in `data.json` must use the `/assets/` prefix.
+*   **Sanitization:** The `management` tool automatically filters valid file types (`.ogg`, `.mp3`, `.png`, `.jpg`, `.svg`) during SW generation, preventing invalid file references in the Service Worker cache.
+*   **Offline-First:** All game assets and logic are cached by the Service Worker, enforcing a strict cache-only policy for local playback without network dependencies.
 
 ## 5. Navigation
-*   **Top-Bar Centric:** All navigation (Back, Search, Stats) must reside in the top bar.
-*   **Stateful:** The `navigateTo` function must manage history states to support native mobile hardware back-buttons.
+*   **Top-Bar Centric:** All navigation controls (Back, Search, Stats) reside in the top bar.
+*   **Native Back Button:** Navigation states are tracked via `History API` (`pushState`), enabling Android/browser native back-button functionality.

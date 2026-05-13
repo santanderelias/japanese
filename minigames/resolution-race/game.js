@@ -3,7 +3,8 @@
  */
 
 class ResolutionRace {
-    constructor() {
+    constructor(rootId) {
+        this.root = document.getElementById(rootId);
         this.allCards = [];
         this.currentCard = null;
         this.score = 0;
@@ -11,53 +12,81 @@ class ResolutionRace {
         this.timerInterval = null;
         this.startTime = null;
         this.isGameOver = false;
+        this.resolveTimeout = null;
 
+        this.injectHTML();
+        
         this.elements = {
-            image: document.getElementById('word-image'),
-            input: document.getElementById('user-input'),
-            score: document.getElementById('score-display'),
-            timer: document.getElementById('timer-bar'),
-            feedback: document.getElementById('feedback-msg'),
-            playBtn: document.getElementById('play-audio-btn'),
-            startScreen: document.getElementById('start-screen'),
-            startBtn: document.getElementById('start-btn')
+            image: this.root.querySelector('.race_word-image'),
+            input: this.root.querySelector('.race_user-input'),
+            score: this.root.querySelector('.race_score-display'),
+            timer: this.root.querySelector('.race_timer-bar-fill'),
+            feedback: this.root.querySelector('.race_feedback-msg'),
+            playBtn: this.root.querySelector('.race_play-audio-btn'),
+            startScreen: this.root.querySelector('.race_start-screen'),
+            startBtn: this.root.querySelector('.race_start-btn')
         };
 
-        this.init();
+        this.bindEvents();
     }
 
-    async init() {
-        try {
-            const response = await fetch('../../data.json');
-            const data = await response.json();
-            // Filter cards with image and audio
-            this.allCards = data.filter(c => c.image && c.audio && !c.hidden);
-            
-            this.elements.startBtn.onclick = () => this.startGame();
-            this.elements.playBtn.onclick = () => this.playAudio();
-            
-            this.elements.input.oninput = (e) => this.checkInput(e.target.value);
+    injectHTML() {
+        this.root.innerHTML = `
+            <div class="race_game">
+                <div class="race_container">
+                    <div class="race_score-display mb-3 fw-bold">Score: 0</div>
+                    
+                    <div class="race_start-screen text-center py-5">
+                        <h2>Resolution Race</h2>
+                        <p>Type the reading, kanji, or meaning before the image unblurs!</p>
+                        <button class="btn btn-primary race_start-btn">Start Game</button>
+                    </div>
 
-            // Set initial theme
-            this.applyTheme(window.localStorage.getItem('theme') || 'dark');
+                    <div class="race_game-area d-none">
+                        <div class="race_timer-bar mb-3" style="height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                            <div class="race_timer-bar-fill" style="height: 100%; width: 100%; background: #007bff; transition: width 0.05s linear;"></div>
+                        </div>
 
-            // Theme sync listener
-            window.addEventListener('message', (event) => {
-                if (event.data && event.data.type === 'set-theme') {
-                    this.applyTheme(event.data.theme);
+                        <div class="race_image-container position-relative mb-3" style="height: 300px; background: #eee; border-radius: 1rem; overflow: hidden;">
+                            <img class="race_word-image w-100 h-100 object-fit-cover" style="filter: blur(40px); transition: filter 5s linear;">
+                            <button class="race_play-audio-btn position-absolute top-50 start-50 translate-middle btn btn-light rounded-circle shadow" style="width: 60px; height: 60px; font-size: 1.5rem; opacity: 0.8;">🔊</button>
+                        </div>
+
+                        <div class="race_input-area">
+                            <input type="text" class="form-control race_user-input form-control-lg text-center" placeholder="Type here..." autocomplete="off">
+                        </div>
+
+                        <div class="race_feedback-msg text-center mt-3 fs-5 fw-bold" style="min-height: 1.5em;"></div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .race_word-image.resolve {
+                    filter: blur(0px) !important;
                 }
-            });
-        } catch (err) {
-            console.error('Failed to load game data:', err);
+                .race_correct-feedback { color: #28a745; }
+                .race_wrong-feedback { color: #dc3545; }
+            </style>
+        `;
+    }
+
+    bindEvents() {
+        this.elements.startBtn.onclick = () => this.startGame();
+        this.elements.playBtn.onclick = () => this.playAudio();
+        this.elements.input.oninput = (e) => this.checkInput(e.target.value);
+    }
+
+    init(data) {
+        // Filter cards with image and audio
+        this.allCards = data ? data.filter(c => c.image && c.audio && !c.hidden) : [];
+        if (this.allCards.length === 0) {
+             this.elements.feedback.textContent = "No valid cards found for this game.";
         }
     }
 
-    applyTheme(theme) {
-        document.documentElement.setAttribute('data-bs-theme', theme);
-    }
-
     startGame() {
-        this.elements.startScreen.style.display = 'none';
+        this.elements.startScreen.classList.add('d-none');
+        this.root.querySelector('.race_game-area').classList.remove('d-none');
         this.score = 0;
         this.updateScore();
         this.nextRound();
@@ -74,14 +103,15 @@ class ResolutionRace {
         this.elements.input.disabled = false;
         this.elements.input.focus();
         this.elements.feedback.textContent = '';
-        this.elements.feedback.className = '';
+        this.elements.feedback.className = 'race_feedback-msg text-center mt-3 fs-5 fw-bold';
         
-        // Reset Image
+        // Reset Image and blur
         this.elements.image.classList.remove('resolve');
-        this.elements.image.src = `../../assets/${this.currentCard.image}`;
+        this.elements.image.src = `assets/${this.currentCard.image}`;
         
         // Start Resolve and Audio
-        setTimeout(() => {
+        if (this.resolveTimeout) clearTimeout(this.resolveTimeout);
+        this.resolveTimeout = setTimeout(() => {
             this.elements.image.classList.add('resolve');
             this.playAudio();
             this.startTimer();
@@ -91,7 +121,7 @@ class ResolutionRace {
     startTimer() {
         this.timeLeft = 5000;
         this.startTime = Date.now();
-        clearInterval(this.timerInterval);
+        if (this.timerInterval) clearInterval(this.timerInterval);
         
         this.timerInterval = setInterval(() => {
             const elapsed = Date.now() - this.startTime;
@@ -108,8 +138,12 @@ class ResolutionRace {
 
     playAudio() {
         if (this.currentCard && this.currentCard.audio) {
-            const audio = new Audio(`../../assets/${this.currentCard.audio}`);
-            audio.play().catch(e => console.error('Audio play failed', e));
+            if (window.playAudio) {
+                window.playAudio(`assets/${this.currentCard.audio}`);
+            } else {
+                const audio = new Audio(`assets/${this.currentCard.audio}`);
+                audio.play().catch(e => console.error('Audio play failed', e));
+            }
         }
     }
 
@@ -133,23 +167,25 @@ class ResolutionRace {
 
     endRound(success) {
         this.isGameOver = true;
-        clearInterval(this.timerInterval);
+        if (this.timerInterval) clearInterval(this.timerInterval);
         this.elements.input.disabled = true;
         this.elements.image.classList.add('resolve'); // Force resolve
 
         if (success) {
-            // Points based on time left (max 1000, min 100)
             const points = Math.floor((this.timeLeft / 5000) * 900) + 100;
             this.score += points;
             this.updateScore();
             this.elements.feedback.textContent = `Correct! +${points}`;
-            this.elements.feedback.className = 'correct-feedback';
+            this.elements.feedback.classList.add('race_correct-feedback');
         } else {
             this.elements.feedback.textContent = `Time's up! It was: ${this.currentCard.reading}`;
-            this.elements.feedback.className = 'wrong-feedback';
+            this.elements.feedback.classList.add('race_wrong-feedback');
         }
 
-        setTimeout(() => this.nextRound(), 2500);
+        setTimeout(() => {
+            if (!this.isGameOver) return; // Guard against game stop
+            this.nextRound();
+        }, 2500);
     }
 
     updateScore() {
@@ -157,12 +193,10 @@ class ResolutionRace {
     }
 
     stopGame() {
-        clearInterval(this.timerInterval);
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        if (this.resolveTimeout) clearTimeout(this.resolveTimeout);
         this.isGameOver = true;
     }
 }
 
 window.ResolutionRace = ResolutionRace;
-window.onload = () => {
-    window.gameInstance = new ResolutionRace();
-};

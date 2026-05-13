@@ -1,9 +1,17 @@
 body {
     transition: background-color 0.3s ease, color 0.3s ease;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: var(--bs-body-bg);
     user-select: none;
     -webkit-user-select: none;
+}
+
+main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
 }
 
 .card {
@@ -81,7 +89,7 @@ body {
 
 .answer-box {
     background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px); /* Slightly reduced for performance */
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.15);
     color: white;
@@ -98,7 +106,7 @@ body {
 
 .text-background {
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px); /* Reduced for performance */
+    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     padding: 0.5rem 1rem;
     border-radius: 12px;
@@ -123,16 +131,16 @@ body {
 .face-title { font-size: 3.5rem; font-weight: bold; }
 .face-subtitle { font-size: 1.5rem; opacity: 0.9; }
 .face-sentence { font-size: 1.2rem; max-width: 800px; }
-/* Full-height navigation buttons */
+
 .nav-btn {
     opacity: 0.1;
     transition: opacity 0.3s;
     background: transparent;
     max-width: 8%;
-    height: 80vh; /* 80% height as requested */
+    height: 80vh;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%); /* Center vertically */
+    transform: translateY(-50%);
     z-index: 100;
     display: flex;
     justify-content: center;
@@ -148,7 +156,6 @@ body {
     opacity: 0.3;
     background: rgba(255,255,255,0.05);
 }
-
 
 #back-to-home {
     width: 40px;
@@ -188,13 +195,11 @@ body {
 .back-meaning { font-size: 3rem; color: #ffeb3b; }
 body.card-open { overflow: hidden; }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bs-body-bg); }
 ::-webkit-scrollbar-thumb { background: var(--bs-secondary-bg); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--bs-secondary); }
 
-/* center footer horizontally */
 #footer {
     text-align: center;
     padding: 1rem;
@@ -224,6 +229,8 @@ body.card-open { overflow: hidden; }
 
 .view-section {
     transition: opacity 0.3s ease;
+    height: 100%;
+    width: 100%;
 }
 
 .card.hidden-card {
@@ -269,132 +276,4 @@ body.card-open { overflow: hidden; }
     cursor: pointer;
     display: none;
     color: var(--bs-secondary);
-}
-
-/* Game Interface Styles */
-.game-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 1rem;
-    text-align: center;
-}
-
-.game-question-card {
-    background-color: var(--bs-secondary-bg);
-    border-radius: 1.5rem;
-    padding: 1.5rem 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    position: relative; /* For absolute hint button */
-}
-
-.hint-audio-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    padding: 5px;
-    opacity: 0.5;
-    transition: opacity 0.2s, transform 0.2s;
-    color: var(--bs-body-color);
-}
-
-.hint-audio-btn:hover {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.game-question-text {
-    font-size: 2.8rem;
-    font-weight: bold;
-    margin-bottom: 0.2rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.game-question-subtext {
-    font-size: 1.2rem;
-    opacity: 0;
-    transform: translateY(5px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none;
-}
-
-.game-question-subtext.visible {
-    opacity: 0.8;
-    transform: translateY(0);
-}
-
-.game-options-grid {
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: 1fr;
-}
-
-.game-option-btn {
-    background-color: var(--bs-tertiary-bg);
-    border: 2px solid var(--bs-border-color);
-    border-radius: 1rem;
-    padding: 0.8rem;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-    color: var(--bs-body-color);
-}
-
-.game-option-btn:active {
-    transform: scale(0.98);
-}
-
-.game-option-btn.correct {
-    background-color: #28a745 !important;
-    border-color: #28a745 !important;
-    color: white !important;
-}
-
-.game-option-btn.wrong {
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
-    color: white !important;
-    animation: shake 0.4s ease;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
-}
-
-.game-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-    font-weight: bold;
-    opacity: 0.8;
-}
-
-.play-audio-btn-large {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    font-size: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem auto;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,123,255,0.4);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.play-audio-btn-large:active {
-    transform: scale(0.9);
-    background-color: #0056b3;
 }
