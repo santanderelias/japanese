@@ -4,10 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>stop</title>
+    <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+  <script>
+    let input = document.getElementById('input');
+    function accept() {
+      if (input.value === '693') {
+        window.location ='/page.html';
+      }
+      else {
+        input.value = '';
+        input.focus();
+      }
+    }
+  </script>
 </head>
-<body>
+<body> 
   <label for="input">Text input field:</label>
   <input id="input" type="text" />
-  <button type="button" onclick="window.location='/page.html'">ok</button>
+  <br />
+  <button type="button" onclick="accept()">ok</button>
 </body>
 </html>
