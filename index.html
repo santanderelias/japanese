@@ -15,8 +15,16 @@
   </style>
   <script>
     let input = document.getElementById('input');
+    console.log(input);
     function accept() {
       if (input.value === '693') {
+        try {
+          window.location ='/page.html';
+        } catch (error) {
+          input.value = '';
+          input.focus();
+          console.log(error);
+        }
         window.location ='/page.html';
       }
       else {
