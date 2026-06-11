@@ -1,43 +1,109 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>stop</title>
-    <style>
-    body {
-      flex-direction: column;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      gap: 10px;
-    }
-  </style>
-</head>
-<body> 
-  <input id="input" type="text" />
-  <br />
-  <button type="button" onclick="accept()">ok</button>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Santael Administration Software</title>
+    <link href="btstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Santael Systems</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#packages">Packages</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero bg-light text-dark d-flex align-items-center">
+        <div class="container py-5 text-center">
+          <h1 class="display-5 fw-bold">Systems & Software administration made simple.</h1>
+          <p class="lead">Secure, reliable, and easy-to-deploy administration tools for modern infrastructure.</p>
+          <a href="#packages" class="btn btn-primary btn-lg mt-3">Explore Packages</a>
+        </div>
+      </section>
+
+      <section id="packages" class="container py-5">
+        <div class="text-center mb-5">
+          <h2>Choose the right package</h2>
+          <p class="text-muted">Two focused solutions for system administration and business continuity.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card package-card h-100 shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title">Admin Console</h3>
+                <p class="card-text">A centralized control panel for deploying updates, monitoring services, and managing user access across your software estate.</p>
+                <ul>
+                  <li>Automated patch and release workflows</li>
+                  <li>Real-time audit logs</li>
+                  <li>Role-based access controls</li>
+                </ul>
+                <div class="mt-3">
+                  <a href="admin-console.html" class="btn btn-outline-primary me-2">View Details</a>
+                  <button type="button" class="btn btn-danger download-btn" data-package="Admin Console">Download</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card package-card h-100 shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title">Backup Manager</h3>
+                <p class="card-text">Enterprise-grade backup and recovery software that keeps your systems safe from outages and data loss.</p>
+                <ul>
+                  <li>Scheduled backups and snapshot retention</li>
+                  <li>Fast restore for mission-critical services</li>
+                  <li>Encrypted storage and transfer</li>
+                </ul>
+                <div class="mt-3">
+                  <a href="backup-manager.html" class="btn btn-outline-primary me-2">View Details</a>
+                  <button type="button" class="btn btn-danger download-btn" data-package="Backup Manager">Download</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="bg-dark text-white py-5">
+        <div class="container text-center">
+          <h2>Contact our team</h2>
+          <p class="mb-0">Need a demo or support? Reach out at admin@santael.com</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast-container"></div>
+
+    <script src="btstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-    let input = document.getElementById('input');
-    console.log(input);
-    function accept() {
-      if (input.value === '693') {
-        try {
-          window.location ='/page.html';
-        } catch (error) {
-          input.value = '';
-          input.focus();
-          console.log(error);
-        }
-        window.location ='/page.html';
-      }
-      else {
-        input.value = '';
-        input.focus();
-      }
-    }
-  </script>
-</body>
+      document.querySelectorAll('.download-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+          const packageName = button.dataset.package;
+          const toastEl = document.createElement('div');
+          toastEl.className = 'toast align-items-center text-bg-danger border-0 show';
+          toastEl.setAttribute('role', 'alert');
+          toastEl.setAttribute('aria-live', 'assertive');
+          toastEl.setAttribute('aria-atomic', 'true');
+          toastEl.innerHTML = '<div class="d-flex"><div class="toast-body">Download for <strong>' + packageName + '</strong> is not available yet.</div><button type="button" class="btn-close btn-close-white me-2 m-auto" aria-label="Close"></button></div>';
+          document.querySelector('.toast-container').appendChild(toastEl);
+          toastEl.querySelector('.btn-close').addEventListener('click', function() { toastEl.remove(); });
+          setTimeout(function() { toastEl.remove(); }, 4500);
+        });
+      });
+    </script>
+  </body>
 </html>

@@ -1,0 +1,148 @@
+:root {
+  color-scheme: dark;
+  --bg: #eaf3f9;
+  --surface: #ffffff;
+  --surface-strong: #f7fbff;
+  --text: #102a43;
+  --muted: #6b7c93;
+  --primary: #1d4ed8;
+  --primary-soft: #dbeafe;
+  --accent: #0ea5e9;
+  --danger: #ef4444;
+  --danger-soft: #fee2e2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 3.5rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.navbar {
+  background: #0f172a !important;
+}
+
+.navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+  color: #e2e8f0 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ffffff !important;
+}
+
+.hero {
+  min-height: 64vh;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.95), rgba(15, 23, 42, 0.95));
+  color: #f8fafc;
+}
+
+.hero .display-5 {
+  color: #f8fafc;
+}
+
+.hero .lead {
+  color: #cbd5e1;
+}
+
+.container .btn-primary,
+.btn-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #0284c7;
+  border-color: #0284c7;
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+.btn-outline-primary {
+  color: var(--text);
+  border-color: rgba(15, 23, 42, 0.18);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--primary-soft);
+  color: var(--primary);
+  border-color: rgba(15, 23, 42, 0.28);
+}
+
+.card,
+.feature-card,
+.package-card {
+  background: var(--surface);
+  border: none;
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.package-card .card-body,
+.feature-card .card-body {
+  min-height: 28rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.feature-card .card-body ul,
+.package-card .card-body ul {
+  margin: 1rem auto 1.25rem;
+  padding-left: 1.2rem;
+  text-align: left;
+  display: inline-block;
+}
+
+.feature-card .card-body h2,
+.package-card .card-body h3 {
+  color: #102a43;
+}
+
+.card-title,
+.card-text,
+.feature-card .card-body p,
+.package-card .card-body p {
+  margin-bottom: 1rem;
+}
+
+#contact {
+  background: #0f172a;
+}
+
+#contact h2,
+#contact p,
+#contact a {
+  color: #e2e8f0;
+}
+
+.text-muted {
+  color: #64748b !important;
+}
+
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1100;
+}
