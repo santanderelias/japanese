@@ -320,6 +320,11 @@ footer a:hover {
   border-color: var(--primary-dark);
 }
 
+/* Increase contrast for muted captions inside the gallery to improve legibility on dark backgrounds */
+.gallery-section .text-muted {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
 @media (max-width: 991px) {
   .hero-section {
     padding-top: 120px;
