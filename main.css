@@ -281,6 +281,15 @@ footer {
   padding: 0;
 }
 
+#galleryModal .modal-dialog {
+  margin: 0;
+}
+
+#galleryModal .modal-content {
+  box-shadow: none;
+  background: transparent;
+}
+
 .modal-backdrop {
   --bs-backdrop-opacity: 0.8;
 }
