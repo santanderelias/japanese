@@ -273,6 +273,10 @@ footer {
   border-radius: 1.5rem;
 }
 
+.modal-backdrop {
+  --bs-backdrop-opacity: 0.8;
+}
+
 .contact-links {
   padding: 1rem 0;
 }
