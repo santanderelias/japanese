@@ -39,7 +39,7 @@ function createGalleryCard(src, index) {
   body.className = 'card-body';
   const caption = document.createElement('p');
   caption.className = 'gallery-caption mb-0';
-  caption.textContent = `Escena de Muebles ${index + 1}`;
+  caption.textContent = `Click para ver imagen ${index + 1}`;
   body.appendChild(caption);
 
   card.appendChild(image);
