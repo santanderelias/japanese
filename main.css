@@ -277,6 +277,10 @@ footer {
   border-radius: 1.5rem;
 }
 
+#galleryModal .modal-body {
+  padding: 0;
+}
+
 .modal-backdrop {
   --bs-backdrop-opacity: 0.8;
 }
