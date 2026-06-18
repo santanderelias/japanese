@@ -20,6 +20,7 @@ const galleryImages = [
 
 const galleryGrid = document.getElementById('galleryGrid');
 const modalImage = document.getElementById('modalImage');
+const galleryModalElement = document.getElementById('galleryModal');
 let galleryModal;
 
 function createGalleryCard(src, index) {
@@ -59,6 +60,19 @@ function openModal(src) {
   galleryModal.show();
 }
 
+function initModalInertState() {
+  if (!galleryModalElement) return;
+
+  galleryModalElement.addEventListener('shown.bs.modal', () => {
+    galleryModalElement.removeAttribute('inert');
+  });
+
+  galleryModalElement.addEventListener('hidden.bs.modal', () => {
+    galleryModalElement.setAttribute('inert', '');
+    galleryModalElement.removeAttribute('aria-hidden');
+  });
+}
+
 function loadGallery() {
   galleryImages.forEach((filename, index) => {
     galleryGrid.appendChild(createGalleryCard(filename, index));
@@ -94,4 +108,5 @@ window.addEventListener('DOMContentLoaded', () => {
   loadGallery();
   initSmoothScroll();
   closeNavbarOnSelect();
+  initModalInertState();
 });
