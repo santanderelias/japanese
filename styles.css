@@ -3,6 +3,108 @@
    ========================================================================== */
 
 /* --- Custom properties --- */
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+}
+.swiper-wrapper {
+  width: 100%;
+  border-radius: 5px;
+}
+.swipper-slide {
+  border-radius:5px;
+}
+.card.gallery {
+  padding:0;
+  border-radius: 5px;
+}
+/* Container & Glassmorphism Card */
+.contact-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.contact-title {
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+/* Contact Link Styles */
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.contact-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+/* Icon Wrappers */
+.contact-method-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.contact-link:hover .contact-method-icon {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Specific Accent Colors on Hover */
+.contact-link:hover .icon-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+}
+
+/* Subtle Divider Line */
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+}
+
+/* Social Buttons */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.2s ease, color 0.25s ease;
+}
+
+.social-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
 :root,
 [data-theme="light"] {
   --bg: #f4f6f9;
