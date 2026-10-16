@@ -12,9 +12,11 @@
 .swiper-wrapper {
   width: 100%;
   border-radius: 5px;
+  height: 300px;
 }
 .swipper-slide {
   border-radius:5px;
+  height: 300px;
 }
 .card.gallery {
   padding:0;
@@ -27,8 +29,9 @@
   color: #ffffff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-
+.swiper-slide img{
+  height: 300px;
+}
 
 .contact-title {
   color: #ffffff;
