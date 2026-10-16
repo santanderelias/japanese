@@ -614,7 +614,9 @@ ul {
 .settings-panel {
   display: grid;
   gap: 1.25rem;
-  max-width: 520px;
+  /*max-width: 520px;*/
+  width: 100%;
+  place-items: center;
 }
 
 .settings-group {
@@ -623,6 +625,7 @@ ul {
   border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--shadow);
+  width: 100%;
 }
 
 .settings-group h2 {
