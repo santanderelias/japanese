@@ -1,0 +1,392 @@
+{
+  "title": "Marugoto: Japanese Language and Culture A1 (Wordbook / 語彙帖(ごいちょう))",
+  "publisher": "The Japan Foundation",
+  "level": "A1",
+  "topics": [
+    {
+      "topic_id": 1,
+      "topic_ja": "日本語(にほんご)",
+      "topic_en": "Japanese",
+      "subtopics": [
+        {
+          "subtopic_ja": "教室(きょうしつ)のことば 1",
+          "subtopic_en": "Classroom Language 1",
+          "words": [
+            { "japanese": "学生(がくせい)", "romaji": "gakusee", "english": "student" },
+            { "japanese": "先生(せんせい)", "romaji": "sensee", "english": "teacher / instructor" },
+            { "japanese": "受講者(じゅこうしゃ)", "romaji": "jukoosha", "english": "participant" },
+            { "japanese": "皆(みな)さん", "romaji": "minasan", "english": "everyone" },
+            { "japanese": "皆(みんな)", "romaji": "minna", "english": "everyone" },
+            { "japanese": "友達(ともだち)", "romaji": "tomodachi", "english": "friend" },
+            { "japanese": "隣(となり)の人(ひと)", "romaji": "tonari no hito", "english": "the person next to you" },
+            { "japanese": "学校(がっこう)", "romaji": "gakkoo", "english": "school" },
+            { "japanese": "事務室(じむしつ)", "romaji": "jimushitsu", "english": "office room" },
+            { "japanese": "授業(じゅぎょう)", "romaji": "jugyoo", "english": "class / school lessons" },
+            { "japanese": "クラス", "romaji": "kurasu", "english": "class / lesson" },
+            { "japanese": "教室(きょうしつ)", "romaji": "kyooshitsu", "english": "classroom" },
+            { "japanese": "椅子(いす)", "romaji": "isu", "english": "chair" },
+            { "japanese": "机(つくえ)", "romaji": "tsukue", "english": "desk" },
+            { "japanese": "鉛筆(えんぴつ)", "romaji": "enpitsu", "english": "pencil" },
+            { "japanese": "ペン", "romaji": "pen", "english": "pen" },
+            { "japanese": "消(け)しゴム", "romaji": "keshigomu", "english": "eraser" },
+            { "japanese": "ノート", "romaji": "nooto", "english": "notebook" },
+            { "japanese": "辞書(じしょ)", "romaji": "jisho", "english": "dictionary" },
+            { "japanese": "教科書(きょうかしょ)", "romaji": "kyookasho", "english": "textbook" },
+            { "japanese": "携帯電話(けいたいでんわ)", "romaji": "keetai-denwa", "english": "mobile phone / cellular phone" },
+            { "japanese": "ページ", "romaji": "peeji", "english": "page" },
+            { "japanese": "コンピューター", "romaji": "konpyuutaa", "english": "computer" },
+            { "japanese": "ホワイトボード", "romaji": "howaito-boodo", "english": "whiteboard" }
+          ]
+        },
+        {
+          "subtopic_ja": "教室(きょうしつ)のことば 2",
+          "subtopic_en": "Classroom Language 2",
+          "words": [
+            { "japanese": "問題(もんだい)", "romaji": "mondai", "english": "question / problem" },
+            { "japanese": "答(こた)え", "romaji": "kotae", "english": "answer" },
+            { "japanese": "番号(ばんごう)", "romaji": "bangoo", "english": "number" },
+            { "japanese": "丸(まる)", "romaji": "maru", "english": "circle (true)" },
+            { "japanese": "×(ばつ)", "romaji": "batsu", "english": "cross (false)" },
+            { "japanese": "例(れい)", "romaji": "ree", "english": "example" },
+            { "japanese": "会話(かいわ)(を)します", "romaji": "kaiwa (o) shimasu", "english": "to have a conversation" },
+            { "japanese": "話(はな)します", "romaji": "hanashimasu", "english": "to talk / to speak" },
+            { "japanese": "言(い)います", "romaji": "iimasu", "english": "to say / to tell" },
+            { "japanese": "聞(き)きます", "romaji": "kikimasu", "english": "to listen" },
+            { "japanese": "見(み)ます", "romaji": "mimasu", "english": "to look" },
+            { "japanese": "読(よ)みます", "romaji": "yomimasu", "english": "to read" },
+            { "japanese": "書(か)きます", "romaji": "kakimasu", "english": "to write / to draw" },
+            { "japanese": "勉強(べんきょう)(を)します", "romaji": "benkyoo (o) shimasu", "english": "to study" },
+            { "japanese": "練習(れんしゅう)(を)します", "romaji": "renshuu (o) shimasu", "english": "to practise" },
+            { "japanese": "予習(よしゅう)", "romaji": "yoshuu", "english": "preparation (for lesson)" },
+            { "japanese": "復習(ふくしゅう)", "romaji": "fukushuu", "english": "review" },
+            { "japanese": "宿題(しゅくだい)", "romaji": "shukudai", "english": "homework" },
+            { "japanese": "試験(しけん) / テスト", "romaji": "shiken / tesuto", "english": "examination / test" },
+            { "japanese": "質問(しつもん)(を)します", "romaji": "shitsumon (o) shimasu", "english": "to ask a question" },
+            { "japanese": "説明(せつめい)(を)します", "romaji": "setsumee (o) shimasu", "english": "to explain" },
+            { "japanese": "相談(そうだん)(を)します", "romaji": "soodan (o) shimasu", "english": "to consult / to discuss" },
+            { "japanese": "チェック(を)します", "romaji": "chekku (o) shimasu", "english": "to check" },
+            { "japanese": "コピー(を)します", "romaji": "kopii (o) shimasu", "english": "to copy" }
+          ]
+        },
+        {
+          "subtopic_ja": "教室(きょうしつ)のことば 3",
+          "subtopic_en": "Classroom Language 3",
+          "words": [
+            { "japanese": "〜を教(おし)えてください", "romaji": "~ o oshiete kudasai", "english": "Could you tell me, please?" },
+            { "japanese": "〜ってどういう意味(いみ)ですか", "romaji": "~ tte doo yuu imi desu ka", "english": "What does '~' mean?" },
+            { "japanese": "〜を忘(わす)れました", "romaji": "~ o wasuremashita", "english": "I forgot ~" },
+            { "japanese": "〜を見(み)せてください", "romaji": "~ o misete kudasai", "english": "Could you show me ~, please?" },
+            { "japanese": "〜を貸(か)してください", "romaji": "~ o kashite kudasai", "english": "May I borrow ~?" },
+            { "japanese": "まだです", "romaji": "mada desu", "english": "not yet" },
+            { "japanese": "遅(おく)れます", "romaji": "okuremasu", "english": "to be late / delayed" },
+            { "japanese": "休(やす)みます", "romaji": "yasumimasu", "english": "to be absent / take a rest" },
+            { "japanese": "もう一度(いちど)言(い)ってください", "romaji": "moo ichido itte kudasai", "english": "Could you say that again, please?" },
+            { "japanese": "もう少(すこ)しゆっくり言(い)ってください", "romaji": "moo sukoshi yukkuri itte kudasai", "english": "Could you speak a little more slowly, please?" },
+            { "japanese": "分(わ)かりました", "romaji": "wakarimashita", "english": "I see / understand" },
+            { "japanese": "分(わ)かりません", "romaji": "wakarimasen", "english": "I can't understand" }
+          ]
+        }
+      ]
+    },
+    {
+      "topic_id": 2,
+      "topic_ja": "私(わたし)",
+      "topic_en": "Myself",
+      "subtopics": [
+        {
+          "subtopic_ja": "自己紹介(じこしょうかい)",
+          "subtopic_en": "Self-introduction",
+          "words": [
+            { "japanese": "自己紹介(じこしょうかい)(します)", "romaji": "jiko-shookai (shimasu)", "english": "self-introduction (to introduce oneself)" },
+            { "japanese": "〜と呼(よ)んでください", "romaji": "~ to yonde kudasai", "english": "Please call me '~'" },
+            { "japanese": "挨拶(あいさつ)", "romaji": "aisatsu", "english": "greetings" },
+            { "japanese": "名前(なまえ)", "romaji": "namae", "english": "name" },
+            { "japanese": "名刺(めいし)", "romaji": "meeshi", "english": "business card" },
+            { "japanese": "私(わたし)", "romaji": "watashi", "english": "I / me" },
+            { "japanese": "私(わたし)たち", "romaji": "watashitachi", "english": "we" },
+            { "japanese": "貴方(あなた)", "romaji": "anata", "english": "you" },
+            { "japanese": "彼(かれ)", "romaji": "kare", "english": "he" },
+            { "japanese": "彼女(かのじょ)", "romaji": "kanojo", "english": "she" },
+            { "japanese": "自分(じぶん)", "romaji": "jibun", "english": "oneself" },
+            { "japanese": "友達(ともだち)", "romaji": "tomodachi", "english": "friend" }
+          ]
+        },
+        {
+          "subtopic_ja": "人(ひと)",
+          "subtopic_en": "People",
+          "words": [
+            { "japanese": "赤(あか)ちゃん", "romaji": "akachan", "english": "baby" },
+            { "japanese": "子供(こども)", "romaji": "kodomo", "english": "child" },
+            { "japanese": "若者(わかもの)", "romaji": "wakamono", "english": "youth" },
+            { "japanese": "大人(おとな)", "romaji": "otona", "english": "adult" },
+            { "japanese": "年寄(としよ)り", "romaji": "otoshiyori", "english": "elderly person" },
+            { "japanese": "男(おとこ)", "romaji": "otoko", "english": "man / male" },
+            { "japanese": "女(おんな)", "romaji": "onna", "english": "woman / female" },
+            { "japanese": "男(おとこ)の子(こ)", "romaji": "otoko-no-ko", "english": "boy" },
+            { "japanese": "女(おんな)の子(こ)", "romaji": "onna-no-ko", "english": "girl" },
+            { "japanese": "男(おとこ)の人(ひと)", "romaji": "otoko-no-hito", "english": "man" },
+            { "japanese": "女(おんな)の人(ひと)", "romaji": "onna-no-hito", "english": "woman" }
+          ]
+        },
+        {
+          "subtopic_ja": "仕事(しごと)",
+          "subtopic_en": "Jobs",
+          "words": [
+            { "japanese": "医者(いしゃ)", "romaji": "isha", "english": "medical doctor" },
+            { "japanese": "エンジニア", "romaji": "enjinia", "english": "engineer" },
+            { "japanese": "会社員(かいしゃいん)", "romaji": "kaishain", "english": "company employee" },
+            { "japanese": "介護士(かいごし)", "romaji": "kaigoshi", "english": "care worker" },
+            { "japanese": "学生(がくせい)", "romaji": "gakusee", "english": "student" },
+            { "japanese": "看護師(かんごし)", "romaji": "kangoshi", "english": "nurse" },
+            { "japanese": "教師(きょうし)", "romaji": "kyooshi", "english": "teacher / instructor" },
+            { "japanese": "公務員(こうむいん)", "romaji": "koomuin", "english": "civil servant" },
+            { "japanese": "自営業(じえいぎょう)", "romaji": "jieegyoo", "english": "self-employed" },
+            { "japanese": "主婦(しゅふ)", "romaji": "shufu", "english": "housewife / homemaker" },
+            { "japanese": "農家(のうか)", "romaji": "nooka", "english": "farmer" },
+            { "japanese": "アルバイト / バイト", "romaji": "arubaito / baito", "english": "part-time job" },
+            { "japanese": "パートタイム / パート", "romaji": "paatotaimu / paato", "english": "part-time job" },
+            { "japanese": "会社(かいしゃ)", "romaji": "kaisha", "english": "company / firm" },
+            { "japanese": "病院(びょういん)", "romaji": "byooin", "english": "hospital" },
+            { "japanese": "〜で働(はたら)いています", "romaji": "~ de hataraite imasu", "english": "to work at / in / for ~" },
+            { "japanese": "年金(ねんきん)で生活(せいかつ)しています", "romaji": "nenkin de seekatsu-shite imasu", "english": "to live on a pension" }
+          ]
+        },
+        {
+          "subtopic_ja": "家族(かぞく)",
+          "subtopic_en": "Family",
+          "words": [
+            { "japanese": "父(ちち) / お父(とう)さん", "romaji": "chichi / otoosan", "english": "father (my / someone else's)" },
+            { "japanese": "母(はは) / お母(かあ)さん", "romaji": "haha / okaasan", "english": "mother (my / someone else's)" },
+            { "japanese": "両親(りょうしん)", "romaji": "ryooshin", "english": "parents" },
+            { "japanese": "兄(あに) / お兄(にい)さん", "romaji": "ani / oniisan", "english": "elder brother" },
+            { "japanese": "姉(あね) / お姉(ねえ)さん", "romaji": "ane / oneesan", "english": "elder sister" },
+            { "japanese": "弟(おとうと) / 弟(おとうと)さん", "romaji": "otooto / otootosan", "english": "younger brother" },
+            { "japanese": "妹(いもうと) / 妹(いもうと)さん", "romaji": "imooto / imootosan", "english": "younger sister" },
+            { "japanese": "祖父(そふ) / おじいさん", "romaji": "sofu / ojiisan", "english": "grandfather" },
+            { "japanese": "祖母(そぼ) / おばあさん", "romaji": "sobo / obaasan", "english": "grandmother" },
+            { "japanese": "夫(おっと) / ご主人(しゅじん)", "romaji": "otto / goshujin", "english": "husband" },
+            { "japanese": "妻(つま) / 奥(おく)さん", "romaji": "tsuma / okusan", "english": "wife" },
+            { "japanese": "息子(むすこ)", "romaji": "musuko", "english": "son" },
+            { "japanese": "娘(むすめ)", "romaji": "musume", "english": "daughter" },
+            { "japanese": "孫(まご)", "romaji": "mago", "english": "grandchild" }
+          ]
+        },
+        {
+          "subtopic_ja": "ペット",
+          "subtopic_en": "Pets",
+          "words": [
+            { "japanese": "犬(いぬ)", "romaji": "inu", "english": "dog" },
+            { "japanese": "猫(ねこ)", "romaji": "neko", "english": "cat" },
+            { "japanese": "鳥(とり)", "romaji": "tori", "english": "bird" },
+            { "japanese": "兎(うさぎ)", "romaji": "usagi", "english": "rabbit" },
+            { "japanese": "金魚(きんぎょ)", "romaji": "kingyo", "english": "goldfish" },
+            { "japanese": "〜を飼(か)っています", "romaji": "~ o katte imasu", "english": "to keep / have (an animal)" }
+          ]
+        },
+        {
+          "subtopic_ja": "国(くに) と 言葉(ことば)",
+          "subtopic_en": "Countries and Languages",
+          "words": [
+            { "japanese": "日本(にほん)", "romaji": "Nihon / Nippon", "english": "Japan" },
+            { "japanese": "日本語(にほんご)", "romaji": "Nihongo", "english": "Japanese language" },
+            { "japanese": "英語(えいご)", "romaji": "Eego", "english": "English language" },
+            { "japanese": "中国語(ちゅうごくご)", "romaji": "Chuugokugo", "english": "Chinese language" },
+            { "japanese": "韓国語(かんこくご)", "romaji": "Kankokugo", "english": "Korean language" },
+            { "japanese": "フランス語(ご)", "romaji": "Furansugo", "english": "French language" },
+            { "japanese": "スペイン語(ご)", "romaji": "Supeingo", "english": "Spanish language" },
+            { "japanese": "ドイツ語(ご)", "romaji": "Doitsugo", "english": "German language" },
+            { "japanese": "アラビア語(ご)", "romaji": "Arabiago", "english": "Arabic language" },
+            { "japanese": "外国語(がいこくご)", "romaji": "gaikokugo", "english": "foreign language" },
+            { "japanese": "〜ができます", "romaji": "~ ga dekimasu", "english": "can speak (language)" }
+          ]
+        }
+      ]
+    },
+    {
+      "topic_id": 3,
+      "topic_ja": "食べ物(たべもの)",
+      "topic_en": "Food",
+      "subtopics": [
+        {
+          "subtopic_ja": "食べ物(たべもの)",
+          "subtopic_en": "Food",
+          "words": [
+            { "japanese": "ご飯(はん) / ライス", "romaji": "gohan / raisu", "english": "cooked rice" },
+            { "japanese": "パン", "romaji": "pan", "english": "bread" },
+            { "japanese": "シリアル", "romaji": "shiriaru", "english": "cereal" },
+            { "japanese": "ジャム", "romaji": "jamu", "english": "jam" },
+            { "japanese": "バター", "romaji": "bataa", "english": "butter" },
+            { "japanese": "魚(さかな)", "romaji": "sakana", "english": "fish" },
+            { "japanese": "海老(えび)", "romaji": "ebi", "english": "shrimp" },
+            { "japanese": "蟹(かに)", "romaji": "kani", "english": "crab" },
+            { "japanese": "肉(にく)", "romaji": "niku", "english": "meat" },
+            { "japanese": "牛肉(ぎゅうにく) / ビーフ", "romaji": "gyuuniku / biifu", "english": "beef" },
+            { "japanese": "鶏肉(とりにく) / チキン", "romaji": "toriniku / chikin", "english": "chicken" },
+            { "japanese": "豚肉(ぶたにく) / ポーク", "romaji": "butaniku / pooku", "english": "pork" },
+            { "japanese": "卵(たまご)", "romaji": "tamago", "english": "egg" },
+            { "japanese": "チーズ", "romaji": "chiizu", "english": "cheese" },
+            { "japanese": "ヨーグルト", "romaji": "yooguruto", "english": "yogurt" },
+            { "japanese": "野菜(やさい)", "romaji": "yasai", "english": "vegetable" },
+            { "japanese": "キャベツ", "romaji": "kyabetsu", "english": "cabbage" },
+            { "japanese": "胡瓜(きゅうり)", "romaji": "kyuuri", "english": "cucumber" },
+            { "japanese": "じゃがいも", "romaji": "jagaimo", "english": "potato" },
+            { "japanese": "玉ねぎ(たまねぎ)", "romaji": "tamanegi", "english": "onion" },
+            { "japanese": "トマト", "romaji": "tomato", "english": "tomato" },
+            { "japanese": "人参(にんじん)", "romaji": "ninjin", "english": "carrot" },
+            { "japanese": "レタス", "romaji": "retasu", "english": "lettuce" },
+            { "japanese": "果物(くだもの)", "romaji": "kudamono", "english": "fruit" },
+            { "japanese": "苺(いちご)", "romaji": "ichigo", "english": "strawberry" },
+            { "japanese": "西瓜(すいか)", "romaji": "suika", "english": "watermelon" },
+            { "japanese": "バナナ", "romaji": "banana", "english": "banana" },
+            { "japanese": "葡萄(ぶどう)", "romaji": "budoo", "english": "grapes" },
+            { "japanese": "蜜柑(みかん)", "romaji": "mikan", "english": "orange" },
+            { "japanese": "林檎(りんご)", "romaji": "ringo", "english": "apple" },
+            { "japanese": "レモン", "romaji": "remon", "english": "lemon" },
+            { "japanese": "お菓子(かし)", "romaji": "okashi", "english": "sweets / confectionery" },
+            { "japanese": "アイスクリーム", "romaji": "aisu-kuriimu", "english": "ice cream" },
+            { "japanese": "飴(あめ)", "romaji": "ame", "english": "candy" },
+            { "japanese": "クッキー", "romaji": "kukkii", "english": "cookie" },
+            { "japanese": "ケーキ", "romaji": "keeki", "english": "cake" },
+            { "japanese": "チョコレート", "romaji": "chokoreeto", "english": "chocolate" },
+            { "japanese": "砂糖(さとう)", "romaji": "satoo", "english": "sugar" },
+            { "japanese": "塩(しお)", "romaji": "shio", "english": "salt" },
+            { "japanese": "醤油(しょうゆ)", "romaji": "shooyu", "english": "soy sauce" },
+            { "japanese": "米(こめ)", "romaji": "kome", "english": "uncooked rice" },
+            { "japanese": "豆腐(とうふ)", "romaji": "toofu", "english": "tofu / bean curd" },
+            { "japanese": "納豆(なっとう)", "romaji": "nattoo", "english": "natto (fermented soybeans)" },
+            { "japanese": "海苔(のり)", "romaji": "nori", "english": "seaweed" },
+            { "japanese": "山葵(わさび)", "romaji": "wasabi", "english": "wasabi" }
+          ]
+        },
+        {
+          "subtopic_ja": "飲み物(のみもの)",
+          "subtopic_en": "Drinks",
+          "words": [
+            { "japanese": "お茶(ちゃ) / 茶(ちゃ)", "romaji": "ocha / cha", "english": "tea / Japanese green tea" },
+            { "japanese": "紅茶(こうちゃ)", "romaji": "koocha", "english": "black tea" },
+            { "japanese": "コーヒー", "romaji": "koohii", "english": "coffee" },
+            { "japanese": "牛乳(ぎゅうにゅう) / ミルク", "romaji": "gyuunyuu / miruku", "english": "milk" },
+            { "japanese": "ジュース", "romaji": "juusu", "english": "juice" },
+            { "japanese": "コーラ", "romaji": "koora", "english": "cola" },
+            { "japanese": "水(みず)", "romaji": "mizu", "english": "water" },
+            { "japanese": "お湯(ゆ)", "romaji": "oyu", "english": "hot water" },
+            { "japanese": "お酒(さけ)", "romaji": "osake", "english": "alcoholic drinks / Japanese sake" },
+            { "japanese": "ビール", "romaji": "biiru", "english": "beer" },
+            { "japanese": "ウイスキー", "romaji": "uisukii", "english": "whisky" },
+            { "japanese": "ワイン", "romaji": "wain", "english": "wine" }
+          ]
+        },
+        {
+          "subtopic_ja": "形容詞(けいようし) 1",
+          "subtopic_en": "Adjectives 1 (Food & Taste)",
+          "words": [
+            { "japanese": "美味(おい)しい", "romaji": "oishii", "english": "delicious / tasty" },
+            { "japanese": "不味(まず)い", "romaji": "mazui", "english": "unappetizing / bad tasting" },
+            { "japanese": "高(たか)い", "romaji": "takai", "english": "expensive" },
+            { "japanese": "安(やす)い", "romaji": "yasui", "english": "inexpensive / cheap" },
+            { "japanese": "甘(あま)い", "romaji": "amai", "english": "sweet" },
+            { "japanese": "塩辛(しょっぱ)い", "romaji": "shoppai", "english": "salty" },
+            { "japanese": "辛(から)い", "romaji": "karai", "english": "hot / spicy" },
+            { "japanese": "酸(すっ)っぱい", "romaji": "suppai", "english": "sour" },
+            { "japanese": "温(あたた)かい", "romaji": "atatakai", "english": "warm" },
+            { "japanese": "熱(あつ)い", "romaji": "atsui", "english": "hot (temperature)" },
+            { "japanese": "冷(つめ)たい", "romaji": "tsumetai", "english": "cold (to touch/drink)" }
+          ]
+        }
+      ]
+    },
+    {
+      "topic_id": 4,
+      "topic_ja": "家(いえ)",
+      "topic_en": "Home",
+      "subtopics": [
+        {
+          "subtopic_ja": "部屋(へや) と 家具(かぐ)",
+          "subtopic_en": "Rooms and Furniture",
+          "words": [
+            { "japanese": "家(いえ)", "romaji": "ie", "english": "house / home" },
+            { "japanese": "アパート", "romaji": "apaato", "english": "apartment / flat" },
+            { "japanese": "マンション", "romaji": "manshon", "english": "condominium" },
+            { "japanese": "玄関(げんかん)", "romaji": "genkan", "english": "entrance" },
+            { "japanese": "トイレ", "romaji": "toire", "english": "toilet / restroom" },
+            { "japanese": "お風呂(ふろ)", "romaji": "ofuro", "english": "bathroom / bath" },
+            { "japanese": "台所(だいどころ)", "romaji": "daidokoro", "english": "kitchen" },
+            { "japanese": "居間(いま) / リビング", "romaji": "ima / ribingu", "english": "living room" },
+            { "japanese": "ベッドルーム", "romaji": "beddo-ruumu", "english": "bedroom" },
+            { "japanese": "庭(にわ)", "romaji": "niwa", "english": "garden" },
+            { "japanese": "窓(まど)", "romaji": "mado", "english": "window" },
+            { "japanese": "ドア", "romaji": "doa", "english": "door" },
+            { "japanese": "椅子(いす)", "romaji": "isu", "english": "chair" },
+            { "japanese": "机(つくえ)", "romaji": "tsukue", "english": "desk" },
+            { "japanese": "テーブル", "romaji": "teeburu", "english": "table" },
+            { "japanese": "本棚(ほんだな)", "romaji": "hon-dana", "english": "bookshelf" },
+            { "japanese": "ベッド", "romaji": "beddo", "english": "bed" },
+            { "japanese": "冷蔵庫(れいぞうこ)", "romaji": "reezooko", "english": "refrigerator" },
+            { "japanese": "エアコン", "romaji": "eakon", "english": "air conditioner" },
+            { "japanese": "テレビ", "romaji": "terebi", "english": "television" },
+            { "japanese": "電話(でんわ)", "romaji": "denwa", "english": "telephone" }
+          ]
+        }
+      ]
+    },
+    {
+      "topic_id": 5,
+      "topic_ja": "生活(せいかつ)",
+      "topic_en": "Daily Life",
+      "subtopics": [
+        {
+          "subtopic_ja": "一日(いちにち)の活動(かつどう)",
+          "subtopic_en": "Daily Routines",
+          "words": [
+            { "japanese": "起(お)きます", "romaji": "okimasu", "english": "to get up" },
+            { "japanese": "寝(ね)ます", "romaji": "nemasu", "english": "to go to bed" },
+            { "japanese": "シャワーを浴(あ)びます", "romaji": "shawaa o abimasu", "english": "to take a shower" },
+            { "japanese": "お風呂(ふろ)に入(はい)ります", "romaji": "ofuro ni hairimasu", "english": "to take a bath" },
+            { "japanese": "顔(かお)を洗(あら)います", "romaji": "kao o araimasu", "english": "to wash one's face" },
+            { "japanese": "歯(は)を磨(みが)きます", "romaji": "ha o migakimasu", "english": "to brush teeth" },
+            { "japanese": "服(ふく)を着(き)ます", "romaji": "fuku o kimasu", "english": "to put on clothes" },
+            { "japanese": "服(ふく)を脱(ぬ)ぎます", "romaji": "fuku o nugimasu", "english": "to take off clothes" },
+            { "japanese": "〜に行(い)きます", "romaji": "~ ni ikimasu", "english": "to go to ~" },
+            { "japanese": "うち(家(うち))に帰(かえ)ります", "romaji": "uchi ni kaerimasu", "english": "to go home" },
+            { "japanese": "仕事(しごと)(を)します", "romaji": "shigoto (o) shimasu", "english": "to work" },
+            { "japanese": "勉強(べんきょう)(を)します", "romaji": "benkyoo (o) shimasu", "english": "to study" },
+            { "japanese": "買(か)い物(もの)(を)します", "romaji": "kaimono (o) shimasu", "english": "to go shopping" },
+            { "japanese": "洗濯(せんたく)(を)します", "romaji": "sentaku (o) shimasu", "english": "to wash clothes / do laundry" },
+            { "japanese": "掃除(そうじ)(を)します", "romaji": "sooji (o) shimasu", "english": "to clean" },
+            { "japanese": "料理(りょうり)(を)します", "romaji": "ryoori (o) shimasu", "english": "to cook" },
+            { "japanese": "休(やす)みます", "romaji": "yasumimasu", "english": "to rest" },
+            { "japanese": "ゆっくりします", "romaji": "yukkuri-shimasu", "english": "to relax" },
+            { "japanese": "テレビを見(み)ます", "romaji": "terebi o mimasu", "english": "to watch TV" },
+            { "japanese": "音楽(おんがく)を聞(き)きます", "romaji": "ongaku o kikimasu", "english": "to listen to music" }
+          ]
+        }
+      ]
+    },
+    {
+      "topic_id": 9,
+      "topic_ja": "その他(そのほか)",
+      "topic_en": "Other Words (Time, Calendar, Numbers)",
+      "subtopics": [
+        {
+          "subtopic_ja": "カレンダー と 時間(じかん)",
+          "subtopic_en": "Days of Week & Time",
+          "words": [
+            { "japanese": "日曜日(にちようび)", "romaji": "nichiyoobi", "english": "Sunday" },
+            { "japanese": "月曜日(げつようび)", "romaji": "getsuyoobi", "english": "Monday" },
+            { "japanese": "火曜日(かようび)", "romaji": "kayoobi", "english": "Tuesday" },
+            { "japanese": "水曜日(すいようび)", "romaji": "suiyoobi", "english": "Wednesday" },
+            { "japanese": "木曜日(もくようび)", "romaji": "mokuyoobi", "english": "Thursday" },
+            { "japanese": "金曜日(きんようび)", "romaji": "kin'yoobi", "english": "Friday" },
+            { "japanese": "土曜日(どようび)", "romaji": "doyoobi", "english": "Saturday" },
+            { "japanese": "今日(きょう)", "romaji": "kyoo", "english": "today" },
+            { "japanese": "昨日(きのう)", "romaji": "kinoo", "english": "yesterday" },
+            { "japanese": "明日(あした)", "romaji": "ashita", "english": "tomorrow" },
+            { "japanese": "朝(あさ)", "romaji": "asa", "english": "morning" },
+            { "japanese": "昼(ひる)", "romaji": "hiru", "english": "daytime / noon" },
+            { "japanese": "夜(よる)", "romaji": "yoru", "english": "night / evening" }
+          ]
+        }
+      ]
+    }
+  ]
+}
