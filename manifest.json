@@ -1,0 +1,32 @@
+{
+  "name": "\u65e5\u672c\u8a9e \u52c9\u5f37",
+  "short_name": "\u65e5\u672c\u8a9e",
+  "description": "\u30a8\u30ea\u30a2\u30b9\u306e\u30da\u30ae",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a1a",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "\u65e5\u672c\u8a9e",
+    "\u65e5\u672c\u4eba",
+    "\u52c9\u5f37"
+  ],
+  "icons": [
+    {
+      "src": "/src/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/src/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

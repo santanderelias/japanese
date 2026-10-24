@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>window.__resources = {};</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>· Sitio en mantenimiento ·</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/">
+<style>
+  :root{
+    --navy:#1b2a5e;
+    --navy-deep:#15204a;
+    --blue:#9cc3e6;
+    --orange:#f4a81c;
+    --peach:#f8d6a4;
+    --ink:#2f2f2f;
+    --white:#ffffff;
+    --serif:"Roboto Slab", Georgia, serif;
+    --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    font-family:var(--sans);
+    background:var(--navy);
+    color:var(--white);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .page{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;}
+
+  /* ---- top bar ---- */
+  .bar{
+    flex:0 0 auto;background:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 clamp(20px,4vw,48px);height:78px;
+  }
+  .bar img{height:30px;width:auto;display:block;}
+  .status{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:clamp(10px,1.4vw,12px);letter-spacing:.18em;font-weight:700;
+    text-transform:uppercase;color:var(--orange);white-space:nowrap;
+  }
+  .status .dot{
+    width:9px;height:9px;border-radius:50%;background:var(--orange);
+    animation:pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(244,168,28,.55);}
+    70%{box-shadow:0 0 0 12px rgba(244,168,28,0);}
+    100%{box-shadow:0 0 0 0 rgba(244,168,28,0);}
+  }
+
+  /* ---- body split ---- */
+  .body{flex:1 1 auto;display:grid;grid-template-columns:1.05fr 1fr;min-height:0;}
+
+  .left{
+    background:var(--navy);
+    padding:clamp(40px,6vw,80px) clamp(28px,6vw,72px);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .kicker{
+    font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--orange);font-size:13px;margin-bottom:24px;
+  }
+  h1{
+    font-family:var(--serif);font-weight:700;line-height:1.0;letter-spacing:-.01em;
+    color:#fff;font-size:clamp(38px,5vw,60px);margin:0;
+  }
+  .lead{
+    color:rgba(255,255,255,.74);font-size:clamp(16px,1.4vw,18px);
+    line-height:1.6;max-width:34ch;margin:28px 0 0;
+  }
+  .progress{
+    margin:clamp(34px,5vw,46px) 0 14px;width:300px;max-width:80%;height:6px;
+    border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden;
+  }
+  .progress span{
+    display:block;height:100%;width:40%;border-radius:99px;background:var(--orange);
+    animation:slide 2.2s ease-in-out infinite;
+  }
+  @keyframes slide{0%{transform:translateX(-110%);}100%{transform:translateX(360%);}}
+  .progress-label{color:rgba(255,255,255,.55);font-size:13px;letter-spacing:.06em;margin:0;}
+
+  /* ---- right composition ---- */
+  .right{position:relative;background:var(--blue);overflow:hidden;}
+  .blk{position:absolute;}
+  .blk-orange{right:0;top:0;width:42%;height:46%;background:var(--orange);}
+  .blk-peach{left:0;bottom:0;width:46%;height:40%;background:var(--peach);}
+  .gear-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+  .disc{
+    position:absolute;width:clamp(170px,24vw,240px);height:clamp(170px,24vw,240px);
+    border-radius:50%;background:rgba(255,255,255,.92);
+    box-shadow:0 24px 60px rgba(21,32,74,.28);
+    animation:breathe 4.2s ease-in-out infinite;
+  }
+  @keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+  .gear{position:relative;z-index:2;width:clamp(96px,13vw,132px);height:auto;}
+
+  /* ---- responsive: stack on narrow screens ---- */
+  @media (max-width:760px){
+    .body{grid-template-columns:1fr;grid-template-rows:auto 240px;}
+    .left{text-align:left;}
+    .right{min-height:240px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .progress span{animation:none;width:55%;}
+    .disc,.dot{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="bar">
+    <div class="status"><span class="dot"></span>Mantenimiento programado</div>
+  </div>
+
+  <div class="body">
+    <section class="left">
+      <span class="kicker">Sitio en mantenimiento</span>
+      <h1>Estamos<br>realizando<br>correcciones.</h1>
+      <p class="lead">Volvemos pronto con el sitio.
+        Gracias por tu paciencia.</p>
+      <div class="progress" role="presentation"><span></span></div>
+      <p class="progress-label">Trabajando en el sitio…</p>
+      <p>To learn japanese go <a href="/site.html" style="background-color: green">here</a> instead</p>
+    </section>
+
+    <section class="right" aria-hidden="true">
+      <div class="blk blk-orange"></div>
+      <div class="blk blk-peach"></div>
+      <div class="gear-wrap">
+        <div class="disc"></div>
+        <svg class="gear" viewBox="0 0 120 120" fill="none">
+          <path d="M114,60 L103.5,67.6 L107.4,79.9 L94.8,82.9 L91.8,95.4 L79.4,91.5 L71.8,102 L62,93.4 L52.2,102 L44.6,91.5 L32.2,95.4 L29.2,82.9 L16.6,79.9 L20.5,67.6 L10,60 L20.5,52.4 L16.6,40.1 L29.2,37.1 L32.2,24.6 L44.6,28.5 L52.2,18 L62,26.6 L71.8,18 L79.4,28.5 L91.8,24.6 L94.8,37.1 L107.4,40.1 L103.5,52.4 Z" stroke="#1b2a5e" stroke-width="5" stroke-linejoin="round"></path>
+          <circle cx="60" cy="60" r="18" stroke="#1b2a5e" stroke-width="5"></circle>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+</div>
+
+
+</body></html>
