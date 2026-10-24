@@ -148,29 +148,22 @@ export class HomeModule extends Module {
       <h2 style="margin: 1.5rem 0 1rem 0;">Learning Modes</h2>
       <div class="card-grid">
         <article class="card interactive-card" data-go="1">
-          <div class="card__icon">🎴</div>
-          <h3>Flashcards</h3>
-          <p>Review vocabulary with flip cards, furigana toggles, and audio hints.</p>
-          <button type="button" class="btn btn--secondary btn--sm">Start Flashcards</button>
+          <div class="card__icon">📖</div>
+          <h3>Studying (学習)</h3>
+          <p>Explore vocabulary lessons structured by themes and subtopics with furigana and audio.</p>
+          <button type="button" class="btn btn--secondary btn--sm">Start Studying</button>
         </article>
 
         <article class="card interactive-card" data-go="2">
-          <div class="card__icon">📝</div>
-          <h3>Quiz & Tests</h3>
-          <p>Test your knowledge with multiple choice, listening, and translation quizzes.</p>
-          <button type="button" class="btn btn--secondary btn--sm">Take Quiz</button>
+          <div class="card__icon">🎮</div>
+          <h3>Minigames (ゲーム)</h3>
+          <p>Play Flipcards, Quizzes, Word Unscramble, Memory Match, and Kana Crosswords.</p>
+          <button type="button" class="btn btn--secondary btn--sm">Play Minigames</button>
         </article>
 
         <article class="card interactive-card" data-go="3">
-          <div class="card__icon">🎮</div>
-          <h3>Minigames</h3>
-          <p>Play Kana Crosswords, Memory Match, and Word Unscramble games.</p>
-          <button type="button" class="btn btn--secondary btn--sm">Play Games</button>
-        </article>
-
-        <article class="card interactive-card" data-go="4">
           <div class="card__icon">あ</div>
-          <h3>Kana Chart</h3>
+          <h3>Kana Chart (仮名)</h3>
           <p>Full reference table for Hiragana and Katakana characters with audio.</p>
           <button type="button" class="btn btn--secondary btn--sm">View Kana</button>
         </article>
