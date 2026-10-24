@@ -1,6 +1,6 @@
-// Auto-generated Service Worker - Version 1.0.1
+// Auto-generated Service Worker - Version 1.0.2
 // Target URL: https://santael.com | Strategy: stale-while-revalidate
-const CACHE_NAME = 'app-cache-v1.0.1';
+const CACHE_NAME = 'app-cache-v1.0.2';
 const PRECACHE_ASSETS = [
   "/",
   "/offline.html",
@@ -559,6 +559,7 @@ const PRECACHE_ASSETS = [
   "/.git/objects/2d/9690e5248e650cf76ccf6aeebe25c7348bd3f8",
   "/.git/objects/2d/3e38c5b469362cf4cc5be48544a92f28e25878",
   "/.git/objects/ee/f3bd123fba7bf1246b52c6e4be4e90ec662d00",
+  "/.git/objects/84/a55b1fe6cb31dad055ac99df99ba30ad982ba4",
   "/.git/objects/31/a9040e4298606a2294e182446f9ee7bf8804d5",
   "/.git/objects/2f/15f4c3dd66117763821fa2b2faa8fa98255221",
   "/.git/objects/2f/5102d2a7f84e6509041303a9b77b82b22baee0",
@@ -647,6 +648,7 @@ const PRECACHE_ASSETS = [
   "/.git/objects/06/ac8b06d9346d99088e2026fd49cb757908c42e",
   "/.git/objects/d7/e4b20dbecd99956c136efa903932c8e37a5ffa",
   "/.git/objects/d7/1d611cff13caa856c853bf095030dabc2d90fa",
+  "/.git/objects/d7/f90ec8cb6abbd3a5788502e7f4a16dea4291ed",
   "/.git/objects/ab/0471a9a30b8dd7d77f1a634801f8eecc356a36",
   "/.git/objects/0d/cf4d5469b6074777dc71d223557d046e3ae541",
   "/.git/objects/b5/a10def71dd5023d7d9bf58f7098503512effb2",
@@ -703,6 +705,7 @@ const PRECACHE_ASSETS = [
   "/.git/objects/fd/67e3356fd59406287c053b8753ceeb16516e9c",
   "/.git/objects/79/7b8102cbab32ef1e15c286b0417b2b576d4039",
   "/.git/objects/79/c0347e735443135021ac06d396b4541b553c02",
+  "/.git/objects/79/f2d74066bf7b93b57a87e93b17f06478374de2",
   "/.git/objects/85/d858d90a937d6ccb2c953a6930f5f583eec6e3",
   "/.git/objects/f4/256e67b04249e9d20f9e312ef93b37eb277a5d",
   "/.git/objects/f4/7c6353e12892a46737f5260d62b45bd189d4ac",
@@ -761,6 +764,7 @@ const PRECACHE_ASSETS = [
   "/.git/objects/pack/pack-a53c83bb0ea60465ad22ff0d13741257bcb60b2c.pack",
   "/.git/objects/pack/pack-bf19421dea16317818145e00bc84cf2478eb819e.pack",
   "/.git/objects/a1/5925bcac5a6f56a6c1f49593ad6d67416d9359",
+  "/.git/objects/0e/67fbe4b07806780d30eab6d9f015fe9009236b",
   "/.git/objects/0e/ae75fb9fe884a9a02f3694ca5c115391e88b1f",
   "/.git/objects/07/9d8f9ef1e4dc8b10533efca2792349349b445d",
   "/.git/objects/07/90599d28bf015fad2ebf420f37becc7ae4584e",
