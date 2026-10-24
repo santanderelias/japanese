@@ -1,5 +1,6 @@
 import os
 import json
+import fnmatch
 from pathlib import Path
 
 def parse_env(env_path='.env'):
@@ -13,6 +14,39 @@ def parse_env(env_path='.env'):
                     key, value = line.split('=', 1)
                     env_vars[key.strip()] = value.strip().strip('"\'')
     return env_vars
+
+def parse_gitignore(gitignore_path='.gitignore'):
+    """Extract patterns from .gitignore to filter out untracked files."""
+    patterns = []
+    if os.path.exists(gitignore_path):
+        with open(gitignore_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    patterns.append(line)
+    return patterns
+
+def is_ignored(path, root, patterns):
+    """Check if a given path matches any .gitignore pattern."""
+    rel_path = path.relative_to(root)
+    rel_str = str(rel_path).replace('\\', '/')
+    
+    for pattern in patterns:
+        cleaned_pattern = pattern.rstrip('/')
+        
+        # Check if any parent directory or part matches directory-style patterns
+        if any(part == cleaned_pattern for part in rel_path.parts):
+            return True
+            
+        # Match using fnmatch for wildcards and exact names
+        if fnmatch.fnmatch(rel_str, pattern) or fnmatch.fnmatch(path.name, pattern):
+            return True
+            
+        # Check against parent paths
+        if any(fnmatch.fnmatch(str(p).replace('\\', '/'), pattern) for p in rel_path.parents):
+            return True
+            
+    return False
 
 def main():
     root = Path('.').resolve()
@@ -84,21 +118,19 @@ def main():
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     print(f"   [+] Generated: {manifest_path.name}")
 
-    # 2. Scan files for Service Worker asset list (with strict exclusions)
-    ignore_dirs = {'.git', 'old', '__pycache__', '.vscode'}
-    ignore_files = {'.env', 'CNAME', 'manifest.json', 'sw.js', 'setup.py'}
-    ignore_extensions = {'.map', '.py'}
+    # 2. Scan files for Service Worker asset list (respecting .gitignore & hard exclusions)
+    hard_ignore_files = {'.env', 'setup.py', 'manifest.json', 'sw.js'}
+    gitignore_patterns = parse_gitignore(root / '.gitignore')
 
     assets = ['/']
     if offline_page and offline_page not in assets:
         assets.append(offline_page)
     
     for path in root.rglob('*'):
-        if any(part in ignore_dirs for part in path.parts):
-            continue
-            
         if path.is_file():
-            if path.name in ignore_files or path.suffix in ignore_extensions:
+            if path.name in hard_ignore_files:
+                continue
+            if is_ignored(path, root, gitignore_patterns):
                 continue
             
             rel_path = '/' + str(path.relative_to(root)).replace('\\', '/')
