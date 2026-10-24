@@ -1,32 +1,32 @@
 from playwright.sync_api import sync_playwright
 
 def run_verification(page):
-    page.goto("http://localhost:8000/site.html")
+    page.goto("http://localhost:8080/site.html")
     page.wait_for_timeout(1000)
 
     # 1. Dashboard
-    page.screenshot(path="/home/jules/verification/screenshots/verification.png")
+    page.screenshot(path="/tmp/verification_dashboard.png")
     page.wait_for_timeout(500)
 
-    # Navigate to Flashcards (Module 1)
-    page.get_by_role("button", name="単語 (Cards)").click()
+    # Navigate to Studying (Module 1)
+    page.get_by_role("button", name="学習 (Study)").click()
     page.wait_for_timeout(1000)
 
-    # Flip flashcard
+    # Navigate to Games (Module 2)
+    page.get_by_role("button", name="ゲーム (Games)").click()
+    page.wait_for_timeout(1000)
+
+    # Launch Flipcards
+    page.get_by_role("button", name="Play Flipcards").click()
+    page.wait_for_timeout(800)
+
+    # Flip card
     page.get_by_role("button", name="🔄 Flip Card").click()
     page.wait_for_timeout(800)
 
-    # Navigate to Quiz (Module 2)
-    page.get_by_role("button", name="テスト (Quiz)").click()
-    page.wait_for_timeout(1000)
-
-    # Start Quiz
-    page.get_by_role("button", name="🚀 Start Test").click()
+    # Back to Games
+    page.get_by_role("button", name="⬅️ Back to Games").click()
     page.wait_for_timeout(800)
-
-    # Navigate to Minigames (Module 3)
-    page.get_by_role("button", name="ゲーム (Games)").click()
-    page.wait_for_timeout(1000)
 
     # Launch Crossword
     page.get_by_role("button", name="Play Crossword").click()
@@ -35,12 +35,9 @@ def run_verification(page):
 if __name__ == "__main__":
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            record_video_dir="/home/jules/verification/videos"
-        )
-        page = context.new_page()
+        page = browser.new_page()
         try:
             run_verification(page)
+            print("Verification script passed successfully!")
         finally:
-            context.close()
             browser.close()

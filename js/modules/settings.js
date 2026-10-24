@@ -5,6 +5,7 @@
 import { Module } from './base.js';
 import { storage } from '../storage.js';
 import { dataManager } from '../data.js';
+import { showToast, showModal } from '../ui.js';
 
 export const THEME_KEY = 'app-theme';
 
@@ -69,10 +70,17 @@ export class SettingsModule extends Module {
 
       const resetBtn = e.target.closest('#btn-reset-progress');
       if (resetBtn) {
-        if (confirm('Are you sure you want to reset all learning progress? This cannot be undone.')) {
-          storage.resetAllProgress();
-          this.showToast('storage-toast', 'All progress reset successfully.');
-        }
+        showModal({
+          title: 'Reset Progress',
+          message: 'Are you sure you want to reset all learning progress? This cannot be undone.',
+          confirmText: 'Reset Progress',
+          danger: true
+        }).then((confirmed) => {
+          if (confirmed) {
+            storage.resetAllProgress();
+            showToast('All progress reset successfully.', 'success');
+          }
+        });
         return;
       }
 
@@ -86,7 +94,7 @@ export class SettingsModule extends Module {
           if (!active.includes(dsId)) active.push(dsId);
         } else {
           if (active.length === 1 && active.includes(dsId)) {
-            alert('At least one dataset must remain enabled!');
+            showToast('At least one dataset must remain enabled!', 'warning');
             datasetCheck.checked = true;
             return;
           }
@@ -95,18 +103,25 @@ export class SettingsModule extends Module {
 
         storage.settings.activeDatasetIds = active;
         storage.saveSettings();
-        this.showToast('dataset-toast', 'Active datasets updated.');
+        showToast('Active datasets updated.', 'success');
         return;
       }
 
       const deleteDsBtn = e.target.closest('[data-delete-dataset]');
       if (deleteDsBtn) {
         const dsId = deleteDsBtn.getAttribute('data-delete-dataset');
-        if (confirm(`Remove custom dataset "${dsId}"?`)) {
-          dataManager.removeCustomDataset(dsId);
-          this.renderDatasetsAndPreferences();
-          this.showToast('dataset-toast', 'Custom dataset removed.');
-        }
+        showModal({
+          title: 'Remove Dataset',
+          message: `Remove custom dataset "${dsId}"?`,
+          confirmText: 'Remove',
+          danger: true
+        }).then((confirmed) => {
+          if (confirmed) {
+            dataManager.removeCustomDataset(dsId);
+            this.renderDatasetsAndPreferences();
+            showToast('Custom dataset removed.', 'success');
+          }
+        });
         return;
       }
     });
@@ -128,7 +143,7 @@ export class SettingsModule extends Module {
               // Vocabulary dataset JSON
               dataManager.addCustomDataset(parsed);
               this.renderDatasetsAndPreferences();
-              this.showToast('dataset-toast', `Vocabulary dataset "${parsed.title || 'Custom'}" imported successfully!`);
+              showToast(`Vocabulary dataset "${parsed.title || 'Custom'}" imported successfully!`, 'success');
             } else if (parsed.progress || parsed.settings) {
               // Full backup JSON
               const result = storage.importAllData(content);
@@ -136,15 +151,15 @@ export class SettingsModule extends Module {
                 applyTheme(storage.settings.theme);
                 this.syncThemeUI();
                 this.renderDatasetsAndPreferences();
-                this.showToast('storage-toast', 'Backup data imported successfully!');
+                showToast('Backup data imported successfully!', 'success');
               } else {
-                alert('Import failed: ' + result.error);
+                showToast('Import failed: ' + result.error, 'error');
               }
             } else {
-              alert('Unrecognized JSON format. Must be a dataset JSON or backup JSON.');
+              showToast('Unrecognized JSON format. Must be a dataset JSON or backup JSON.', 'warning');
             }
           } catch (err) {
-            alert('Invalid JSON file: ' + err.message);
+            showToast('Invalid JSON file: ' + err.message, 'error');
           }
         };
         reader.readAsText(file);

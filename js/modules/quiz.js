@@ -6,6 +6,7 @@ import { Module } from './base.js';
 import { dataManager } from '../data.js';
 import { storage } from '../storage.js';
 import { audioPlayer } from '../audio.js';
+import { showToast } from '../ui.js';
 
 export class QuizModule extends Module {
   constructor() {
@@ -79,7 +80,7 @@ export class QuizModule extends Module {
 
     const allWords = dataManager.getWords();
     if (allWords.length < 4) {
-      alert('You need at least 4 vocabulary words in dataset to start a quiz!');
+      showToast('You need at least 4 vocabulary words in dataset to start a quiz!', 'warning');
       return;
     }
 

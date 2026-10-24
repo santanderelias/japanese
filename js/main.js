@@ -5,8 +5,7 @@
 import { orchestrator } from './orchestrator.js';
 import { NavbarModule } from './modules/navbar.js';
 import { HomeModule } from './modules/home.js';
-import { FlashcardModule } from './modules/flashcards.js';
-import { QuizModule } from './modules/quiz.js';
+import { StudyingModule } from './modules/studying.js';
 import { MinigameModule } from './modules/minigames.js';
 import { KanaModule } from './modules/kana.js';
 import { SettingsModule, applyTheme, getStoredTheme } from './modules/settings.js';
@@ -29,10 +28,9 @@ async function boot() {
 
   orchestrator.init(moduleRoot);
 
-  // Register Japanese Learning Modules (0=Home, 1=Flashcards, 2=Quiz, 3=Minigames, 4=Kana, 99=Settings)
+  // Register Japanese Learning Modules (0=Home, 1=Studying, 2=Minigames, 3=Kana, 99=Settings)
   await orchestrator.register(new HomeModule(orchestrator));
-  await orchestrator.register(new FlashcardModule());
-  await orchestrator.register(new QuizModule());
+  await orchestrator.register(new StudyingModule());
   await orchestrator.register(new MinigameModule());
   await orchestrator.register(new KanaModule());
   await orchestrator.register(new SettingsModule());

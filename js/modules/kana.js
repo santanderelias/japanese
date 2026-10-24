@@ -8,10 +8,10 @@ import { audioPlayer } from '../audio.js';
 export class KanaModule extends Module {
   constructor() {
     super({
-      id: 4,
+      id: 3,
       name: 'Kana Chart',
       navLabel: '仮名 (Kana)',
-      navOrder: 4
+      navOrder: 3
     });
 
     this.activeTab = 'hiragana'; // 'hiragana' or 'katakana'
@@ -136,7 +136,7 @@ export class KanaModule extends Module {
       </div>
 
       <footer class="module-footer">
-        Module 4 · Kana Chart
+        Module 3 · Kana Chart
       </footer>
     `;
   }
