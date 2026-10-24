@@ -1,6 +1,6 @@
-// Auto-generated Service Worker - Version 1.0.3
+// Auto-generated Service Worker - Version 1.0.5
 // Target URL: https://santael.com | Strategy: stale-while-revalidate
-const CACHE_NAME = '1.0.3';
+const CACHE_NAME = '1.0.5';
 const PRECACHE_ASSETS = [
   "/",
   "/offline.html",
