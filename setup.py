@@ -15,41 +15,39 @@ def parse_env(env_path='.env'):
                     env_vars[key.strip()] = value.strip().strip('"\'')
     return env_vars
 
-def parse_gitignore(gitignore_path='.gitignore'):
-    """Extract patterns from .gitignore to filter out untracked files."""
-    patterns = []
-    if os.path.exists(gitignore_path):
-        with open(gitignore_path, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#'):
-                    patterns.append(line)
-    return patterns
+def parse_cache_exclude(env_value):
+    """Parse comma-separated exclusion patterns from .env."""
+    if not env_value:
+        return ['old', 'scripts', '*.md', '*.py', 'CNAME']
+    return [pattern.strip() for pattern in env_value.split(',') if pattern.strip()]
 
-def is_ignored(path, root, patterns):
-    """Check if a given path matches hardcoded rules or .gitignore patterns."""
+def is_ignored(path, root, exclude_patterns):
+    """Check if a path matches hidden system files or user-defined blacklist rules."""
     rel_path = path.relative_to(root)
     rel_str = str(rel_path).replace('\\', '/')
     
-    # 1. Hardcoded safety: Ignore hidden system files/directories (like .git, .github, .vscode)
+    # 1. Hardcoded safety: Always ignore hidden files/directories (like .git, .github)
     if any(part.startswith('.') for part in rel_path.parts):
         return True
 
-    # 2. Hardcoded file exclusions for app meta/scripts
+    # 2. Core build files that should never be cached
     hard_ignore_files = {'.env', 'setup.py', 'manifest.json', 'sw.js'}
     if path.name in hard_ignore_files:
         return True
 
-    # 3. Dynamic .gitignore pattern matching
-    for pattern in patterns:
+    # 3. Apply custom blacklist patterns from CACHE_EXCLUDE
+    for pattern in exclude_patterns:
         cleaned_pattern = pattern.rstrip('/')
         
+        # Match directory name segments (e.g., 'old')
         if any(part == cleaned_pattern for part in rel_path.parts):
             return True
             
+        # Match wildcards or exact filenames (e.g., '*.py', 'CNAME')
         if fnmatch.fnmatch(rel_str, pattern) or fnmatch.fnmatch(path.name, pattern):
             return True
             
+        # Match parent directories against patterns
         if any(fnmatch.fnmatch(str(p).replace('\\', '/'), pattern) for p in rel_path.parents):
             return True
             
@@ -89,6 +87,9 @@ def main():
     cache_strategy = env.get('CACHE_STRATEGY', 'cache-first')
     offline_page = env.get('OFFLINE_PAGE', '').strip()
     
+    # Load exclusion rules from environment
+    exclude_patterns = parse_cache_exclude(env.get('CACHE_EXCLUDE', ''))
+    
     print(f"-> Building complete PWA suite for {app_name} (v{app_version})...")
 
     # 1. Generate full manifest.json
@@ -125,16 +126,14 @@ def main():
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     print(f"   [+] Generated: {manifest_path.name}")
 
-    # 2. Scan files for Service Worker asset list (respecting hidden dirs & .gitignore)
-    gitignore_patterns = parse_gitignore(root / '.gitignore')
-
+    # 2. Scan files for Service Worker asset list (respecting blacklist & hidden dirs)
     assets = ['/']
     if offline_page and offline_page not in assets:
         assets.append(offline_page)
     
     for path in root.rglob('*'):
         if path.is_file():
-            if is_ignored(path, root, gitignore_patterns):
+            if is_ignored(path, root, exclude_patterns):
                 continue
             
             rel_path = '/' + str(path.relative_to(root)).replace('\\', '/')
