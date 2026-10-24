@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Fetch Google TTS audio files for vocabulary words in dataset JSONs.
-Saves audio files as MD5 hash or sanitized filename in content/audio/.
+Fetch Google TTS audio files for vocabulary words and Kana characters.
+Saves audio files in content/audio/ and maintains content/audio_map.json.
 """
 
 import os
@@ -11,28 +11,48 @@ import urllib.request
 import urllib.parse
 import re
 
+HIRAGANA_CHARS = [
+    'あ', 'い', 'う', 'え', 'お',
+    'か', 'き', 'く', 'け', 'こ',
+    'さ', 'し', 'す', 'せ', 'そ',
+    'た', 'ち', 'つ', 'て', 'と',
+    'な', 'に', 'ぬ', 'ね', 'の',
+    'は', 'ひ', 'ふ', 'へ', 'ほ',
+    'ま', 'み', 'む', 'め', 'も',
+    'や', 'ゆ', 'よ',
+    'ら', 'り', 'る', 'れ', 'ろ',
+    'わ', 'を',
+    'ん'
+]
+
+KATAKANA_CHARS = [
+    'ア', 'イ', 'ウ', 'エ', 'オ',
+    'カ', 'キ', 'ク', 'ケ', 'コ',
+    'サ', 'シ', 'ス', 'セ', 'ソ',
+    'タ', 'チ', 'ツ', 'テ', 'ト',
+    'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
+    'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
+    'マ', 'ミ', 'ム', 'メ', 'モ',
+    'ヤ', 'ユ', 'ヨ',
+    'ラ', 'リ', 'ル', 'レ', 'ロ',
+    'ワ', 'ヲ',
+    'ン'
+]
+
 def clean_reading(text):
     """
     Extract kana/clean text for speech synthesis from Japanese text.
     For example: '学生(がくせい)' -> 'がくせい' or '学校(がっこう)' -> 'がっこう'.
-    If furigana is inside parentheses, take parenthesized reading, otherwise keep string as is.
     """
-    # Find all text inside parentheses
     matches = re.findall(r'[\(（]([^\)）]+)[\)）]', text)
     if matches:
-        # Join furigana parts if string was e.g. "父(ちち) / お父(とう)さん"
-        # For TTS, let's extract kana or strip parenthesized kanji/slashes
-        # E.g., strip kanji before parenthesis
         cleaned = text
-        # Remove kanji preceding parentheses: e.g. 学生(がくせい) -> がくせい
         cleaned = re.sub(r'[\u4e00-\u9faf\u3400-\u4dbf]+\(([^\)]+)\)', r'\1', cleaned)
         cleaned = re.sub(r'[\u4e00-\u9faf\u3400-\u4dbf]+（([^）]+)）', r'\1', cleaned)
-        # Remove slash variations if any: e.g. "がくせい / てすと" -> "がくせい"
         if '/' in cleaned:
             cleaned = cleaned.split('/')[0].strip()
         return cleaned.strip()
 
-    # If no parentheses, clean slashes e.g. "クラス / レッスン" -> "クラス"
     if '/' in text:
         text = text.split('/')[0].strip()
     return text.strip()
@@ -42,46 +62,71 @@ def get_audio_filename(text):
     h = hashlib.md5(text.encode('utf-8')).hexdigest()
     return f"{h}.mp3"
 
-def fetch_audio_for_dataset(json_path, output_dir='content/audio'):
+def fetch_and_save(text, tts_text, output_dir, audio_map):
+    filename = get_audio_filename(text)
+    filepath = os.path.join(output_dir, filename)
+
+    audio_map[text] = filename
+    if tts_text != text:
+        audio_map[tts_text] = filename
+
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
+        return False
+
+    encoded_text = urllib.parse.quote(tts_text)
+    url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={encoded_text}&tl=ja&client=tw-ob"
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        with urllib.request.urlopen(req) as resp, open(filepath, 'wb') as out_file:
+            out_file.write(resp.read())
+        print(f"Downloaded [{text}] ({tts_text}) -> {filename}")
+        return True
+    except Exception as e:
+        print(f"Failed to fetch audio for '{text}' ({tts_text}): {e}")
+        return False
+
+def main():
+    output_dir = 'content/audio'
+    map_file = 'content/audio_map.json'
     os.makedirs(output_dir, exist_ok=True)
-    with open(json_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
 
-    words_processed = 0
-    words_downloaded = 0
+    audio_map = {}
+    if os.path.exists(map_file):
+        try:
+            with open(map_file, 'r', encoding='utf-8') as f:
+                audio_map = json.load(f)
+        except Exception as e:
+            print(f"Error loading existing audio_map.json: {e}")
 
-    topics = data.get('topics', [])
-    for topic in topics:
-        for sub in topic.get('subtopics', []):
-            for word in sub.get('words', []):
-                jp_text = word.get('japanese', '')
-                if not jp_text:
-                    continue
+    downloaded = 0
 
-                tts_text = clean_reading(jp_text)
-                filename = get_audio_filename(jp_text)
-                filepath = os.path.join(output_dir, filename)
+    # 1. Fetch audio for all Kana characters
+    all_kana = HIRAGANA_CHARS + KATAKANA_CHARS
+    for char in all_kana:
+        if fetch_and_save(char, char, output_dir, audio_map):
+            downloaded += 1
 
-                words_processed += 1
-                if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
-                    continue
-
-                encoded_text = urllib.parse.quote(tts_text)
-                url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={encoded_text}&tl=ja&client=tw-ob"
-                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                try:
-                    with urllib.request.urlopen(req) as resp, open(filepath, 'wb') as out_file:
-                        out_file.write(resp.read())
-                    words_downloaded += 1
-                    print(f"Downloaded [{tts_text}] -> {filename}")
-                except Exception as e:
-                    print(f"Failed to fetch audio for '{jp_text}' ({tts_text}): {e}")
-
-    print(f"Finished processing {json_path}: {words_processed} total, {words_downloaded} downloaded.")
-
-if __name__ == '__main__':
+    # 2. Fetch audio for dataset vocabulary
     json_file = 'content/marugoto_a1_vocabulary.json'
     if os.path.exists(json_file):
-        fetch_audio_for_dataset(json_file)
-    else:
-        print(f"Dataset file {json_file} not found.")
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        for topic in data.get('topics', []):
+            for sub in topic.get('subtopics', []):
+                for word in sub.get('words', []):
+                    jp_text = word.get('japanese', '')
+                    if not jp_text:
+                        continue
+                    tts_text = clean_reading(jp_text)
+                    if fetch_and_save(jp_text, tts_text, output_dir, audio_map):
+                        downloaded += 1
+
+    # Save audio_map.json
+    with open(map_file, 'w', encoding='utf-8') as f:
+        json.dump(audio_map, f, ensure_ascii=False, indent=2)
+
+    print(f"Audio sync complete. Downloaded {downloaded} new files. Total mapped entries: {len(audio_map)}.")
+
+if __name__ == '__main__':
+    main()

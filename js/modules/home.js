@@ -4,7 +4,7 @@
 
 import { Module } from './base.js';
 import { storage } from '../storage.js';
-import { dataManager } from '../data.js';
+import { dataManager, DataManager } from '../data.js';
 import { audioPlayer } from '../audio.js';
 
 export class HomeModule extends Module {
@@ -76,7 +76,7 @@ export class HomeModule extends Module {
       const cardTopic = this.element.querySelector('#daily-word-topic');
       const masterBtn = this.element.querySelector('#daily-master-btn');
 
-      if (cardTitle) cardTitle.textContent = this.dailyWord.japanese;
+      if (cardTitle) cardTitle.innerHTML = DataManager.formatJapaneseDisplay(this.dailyWord.japanese);
       if (cardSub) cardSub.textContent = this.dailyWord.romaji;
       if (cardMeaning) cardMeaning.textContent = this.dailyWord.english;
       if (cardTopic) cardTopic.textContent = `${this.dailyWord.topic_ja} · ${this.dailyWord.subtopic_ja}`;

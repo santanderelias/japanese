@@ -3,7 +3,7 @@
  */
 
 import { Module } from './base.js';
-import { dataManager } from '../data.js';
+import { dataManager, DataManager } from '../data.js';
 import { storage } from '../storage.js';
 import { audioPlayer } from '../audio.js';
 import { showToast } from '../ui.js';
@@ -212,7 +212,7 @@ export class QuizModule extends Module {
     if (this.mode === 'jp_to_en') {
       promptHtml = `
         <div style="margin-bottom:1rem;">
-          <h1 style="font-size:2.2rem; color:var(--primary); font-weight:800;">${q.targetWord.japanese}</h1>
+          <h1 style="font-size:2.2rem; color:var(--primary); font-weight:800;">${DataManager.formatJapaneseDisplay(q.targetWord.japanese)}</h1>
           <p class="text-muted">${q.targetWord.romaji}</p>
           <button type="button" class="btn btn--secondary btn--sm" style="margin-top:0.5rem;" data-action="play-q-audio">🔊 Play Audio</button>
         </div>
@@ -245,7 +245,7 @@ export class QuizModule extends Module {
         if (this.mode === 'jp_to_en' || this.mode === 'audio') {
           label = opt.english;
         } else {
-          label = `${opt.japanese} (${opt.romaji})`;
+          label = `${DataManager.formatJapaneseDisplay(opt.japanese)} (${opt.romaji})`;
         }
 
         let btnClass = 'btn btn--secondary quiz-option-btn';
