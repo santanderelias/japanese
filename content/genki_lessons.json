@@ -1,0 +1,700 @@
+[
+  {
+    "id": "genki_l1",
+    "lesson_number": 1,
+    "title_ja": "新(あたら)しい友(とも)達(だち)",
+    "title_en": "New Friends",
+    "description": "Learn basic greetings, self-introductions, the basic sentence structure (X は Y です), asking questions (～か), and expressing possession (～の).",
+    "dialogue": {
+      "title_ja": "大学(だいがく)のキャンパスで",
+      "title_en": "On the University Campus",
+      "lines": [
+        {
+          "speaker": "メアリー",
+          "japanese": "すみません。いま 何時(なんじ)ですか。",
+          "romaji": "Sumimasen. Ima nan-ji desu ka.",
+          "english": "Excuse me. What time is it now?"
+        },
+        {
+          "speaker": "たけし",
+          "japanese": "九時(くじ)半(はん)です。",
+          "romaji": "Ku-ji han desu.",
+          "english": "It is 9:30."
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "ありがとうございます。",
+          "romaji": "Arigatoo gozaimasu.",
+          "english": "Thank you very much."
+        },
+        {
+          "speaker": "たけし",
+          "japanese": "いいえ。あの、留学生(りゅうがくせい)ですか。",
+          "romaji": "Iie. Ano, ryuugakusei desu ka.",
+          "english": "You're welcome. Um, are you an international student?"
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "はい、アリゾナ大学(だいがく)の 学生(がくせい)です。",
+          "romaji": "Hai, Arizona-daigaku no gakusei desu.",
+          "english": "Yes, I am a student of the University of Arizona."
+        },
+        {
+          "speaker": "たけし",
+          "japanese": "専攻(せんこう)は 何(なん)ですか。",
+          "romaji": "Senkoo wa nan desu ka.",
+          "english": "What is your major?"
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "日本語(にほんご)です。いま 二年生(にねんせい)です。",
+          "romaji": "Nihongo desu. Ima ninensei desu.",
+          "english": "It is Japanese. I am a second-year student now."
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "japanese": "私(わたし)",
+        "romaji": "watashi",
+        "english": "I / me"
+      },
+      {
+        "japanese": "学生(がくせい)",
+        "romaji": "gakusei",
+        "english": "student"
+      },
+      {
+        "japanese": "先生(せんせい)",
+        "romaji": "sensei",
+        "english": "teacher / professor"
+      },
+      {
+        "japanese": "留学生(りゅうがくせい)",
+        "romaji": "ryuugakusei",
+        "english": "international student"
+      },
+      {
+        "japanese": "大学(だいがく)",
+        "romaji": "daigaku",
+        "english": "university / college"
+      },
+      {
+        "japanese": "専攻(せんこう)",
+        "romaji": "senkoo",
+        "english": "major"
+      },
+      {
+        "japanese": "名義(なまえ) / 名前(なまえ)",
+        "romaji": "namae",
+        "english": "name"
+      },
+      {
+        "japanese": "今(いま)",
+        "romaji": "ima",
+        "english": "now"
+      },
+      {
+        "japanese": "何時(なんじ)",
+        "romaji": "nan-ji",
+        "english": "what time"
+      },
+      {
+        "japanese": "歳(さい)",
+        "romaji": "sai",
+        "english": "... years old"
+      },
+      {
+        "japanese": "年生(ねんせい)",
+        "romaji": "nensei",
+        "english": "... year student (e.g. 1st year)"
+      },
+      {
+        "japanese": "日本(にほん)",
+        "romaji": "Nihon",
+        "english": "Japan"
+      },
+      {
+        "japanese": "アメリカ",
+        "romaji": "Amerika",
+        "english": "U.S.A."
+      },
+      {
+        "japanese": "日本語(にほんご)",
+        "romaji": "Nihongo",
+        "english": "Japanese language"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "1. X は Y です (X is Y)",
+        "explanation": "The particle **は (wa)** indicates the topic of the sentence. **です (desu)** is the copula meaning 'is / am / are'. Notice that は is written using the Hiragana symbol for *ha*, but pronounced *wa* when used as a topic particle.",
+        "structure": "Topic [X] + は (wa) + Predicate [Y] + です (desu).",
+        "examples": [
+          {
+            "japanese": "私(わたし)は 学生(がくせい)です。",
+            "romaji": "Watashi wa gakusei desu.",
+            "english": "I am a student."
+          },
+          {
+            "japanese": "たけしさんは 日本人(にほんじん)です。",
+            "romaji": "Takeshi-san wa Nihonjin desu.",
+            "english": "Takeshi is Japanese."
+          }
+        ]
+      },
+      {
+        "title": "2. Question Particle か (ka)",
+        "explanation": "Adding **か (ka)** to the end of a sentence turns it into a question. Japanese sentences do not traditionally require a question mark when か is present, though one may be used for clarity.",
+        "structure": "Sentence + か (ka)?",
+        "examples": [
+          {
+            "japanese": "留学生(りゅうがくせい)ですか。",
+            "romaji": "Ryuugakusei desu ka.",
+            "english": "Are you an international student?"
+          },
+          {
+            "japanese": "専攻(せんこう)は 何(なん)ですか。",
+            "romaji": "Senkoo wa nan desu ka.",
+            "english": "What is your major?"
+          }
+        ]
+      },
+      {
+        "title": "3. Noun1 の Noun2 (Possessive / Modifying Particle の)",
+        "explanation": "The particle **の (no)** connects two nouns. The first noun modifies or qualifies the second noun (e.g. possession, affiliation, or detail).",
+        "structure": "Noun1 + の (no) + Noun2",
+        "examples": [
+          {
+            "japanese": "アリゾナ大学(だいがく)の 学生(がくせい)",
+            "romaji": "Arizona-daigaku no gakusei",
+            "english": "A student of Arizona University"
+          },
+          {
+            "japanese": "私(わたし)の 先生(せんせい)",
+            "romaji": "watashi no sensei",
+            "english": "My teacher"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "genki_l2",
+    "lesson_number": 2,
+    "title_ja": "買(か)い物(もの)",
+    "title_en": "Shopping",
+    "description": "Learn demonstratives (これ, それ, あれ, この, その, あの), asking prices (いくらですか), ordering items (～を ください), and particle も (also/too).",
+    "dialogue": {
+      "title_ja": "市場(いちば)・店(みせ)で",
+      "title_en": "At a Store / Market",
+      "lines": [
+        {
+          "speaker": "メアリー",
+          "japanese": "すみません。これは いくらですか。",
+          "romaji": "Sumimasen. Kore wa ikura desu ka.",
+          "english": "Excuse me. How much is this?"
+        },
+        {
+          "speaker": "店員",
+          "japanese": "それは 三千円(さんぜんえん)です。",
+          "romaji": "Sore wa san-zen en desu.",
+          "english": "That is 3,000 yen."
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "高(たか)いですね！ じゃあ、あの 傘(かさ)は いくらですか。",
+          "romaji": "Takai desu ne! Jaa, ano kasa wa ikura desu ka.",
+          "english": "That's expensive! Then, how much is that umbrella over there?"
+        },
+        {
+          "speaker": "店員",
+          "japanese": "あれは 千五百円(せんごひゃくえん)です。",
+          "romaji": "Are wa sen-gohyaku en desu.",
+          "english": "That one over there is 1,500 yen."
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "じゃあ、その 傘(かさ)を ください。",
+          "romaji": "Jaa, sono kasa o kudasai.",
+          "english": "Then, please give me that umbrella."
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "japanese": "これ",
+        "romaji": "kore",
+        "english": "this one (near speaker)"
+      },
+      {
+        "japanese": "それ",
+        "romaji": "sore",
+        "english": "that one (near listener)"
+      },
+      {
+        "japanese": "あれ",
+        "romaji": "are",
+        "english": "that one over there (far from both)"
+      },
+      {
+        "japanese": "どれ",
+        "romaji": "dore",
+        "english": "which one"
+      },
+      {
+        "japanese": "この",
+        "romaji": "kono",
+        "english": "this (+ noun)"
+      },
+      {
+        "japanese": "その",
+        "romaji": "sono",
+        "english": "that (+ noun)"
+      },
+      {
+        "japanese": "あの",
+        "romaji": "ano",
+        "english": "that over there (+ noun)"
+      },
+      {
+        "japanese": "どの",
+        "romaji": "dono",
+        "english": "which (+ noun)"
+      },
+      {
+        "japanese": "いくら",
+        "romaji": "ikura",
+        "english": "how much"
+      },
+      {
+        "japanese": "円(えん)",
+        "romaji": "en",
+        "english": "yen"
+      },
+      {
+        "japanese": "傘(かさ)",
+        "romaji": "kasa",
+        "english": "umbrella"
+      },
+      {
+        "japanese": "本(ほん)",
+        "romaji": "hon",
+        "english": "book"
+      },
+      {
+        "japanese": "時計(とけい)",
+        "romaji": "tokei",
+        "english": "watch / clock"
+      },
+      {
+        "japanese": "鞄(かばん)",
+        "romaji": "kaban",
+        "english": "bag"
+      },
+      {
+        "japanese": "高(たか)い",
+        "romaji": "takai",
+        "english": "expensive; tall"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "1. Demonstration Words: これ / それ / あれ / どれ",
+        "explanation": "These stand alone as pronouns:\n- **これ**: Item close to the speaker.\n- **それ**: Item close to the listener.\n- **あれ**: Item distant from both speaker and listener.\n- **どれ**: Question word 'which one'.",
+        "structure": "これ / それ / あれ / どれ + は + ... ですか。",
+        "examples": [
+          {
+            "japanese": "これは いくらですか。",
+            "romaji": "Kore wa ikura desu ka.",
+            "english": "How much is this?"
+          },
+          {
+            "japanese": "どれが あなたの 鞄(かばん)ですか。",
+            "romaji": "Dore ga anata no kaban desu ka.",
+            "english": "Which one is your bag?"
+          }
+        ]
+      },
+      {
+        "title": "2. Modifying Demonstratives: この / その / あの / どの",
+        "explanation": "Unlike これ/それ/あれ, these MUST be directly followed by a noun (e.g. この本 = this book).",
+        "structure": "この / その / あの / どの + Noun + は ...",
+        "examples": [
+          {
+            "japanese": "この 時計(とけい)は 七千円(ななせんえん)です。",
+            "romaji": "Kono tokei wa nana-sen en desu.",
+            "english": "This watch is 7,000 yen."
+          },
+          {
+            "japanese": "どの 傘(かさ)ですか。",
+            "romaji": "Dono kasa desu ka.",
+            "english": "Which umbrella is it?"
+          }
+        ]
+      },
+      {
+        "title": "3. ～を ください (Please give me ...)",
+        "explanation": "Use **[Item] を (o) ください (kudasai)** when asking for or purchasing items at a restaurant or shop.",
+        "structure": "Item + を (o) + ください (kudasai).",
+        "examples": [
+          {
+            "japanese": "この 鞄(かばん)を ください。",
+            "romaji": "Kono kaban o kudasai.",
+            "english": "Please give me this bag."
+          }
+        ]
+      },
+      {
+        "title": "4. Particle も (mo - also / too)",
+        "explanation": "The particle **も (mo)** replaces **は (wa)** when adding additional information meaning 'also' or 'too'.",
+        "structure": "Topic + も (mo) + Predicate + です。",
+        "examples": [
+          {
+            "japanese": "たけしさんは 学生(がくせい)です。メアリーさんも 学生(がくせい)です。",
+            "romaji": "Takeshi-san wa gakusei desu. Mearii-san mo gakusei desu.",
+            "english": "Takeshi is a student. Mary is also a student."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "genki_l3",
+    "lesson_number": 3,
+    "title_ja": "日(にち)常(じょう)生(せい)活(かつ)",
+    "title_en": "Daily Routine",
+    "description": "Master essential verbs, destination/time particle (に / へ), direct object particle (を), location particle (で), and invitations (～ましょう).",
+    "dialogue": {
+      "title_ja": "週末(しゅうまつ)の予定(よてい)",
+      "title_en": "Weekend Plans",
+      "lines": [
+        {
+          "speaker": "たけし",
+          "japanese": "メアリーさん、週末(しゅうまつ) よく どこに 行(い)きますか。",
+          "romaji": "Mearii-san, shuumatsu yoku doko ni ikimasu ka.",
+          "english": "Mary, where do you often go on weekends?"
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "図書館(としょかん)に 行(い)きます。よく 本(ほん)を 読(よ)みます。",
+          "romaji": "Toshokan ni ikimasu. Yoku hon o yomimasu.",
+          "english": "I go to the library. I often read books."
+        },
+        {
+          "speaker": "たけし",
+          "japanese": "そうですか。カフェで コーヒーを 飲(の)みませんか。",
+          "romaji": "Soo desu ka. Kafe de koohii o nomimasen ka.",
+          "english": "I see. Would you like to drink coffee at a cafe?"
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "いいですね！ 行(い)きましょう。",
+          "romaji": "Ii desu ne! Ikimashoo.",
+          "english": "Sounds good! Let me go / Let's go."
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "japanese": "行(い)きます",
+        "romaji": "ikimasu",
+        "english": "to go"
+      },
+      {
+        "japanese": "来(き)ます",
+        "romaji": "kimasu",
+        "english": "to come"
+      },
+      {
+        "japanese": "帰(かえ)ります",
+        "romaji": "kaerimasu",
+        "english": "to return / go home"
+      },
+      {
+        "japanese": "飲(の)みます",
+        "romaji": "nomimasu",
+        "english": "to drink"
+      },
+      {
+        "japanese": "食(た)べます",
+        "romaji": "tabemasu",
+        "english": "to eat"
+      },
+      {
+        "japanese": "読(よ)みます",
+        "romaji": "yomimasu",
+        "english": "to read"
+      },
+      {
+        "japanese": "見(み)ます",
+        "romaji": "mimasu",
+        "english": "to see / watch"
+      },
+      {
+        "japanese": "聞(き)きます",
+        "romaji": "kikimasu",
+        "english": "to listen / hear"
+      },
+      {
+        "japanese": "勉強(べんきょう)します",
+        "romaji": "benkyoo shimasu",
+        "english": "to study"
+      },
+      {
+        "japanese": "図書館(としょかん)",
+        "romaji": "toshokan",
+        "english": "library"
+      },
+      {
+        "japanese": "カフェ",
+        "romaji": "kafe",
+        "english": "cafe"
+      },
+      {
+        "japanese": "朝(あさ)",
+        "romaji": "asa",
+        "english": "morning"
+      },
+      {
+        "japanese": "今日(きょう)",
+        "romaji": "kyoo",
+        "english": "today"
+      },
+      {
+        "japanese": "週末(しゅうまつ)",
+        "romaji": "shuumatsu",
+        "english": "weekend"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "1. Verb Present Affirmative (~ます) & Negative (~ません)",
+        "explanation": "Japanese verbs ending in **~ます (masu)** express routine habits or future actions. To make them negative, change **~ます** to **~ません (masen)**.",
+        "structure": "Verb Stem + ます (affirmative) / ません (negative).",
+        "examples": [
+          {
+            "japanese": "毎日(まいにち) 日本語(にほんご)を 勉強(べんきょう)します。",
+            "romaji": "Mainichi Nihongo o benkyoo shimasu.",
+            "english": "I study Japanese every day."
+          },
+          {
+            "japanese": "今日(きょう)は 朝(あさ)ごはんを 食(た)べません。",
+            "romaji": "Kyoo wa asagohan o tabemasen.",
+            "english": "I will not eat breakfast today."
+          }
+        ]
+      },
+      {
+        "title": "2. Particle を (o) - Direct Object",
+        "explanation": "The particle **を (o)** marks the direct object of an action verb.",
+        "structure": "Object + を (o) + Action Verb.",
+        "examples": [
+          {
+            "japanese": "コーヒーを 飲(の)みます。",
+            "romaji": "Koohii o nomimasu.",
+            "english": "I drink coffee."
+          }
+        ]
+      },
+      {
+        "title": "3. Particles に (ni) / へ (he) - Goal & Time",
+        "explanation": "- **に (ni)** marks specific time or destination (Goal of movement).\n- **へ (e)** (written *he*) specifically emphasizes direction toward a destination.",
+        "structure": "Place + に / へ + 行きます / 来ます / 帰ります.",
+        "examples": [
+          {
+            "japanese": "うちへ 帰(かえ)ります。",
+            "romaji": "Uchi e kaerimasu.",
+            "english": "I return home."
+          },
+          {
+            "japanese": "七時(しちじ)に 起(お)きます。",
+            "romaji": "Shichi-ji ni okimasu.",
+            "english": "I wake up at 7 o'clock."
+          }
+        ]
+      },
+      {
+        "title": "4. Particle で (de) - Location of Action",
+        "explanation": "The particle **で (de)** indicates the location where an event or action takes place.",
+        "structure": "Location + で (de) + Verb.",
+        "examples": [
+          {
+            "japanese": "図書館(としょかん)で 本(ほん)を 読(よ)みます。",
+            "romaji": "Toshokan de hon o yomimasu.",
+            "english": "I read books at the library."
+          }
+        ]
+      },
+      {
+        "title": "5. Invitations: ～ませんか / ～ましょう",
+        "explanation": "- **～ませんか (masen ka)**: 'Won't you...?' (Polite invitation)\n- **～ましょう (mashoo)**: 'Let's...!' (Proactive suggestion)",
+        "structure": "Verb Stem + ませんか / ましょう.",
+        "examples": [
+          {
+            "japanese": "一緒(いっしょ)に 食(た)べませんか。",
+            "romaji": "Issho ni tabemasen ka.",
+            "english": "Won't you eat with me?"
+          },
+          {
+            "japanese": "行(い)きましょう！",
+            "romaji": "Ikimashoo!",
+            "english": "Let's go!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "genki_l4",
+    "lesson_number": 4,
+    "title_ja": "家(いえ)と 部屋(へや)",
+    "title_en": "Home & Existence",
+    "description": "Learn verbs of existence (あります / います), location position words (上, 下, 前, 中), and past tense of です (でした / ではありませんでした).",
+    "dialogue": {
+      "title_ja": "部屋(へや)の 中(なか)で",
+      "title_en": "Inside the Room",
+      "lines": [
+        {
+          "speaker": "ロバート",
+          "japanese": "あそこに 可愛(かわい)い 猫(ねこ)が いますね。",
+          "romaji": "Asoko ni kawaii neko ga imasu ne.",
+          "english": "There is a cute cat over there, isn't there?"
+        },
+        {
+          "speaker": "山下先生",
+          "japanese": "ええ、机(つくえ)の 上(うえ)に いますね。",
+          "romaji": "Ee, tsukue no ue ni imasu ne.",
+          "english": "Yes, it is on top of the desk."
+        },
+        {
+          "speaker": "ロバート",
+          "japanese": "先生(せんせい)の 部屋(へや)に テレビは ありますか。",
+          "romaji": "Sensei no heya ni terebi wa arimasu ka.",
+          "english": "Is there a TV in your room, Professor?"
+        },
+        {
+          "speaker": "山下先生",
+          "japanese": "いいえ、テレビは ありません。本棚(ほんだな)が あります。",
+          "romaji": "Iie, terebi wa arimasen. Hondana ga arimasu.",
+          "english": "No, there isn't a TV. There is a bookshelf."
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "japanese": "あります",
+        "romaji": "arimasu",
+        "english": "there is / exists (inanimate objects)"
+      },
+      {
+        "japanese": "います",
+        "romaji": "imasu",
+        "english": "there is / exists (living people & animals)"
+      },
+      {
+        "japanese": "上(うえ)",
+        "romaji": "ue",
+        "english": "on / above / top"
+      },
+      {
+        "japanese": "下(した)",
+        "romaji": "shita",
+        "english": "under / below"
+      },
+      {
+        "japanese": "前(まえ)",
+        "romaji": "mae",
+        "english": "in front of / before"
+      },
+      {
+        "japanese": "後ろ(うしろ)",
+        "romaji": "ushiro",
+        "english": "behind / back"
+      },
+      {
+        "japanese": "中(なか)",
+        "romaji": "naka",
+        "english": "inside / in"
+      },
+      {
+        "japanese": "隣(となり)",
+        "romaji": "tonari",
+        "english": "next to / neighbor"
+      },
+      {
+        "japanese": "猫(ねこ)",
+        "romaji": "neko",
+        "english": "cat"
+      },
+      {
+        "japanese": "犬(いぬ)",
+        "romaji": "inu",
+        "english": "dog"
+      },
+      {
+        "japanese": "机(つくえ)",
+        "romaji": "tsukue",
+        "english": "desk"
+      },
+      {
+        "japanese": "本棚(ほんだな)",
+        "romaji": "hondana",
+        "english": "bookshelf"
+      },
+      {
+        "japanese": "部屋(へや)",
+        "romaji": "heya",
+        "english": "room"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "1. Existence Verbs: あります vs います",
+        "explanation": "Use **あります (arimasu)** for non-living objects, plants, or concepts.\nUse **います (imasu)** for living things like humans and animals.",
+        "structure": "Place + に + Item + が + あります / います。",
+        "examples": [
+          {
+            "japanese": "部屋(へや)に 机(つくえ)が あります。",
+            "romaji": "Heya ni tsukue ga arimasu.",
+            "english": "There is a desk in the room."
+          },
+          {
+            "japanese": "庭(にわ)に 犬(いぬ)が います。",
+            "romaji": "Niwa ni inu ga imasu.",
+            "english": "There is a dog in the garden."
+          }
+        ]
+      },
+      {
+        "title": "2. Relative Location: Noun1 の Location",
+        "explanation": "Combine a item noun and location noun using **の (no)** (e.g. 机の上 = top of the desk).",
+        "structure": "Noun1 + の (no) + [上 / 下 / 前 / 後ろ / 中 / 隣] + に",
+        "examples": [
+          {
+            "japanese": "机(つくえ)の 上(うえ)に 本(ほん)が あります。",
+            "romaji": "Tsukue no ue ni hon ga arimasu.",
+            "english": "There is a book on top of the desk."
+          }
+        ]
+      },
+      {
+        "title": "3. Past Tense of です: でした / ではありませんでした",
+        "explanation": "- **でした (deshita)**: Past affirmative ('was / were').\n- **ではありませんでした (de wa arimasen deshita)**: Past negative ('was not / were not').",
+        "structure": "Noun + でした / ではありませんでした.",
+        "examples": [
+          {
+            "japanese": "昨日(きのう)は 雨(あめ)でした。",
+            "romaji": "Kinoo wa ame deshita.",
+            "english": "Yesterday was rainy."
+          },
+          {
+            "japanese": "学生(がくせい)ではありませんでした。",
+            "romaji": "Gakusei de wa arimasen deshita.",
+            "english": "I was not a student."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -8,6 +8,7 @@ export class DataManager {
   constructor() {
     /** @type {Map<string, { id: string, title: string, level: string, topics: Array }>} */
     this.datasets = new Map();
+    this.genkiLessons = [];
     this.isLoaded = false;
   }
 
@@ -28,6 +29,16 @@ export class DataManager {
       }
     } catch (e) {
       console.error('Failed to load marugoto_a1_vocabulary.json', e);
+    }
+
+    // Load Genki lessons dataset
+    try {
+      const gResp = await fetch('content/genki_lessons.json');
+      if (gResp.ok) {
+        this.genkiLessons = await gResp.json();
+      }
+    } catch (e) {
+      console.error('Failed to load genki_lessons.json', e);
     }
 
     // Load custom datasets from storage
@@ -67,6 +78,14 @@ export class DataManager {
 
     storage.settings.activeDatasetIds = storage.settings.activeDatasetIds.filter((d) => d !== id);
     storage.saveSettings();
+  }
+
+  getGenkiLessons() {
+    return this.genkiLessons || [];
+  }
+
+  getGenkiLessonById(id) {
+    return (this.genkiLessons || []).find((l) => l.id === id || l.lesson_number === Number(id));
   }
 
   getAllDatasets() {

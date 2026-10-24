@@ -106,7 +106,7 @@ def main():
         if fetch_and_save(char, char, output_dir, audio_map):
             downloaded += 1
 
-    # 2. Fetch audio for dataset vocabulary
+    # 2. Fetch audio for Marugoto dataset vocabulary
     json_file = 'content/marugoto_a1_vocabulary.json'
     if os.path.exists(json_file):
         with open(json_file, 'r', encoding='utf-8') as f:
@@ -121,6 +121,39 @@ def main():
                     tts_text = clean_reading(jp_text)
                     if fetch_and_save(jp_text, tts_text, output_dir, audio_map):
                         downloaded += 1
+
+    # 3. Fetch audio for Genki lessons (Dialogue lines, Vocabulary, Grammar examples)
+    genki_file = 'content/genki_lessons.json'
+    if os.path.exists(genki_file):
+        with open(genki_file, 'r', encoding='utf-8') as f:
+            lessons = json.load(f)
+
+        for lesson in lessons:
+            # Dialogue lines
+            diag = lesson.get('dialogue', {})
+            for line in diag.get('lines', []):
+                jp_text = line.get('japanese', '')
+                if jp_text:
+                    tts_text = clean_reading(jp_text)
+                    if fetch_and_save(jp_text, tts_text, output_dir, audio_map):
+                        downloaded += 1
+
+            # Vocabulary
+            for word in lesson.get('vocabulary', []):
+                jp_text = word.get('japanese', '')
+                if jp_text:
+                    tts_text = clean_reading(jp_text)
+                    if fetch_and_save(jp_text, tts_text, output_dir, audio_map):
+                        downloaded += 1
+
+            # Grammar examples
+            for g in lesson.get('grammar', []):
+                for ex in g.get('examples', []):
+                    jp_text = ex.get('japanese', '')
+                    if jp_text:
+                        tts_text = clean_reading(jp_text)
+                        if fetch_and_save(jp_text, tts_text, output_dir, audio_map):
+                            downloaded += 1
 
     # Save audio_map.json
     with open(map_file, 'w', encoding='utf-8') as f:
