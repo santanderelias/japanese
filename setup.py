@@ -202,7 +202,7 @@ def main():
     # 4. Generate sw.js using clean string formatting with escaped braces ({{ and }})
     sw_template = """// Auto-generated Service Worker - Version {app_version}
 // Target URL: {app_url} | Strategy: {cache_strategy}
-const CACHE_NAME = 'app-cache-v{app_version}';
+const CACHE_NAME = '{app_version}';
 const PRECACHE_ASSETS = {precache_assets};
 
 self.addEventListener('install', (event) => {{
