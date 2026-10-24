@@ -169,7 +169,7 @@ export class FlashcardModule extends Module {
     const isMastered = storage.isWordMastered(currentWord.japanese);
     const isNeedsReview = storage.isNeedsReview(currentWord.japanese);
 
-    const rubyHtml = DataManager.formatJapaneseDisplay(currentWord.japanese, 'ruby');
+    const rubyHtml = DataManager.formatJapaneseDisplay(currentWord.japanese);
 
     if (cardContainer) {
       cardContainer.innerHTML = `
@@ -198,7 +198,7 @@ export class FlashcardModule extends Module {
               </div>
               <div class="flashcard-body">
                 <h2 class="flashcard-english">${currentWord.english}</h2>
-                <p class="flashcard-romaji">${currentWord.japanese} (${currentWord.romaji})</p>
+                <p class="flashcard-romaji">${rubyHtml} (${currentWord.romaji})</p>
               </div>
               <div class="flashcard-actions">
                 <button type="button" class="btn btn--sm ${isNeedsReview ? 'btn--danger' : 'btn--ghost'}" data-action="toggle-review">

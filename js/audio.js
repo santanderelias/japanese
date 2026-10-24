@@ -8,19 +8,28 @@ import { DataManager } from './data.js';
 export class AudioPlayer {
   constructor() {
     this.currentAudio = null;
+    this.audioMap = null;
+    this.mapLoaded = false;
+    this.loadAudioMap();
+  }
+
+  async loadAudioMap() {
+    if (this.mapLoaded) return;
+    try {
+      const resp = await fetch('content/audio_map.json');
+      if (resp.ok) {
+        this.audioMap = await resp.json();
+      }
+    } catch {
+      this.audioMap = null;
+    }
+    this.mapLoaded = true;
   }
 
   /**
    * Compute MD5 hash in browser for text.
    */
   async md5(string) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(string);
-    // Use standard crypto API if available, else simple fallback hash array
-    if (window.crypto && window.crypto.subtle) {
-      const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
-      // Wait, python used MD5 hash. Let's build pure JS MD5 function or compute filename.
-    }
     return this.jsMd5(string);
   }
 
@@ -97,18 +106,33 @@ export class AudioPlayer {
 
   /**
    * Play audio for Japanese text.
-   * First tries local MP3 in content/audio/{md5}.mp3, falls back to Web Speech API.
+   * Checks audio map or falls back to Web Speech API.
    * @param {string} japaneseText
    */
   async play(japaneseText) {
     if (!japaneseText) return;
+
+    if (!this.mapLoaded) {
+      await this.loadAudioMap();
+    }
 
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio = null;
     }
 
-    const filename = this.jsMd5(japaneseText) + '.mp3';
+    const cleanReading = DataManager.extractKanaReading(japaneseText);
+
+    let filename = null;
+    if (this.audioMap) {
+      filename = this.audioMap[japaneseText] || this.audioMap[cleanReading] || null;
+    }
+
+    if (!filename) {
+      // Fallback hash check
+      filename = this.jsMd5(japaneseText) + '.mp3';
+    }
+
     const mp3Url = `content/audio/${filename}`;
 
     try {

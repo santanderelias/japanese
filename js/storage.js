@@ -38,7 +38,7 @@ export class StorageManager {
       theme: 'light',
       selectedTopics: [], // Empty array means ALL topics selected
       activeDatasetIds: ['marugoto_a1'], // list of active datasets
-      furiganaMode: 'show', // 'show', 'hide', 'ruby'
+      furiganaMode: 'ruby', // 'ruby', 'show', 'hide'
       audioVolume: 1.0,
       speechRate: 1.0
     };
@@ -64,7 +64,13 @@ export class StorageManager {
   loadSettings() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY_SETTINGS);
-      return raw ? { ...this.getDefaultSettings(), ...JSON.parse(raw) } : this.getDefaultSettings();
+      if (!raw) return this.getDefaultSettings();
+      const settings = { ...this.getDefaultSettings(), ...JSON.parse(raw) };
+      // Migrate old default 'show' to 'ruby'
+      if (settings.furiganaMode === 'show') {
+        settings.furiganaMode = 'ruby';
+      }
+      return settings;
     } catch {
       return this.getDefaultSettings();
     }

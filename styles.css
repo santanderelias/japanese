@@ -84,6 +84,21 @@ ul {
   list-style: none;
 }
 
+/* --- HTML Ruby Furigana --- */
+ruby {
+  ruby-position: over;
+  display: inline-ruby;
+  vertical-align: top;
+}
+
+rt {
+  font-size: 0.5em;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.1;
+  user-select: none;
+}
+
 /* --- App shell --- */
 #app {
   min-height: 100dvh;

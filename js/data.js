@@ -16,7 +16,7 @@ export class DataManager {
 
     // Load default dataset
     try {
-      const resp = await fetch('/content/marugoto_a1_vocabulary.json');
+      const resp = await fetch('content/marugoto_a1_vocabulary.json');
       if (resp.ok) {
         const data = await resp.json();
         this.datasets.set('marugoto_a1', {
@@ -161,23 +161,23 @@ export class DataManager {
   }
 
   /**
-   * Format display Japanese text.
-   * Can split into kanji / furigana or clean string.
+   * Format display Japanese text into HTML ruby or clean string.
    */
-  static formatJapaneseDisplay(text, furiganaMode = 'show') {
+  static formatJapaneseDisplay(text, furiganaMode = null) {
     if (!text) return '';
-    if (furiganaMode === 'hide') {
-      // Remove furigana in parentheses
+
+    const mode = furiganaMode || (typeof storage !== 'undefined' && storage.settings && storage.settings.furiganaMode) || 'ruby';
+
+    if (mode === 'hide') {
       return text.replace(/\([^)]+\)/g, '').replace(/（[^）]+）/g, '').trim();
     }
 
-    if (furiganaMode === 'ruby') {
-      // Convert Kanji(furigana) to HTML <ruby>Kanji<rt>furigana</rt></ruby>
-      return text.replace(/([\u4e00-\u9faf\u3400-\u4dbf]+)[\(（]([^\)）]+)[\)）]/g, '<ruby>$1<rt>$2</rt></ruby>');
+    if (mode === 'show') {
+      return text;
     }
 
-    // Default 'show' retains standard parentheses display
-    return text;
+    // Default 'ruby': replace Kanji(furigana) or Kanji（furigana） with <ruby>Kanji<rt>furigana</rt></ruby>
+    return text.replace(/([\u4e00-\u9faf\u3400-\u4dbf]+)[\(（]([^\)）]+)[\)）]/g, '<ruby>$1<rt>$2</rt></ruby>');
   }
 }
 

@@ -315,7 +315,7 @@ export class MinigameModule extends Module {
 
     const cards = [];
     shuffledWords.forEach((word, pairId) => {
-      cards.push({ id: `jp_${pairId}`, pairId, text: word.japanese, type: 'jp', audio: word.japanese });
+      cards.push({ id: `jp_${pairId}`, pairId, text: DataManager.formatJapaneseDisplay(word.japanese), type: 'jp', audio: word.japanese });
       cards.push({ id: `en_${pairId}`, pairId, text: word.english, type: 'en', audio: word.japanese });
     });
 
@@ -670,7 +670,7 @@ export class MinigameModule extends Module {
       const currentWord = this.flashcardWords[this.flashcardIndex];
       const isMastered = currentWord ? storage.isWordMastered(currentWord.japanese) : false;
       const isNeedsReview = currentWord ? storage.isNeedsReview(currentWord.japanese) : false;
-      const rubyHtml = currentWord ? DataManager.formatJapaneseDisplay(currentWord.japanese, 'ruby') : '';
+      const rubyHtml = currentWord ? DataManager.formatJapaneseDisplay(currentWord.japanese) : '';
 
       root.innerHTML = `
         <div class="content-block" style="max-width:550px; margin:0 auto;">
@@ -706,7 +706,7 @@ export class MinigameModule extends Module {
                   </div>
                   <div class="flashcard-body">
                     <h2 class="flashcard-english">${currentWord ? currentWord.english : ''}</h2>
-                    <p class="flashcard-romaji">${currentWord ? currentWord.japanese : ''} (${currentWord ? currentWord.romaji : ''})</p>
+                    <p class="flashcard-romaji">${currentWord ? DataManager.formatJapaneseDisplay(currentWord.japanese) : ''} (${currentWord ? currentWord.romaji : ''})</p>
                   </div>
                   <div class="flashcard-actions">
                     <button type="button" class="btn btn--sm ${isNeedsReview ? 'btn--danger' : 'btn--ghost'}" data-action="fc-review">
@@ -775,7 +775,7 @@ export class MinigameModule extends Module {
       if (this.quizMode === 'jp_to_en') {
         promptHtml = `
           <div style="margin-bottom:1rem;">
-            <h1 style="font-size:2.2rem; color:var(--primary); font-weight:800;">${q.targetWord.japanese}</h1>
+            <h1 style="font-size:2.2rem; color:var(--primary); font-weight:800;">${DataManager.formatJapaneseDisplay(q.targetWord.japanese)}</h1>
             <p class="text-muted">${q.targetWord.romaji}</p>
             <button type="button" class="btn btn--secondary btn--sm" style="margin-top:0.5rem;" data-action="play-quiz-audio">🔊 Play Audio</button>
           </div>
@@ -800,7 +800,7 @@ export class MinigameModule extends Module {
 
       const optionsHtml = q.options
         .map((opt, idx) => {
-          let label = this.quizMode === 'en_to_jp' ? `${opt.japanese} (${opt.romaji})` : opt.english;
+          let label = this.quizMode === 'en_to_jp' ? `${DataManager.formatJapaneseDisplay(opt.japanese)} (${opt.romaji})` : opt.english;
           let btnClass = 'btn btn--secondary quiz-option-btn';
           if (this.quizAnswered) {
             if (idx === q.correctIndex) {

@@ -176,7 +176,7 @@ export class SettingsModule extends Module {
   renderDatasetsAndPreferences() {
     if (!this.element) return;
     const datasetsListEl = this.element.querySelector('#datasets-list');
-    const fMode = storage.settings.furiganaMode || 'show';
+    const fMode = storage.settings.furiganaMode || 'ruby';
 
     if (datasetsListEl) {
       const allDs = dataManager.getAllDatasets();
@@ -283,11 +283,11 @@ export class SettingsModule extends Module {
           <h2>Display Preferences</h2>
           <p>Furigana rendering style across Flashcards and Quizzes.</p>
           <div class="theme-switch">
-            <button type="button" class="theme-option" data-furigana-value="show">
-              Parentheses: 学生(がくせい)
-            </button>
             <button type="button" class="theme-option" data-furigana-value="ruby">
               HTML Ruby: <ruby>学生<rt>がくせい</rt></ruby>
+            </button>
+            <button type="button" class="theme-option" data-furigana-value="show">
+              Parentheses: 学生(がくせい)
             </button>
             <button type="button" class="theme-option" data-furigana-value="hide">
               Kanji Only: 学生
