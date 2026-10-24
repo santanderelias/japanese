@@ -27,22 +27,29 @@ def parse_gitignore(gitignore_path='.gitignore'):
     return patterns
 
 def is_ignored(path, root, patterns):
-    """Check if a given path matches any .gitignore pattern."""
+    """Check if a given path matches hardcoded rules or .gitignore patterns."""
     rel_path = path.relative_to(root)
     rel_str = str(rel_path).replace('\\', '/')
     
+    # 1. Hardcoded safety: Ignore hidden system files/directories (like .git, .github, .vscode)
+    if any(part.startswith('.') for part in rel_path.parts):
+        return True
+
+    # 2. Hardcoded file exclusions for app meta/scripts
+    hard_ignore_files = {'.env', 'setup.py', 'manifest.json', 'sw.js'}
+    if path.name in hard_ignore_files:
+        return True
+
+    # 3. Dynamic .gitignore pattern matching
     for pattern in patterns:
         cleaned_pattern = pattern.rstrip('/')
         
-        # Check if any parent directory or part matches directory-style patterns
         if any(part == cleaned_pattern for part in rel_path.parts):
             return True
             
-        # Match using fnmatch for wildcards and exact names
         if fnmatch.fnmatch(rel_str, pattern) or fnmatch.fnmatch(path.name, pattern):
             return True
             
-        # Check against parent paths
         if any(fnmatch.fnmatch(str(p).replace('\\', '/'), pattern) for p in rel_path.parents):
             return True
             
@@ -118,8 +125,7 @@ def main():
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     print(f"   [+] Generated: {manifest_path.name}")
 
-    # 2. Scan files for Service Worker asset list (respecting .gitignore & hard exclusions)
-    hard_ignore_files = {'.env', 'setup.py', 'manifest.json', 'sw.js'}
+    # 2. Scan files for Service Worker asset list (respecting hidden dirs & .gitignore)
     gitignore_patterns = parse_gitignore(root / '.gitignore')
 
     assets = ['/']
@@ -128,8 +134,6 @@ def main():
     
     for path in root.rglob('*'):
         if path.is_file():
-            if path.name in hard_ignore_files:
-                continue
             if is_ignored(path, root, gitignore_patterns):
                 continue
             
@@ -183,12 +187,12 @@ def main():
     caches.match(event.request).then((cachedResponse) => {
       return cachedResponse || fetch(event.request).catch(() => {
         if (event.request.mode === 'navigate') {
-          __NAVIGATE_FALLBACK__
+          __NAV_FALLBACK__
         }
         return Response.error();
       });
     })
-  );""".replace('__NAVIGATE_FALLBACK__', navigate_fallback)
+  );""".replace('__NAV_FALLBACK__', navigate_fallback)
         else:
             fetch_logic = """  event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
