@@ -3,7 +3,7 @@
  */
 
 import { Module } from './base.js';
-import { dataManager } from '../data.js';
+import { dataManager, DataManager } from '../data.js';
 import { storage } from '../storage.js';
 import { audioPlayer } from '../audio.js';
 
