@@ -27,6 +27,7 @@ export class Module {
 
   /**
    * Create the module DOM and append to parent.
+   * Keeps element hidden while rendering to avoid layout/style recalculation thrashing during boot.
    * If the subclass defines load(), it runs after the shell is in the document.
    * @param {HTMLElement} parent
    * @returns {Promise<HTMLElement>}
@@ -35,6 +36,7 @@ export class Module {
     this.element = document.createElement('section');
     this.element.id = `module-${this.id}`;
     this.element.setAttribute('aria-label', this.name);
+    this.element.hidden = true;
     this.element.innerHTML = this.render();
     parent.appendChild(this.element);
 

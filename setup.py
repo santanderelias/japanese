@@ -226,10 +226,48 @@ self.addEventListener('activate', (event) => {{
           }}
         }})
       );
+    }}).then(() => {{
+      self.clients.claim();
+      cacheAudioInBatches();
     }})
   );
-  self.clients.claim();
 }});
+
+async function cacheAudioInBatches() {{
+  try {{
+    const response = await fetch('/content/audio_map.json');
+    if (!response.ok) return;
+    const audioMap = await response.json();
+    const filenames = Array.from(new Set(Object.values(audioMap)));
+    const audioUrls = filenames.map(f => `/content/audio/${{f}}`);
+
+    const cache = await caches.open(CACHE_NAME);
+    const BATCH_SIZE = 10;
+    const BATCH_DELAY = 1000;
+
+    for (let i = 0; i < audioUrls.length; i += BATCH_SIZE) {{
+      const batch = audioUrls.slice(i, i + BATCH_SIZE);
+      await Promise.all(
+        batch.map(async (url) => {{
+          const match = await cache.match(url);
+          if (!match) {{
+            try {{
+              const res = await fetch(url);
+              if (res.ok) {{
+                await cache.put(url, res);
+              }}
+            }} catch {{
+              // Ignore background fetch error
+            }}
+          }}
+        }})
+      );
+      await new Promise((resolve) => setTimeout(resolve, BATCH_DELAY));
+    }}
+  }} catch {{
+    // Ignore background cache error
+  }}
+}}
 
 self.addEventListener('fetch', (event) => {{
 {fetch_logic}
