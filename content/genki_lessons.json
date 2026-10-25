@@ -5,6 +5,7 @@
     "title_ja": "新(あたら)しい友(とも)達(だち)",
     "title_en": "New Friends",
     "description": "Learn basic greetings, self-introductions, the basic sentence structure (X は Y です), asking questions (～か), and expressing possession (～の).",
+    "particles": ["は", "か", "の"],
     "dialogue": {
       "title_ja": "大学(だいがく)のキャンパスで",
       "title_en": "On the University Campus",
@@ -85,7 +86,7 @@
         "english": "major"
       },
       {
-        "japanese": "名義(なまえ) / 名前(なまえ)",
+        "japanese": "名前(なまえ)",
         "romaji": "namae",
         "english": "name"
       },
@@ -127,7 +128,8 @@
     ],
     "grammar": [
       {
-        "title": "1. X は Y です (X is Y)",
+        "title": "1. Topic Particle は (wa) & Copula です (desu)",
+        "particle": "は",
         "explanation": "The particle **は (wa)** indicates the topic of the sentence. **です (desu)** is the copula meaning 'is / am / are'. Notice that は is written using the Hiragana symbol for *ha*, but pronounced *wa* when used as a topic particle.",
         "structure": "Topic [X] + は (wa) + Predicate [Y] + です (desu).",
         "examples": [
@@ -145,6 +147,7 @@
       },
       {
         "title": "2. Question Particle か (ka)",
+        "particle": "か",
         "explanation": "Adding **か (ka)** to the end of a sentence turns it into a question. Japanese sentences do not traditionally require a question mark when か is present, though one may be used for clarity.",
         "structure": "Sentence + か (ka)?",
         "examples": [
@@ -161,7 +164,8 @@
         ]
       },
       {
-        "title": "3. Noun1 の Noun2 (Possessive / Modifying Particle の)",
+        "title": "3. Possessive & Modifying Particle の (no)",
+        "particle": "の",
         "explanation": "The particle **の (no)** connects two nouns. The first noun modifies or qualifies the second noun (e.g. possession, affiliation, or detail).",
         "structure": "Noun1 + の (no) + Noun2",
         "examples": [
@@ -185,6 +189,7 @@
     "title_ja": "買(か)い物(もの)",
     "title_en": "Shopping",
     "description": "Learn demonstratives (これ, それ, あれ, この, その, あの), asking prices (いくらですか), ordering items (～を ください), and particle も (also/too).",
+    "particles": ["も", "を", "の"],
     "dialogue": {
       "title_ja": "市場(いちば)・店(みせ)で",
       "title_en": "At a Store / Market",
@@ -301,6 +306,7 @@
     "grammar": [
       {
         "title": "1. Demonstration Words: これ / それ / あれ / どれ",
+        "particle": "は",
         "explanation": "These stand alone as pronouns:\n- **これ**: Item close to the speaker.\n- **それ**: Item close to the listener.\n- **あれ**: Item distant from both speaker and listener.\n- **どれ**: Question word 'which one'.",
         "structure": "これ / それ / あれ / どれ + は + ... ですか。",
         "examples": [
@@ -318,6 +324,7 @@
       },
       {
         "title": "2. Modifying Demonstratives: この / その / あの / どの",
+        "particle": "の",
         "explanation": "Unlike これ/それ/あれ, these MUST be directly followed by a noun (e.g. この本 = this book).",
         "structure": "この / その / あの / どの + Noun + は ...",
         "examples": [
@@ -334,7 +341,8 @@
         ]
       },
       {
-        "title": "3. ～を ください (Please give me ...)",
+        "title": "3. Direct Object Particle ～を ください (Please give me ...)",
+        "particle": "を",
         "explanation": "Use **[Item] を (o) ください (kudasai)** when asking for or purchasing items at a restaurant or shop.",
         "structure": "Item + を (o) + ください (kudasai).",
         "examples": [
@@ -346,7 +354,8 @@
         ]
       },
       {
-        "title": "4. Particle も (mo - also / too)",
+        "title": "4. Inclusive Particle も (mo - also / too)",
+        "particle": "も",
         "explanation": "The particle **も (mo)** replaces **は (wa)** when adding additional information meaning 'also' or 'too'.",
         "structure": "Topic + も (mo) + Predicate + です。",
         "examples": [
@@ -365,6 +374,7 @@
     "title_ja": "日(にち)常(じょう)生(せい)活(かつ)",
     "title_en": "Daily Routine",
     "description": "Master essential verbs, destination/time particle (に / へ), direct object particle (を), location particle (で), and invitations (～ましょう).",
+    "particles": ["を", "に", "へ", "で"],
     "dialogue": {
       "title_ja": "週末(しゅうまつ)の予定(よてい)",
       "title_en": "Weekend Plans",
@@ -470,6 +480,7 @@
     "grammar": [
       {
         "title": "1. Verb Present Affirmative (~ます) & Negative (~ません)",
+        "particle": "ます",
         "explanation": "Japanese verbs ending in **~ます (masu)** express routine habits or future actions. To make them negative, change **~ます** to **~ません (masen)**.",
         "structure": "Verb Stem + ます (affirmative) / ません (negative).",
         "examples": [
@@ -487,6 +498,7 @@
       },
       {
         "title": "2. Particle を (o) - Direct Object",
+        "particle": "を",
         "explanation": "The particle **を (o)** marks the direct object of an action verb.",
         "structure": "Object + を (o) + Action Verb.",
         "examples": [
@@ -499,6 +511,7 @@
       },
       {
         "title": "3. Particles に (ni) / へ (he) - Goal & Time",
+        "particle": "に",
         "explanation": "- **に (ni)** marks specific time or destination (Goal of movement).\n- **へ (e)** (written *he*) specifically emphasizes direction toward a destination.",
         "structure": "Place + に / へ + 行きます / 来ます / 帰ります.",
         "examples": [
@@ -516,6 +529,7 @@
       },
       {
         "title": "4. Particle で (de) - Location of Action",
+        "particle": "で",
         "explanation": "The particle **で (de)** indicates the location where an event or action takes place.",
         "structure": "Location + で (de) + Verb.",
         "examples": [
@@ -528,6 +542,7 @@
       },
       {
         "title": "5. Invitations: ～ませんか / ～ましょう",
+        "particle": "か",
         "explanation": "- **～ませんか (masen ka)**: 'Won't you...?' (Polite invitation)\n- **～ましょう (mashoo)**: 'Let's...!' (Proactive suggestion)",
         "structure": "Verb Stem + ませんか / ましょう.",
         "examples": [
@@ -551,6 +566,7 @@
     "title_ja": "家(いえ)と 部屋(へや)",
     "title_en": "Home & Existence",
     "description": "Learn verbs of existence (あります / います), location position words (上, 下, 前, 中), and past tense of です (でした / ではありませんでした).",
+    "particles": ["が", "に", "の"],
     "dialogue": {
       "title_ja": "部屋(へや)の 中(なか)で",
       "title_en": "Inside the Room",
@@ -570,7 +586,7 @@
         {
           "speaker": "ロバート",
           "japanese": "先生(せんせい)の 部屋(へや)に テレビは ありますか。",
-          "romaji": "Sensei no heya ni terebi wa arimasu ka.",
+          "romaji": "Sensei no heya ni terebi wa arimasen ka.",
           "english": "Is there a TV in your room, Professor?"
         },
         {
@@ -650,8 +666,9 @@
     ],
     "grammar": [
       {
-        "title": "1. Existence Verbs: あります vs います",
-        "explanation": "Use **あります (arimasu)** for non-living objects, plants, or concepts.\nUse **います (imasu)** for living things like humans and animals.",
+        "title": "1. Subject Particle が (ga) & Existence Verbs: あります vs います",
+        "particle": "が",
+        "explanation": "Use **が (ga)** to mark the subject that exists with **あります** (non-living objects) or **います** (living beings).",
         "structure": "Place + に + Item + が + あります / います。",
         "examples": [
           {
@@ -668,7 +685,8 @@
       },
       {
         "title": "2. Relative Location: Noun1 の Location",
-        "explanation": "Combine a item noun and location noun using **の (no)** (e.g. 机の上 = top of the desk).",
+        "particle": "の",
+        "explanation": "Combine an item noun and location noun using **の (no)** (e.g. 机の上 = top of the desk).",
         "structure": "Noun1 + の (no) + [上 / 下 / 前 / 後ろ / 中 / 隣] + に",
         "examples": [
           {
@@ -680,6 +698,7 @@
       },
       {
         "title": "3. Past Tense of です: でした / ではありませんでした",
+        "particle": "は",
         "explanation": "- **でした (deshita)**: Past affirmative ('was / were').\n- **ではありませんでした (de wa arimasen deshita)**: Past negative ('was not / were not').",
         "structure": "Noun + でした / ではありませんでした.",
         "examples": [
@@ -692,6 +711,152 @@
             "japanese": "学生(がくせい)ではありませんでした。",
             "romaji": "Gakusei de wa arimasen deshita.",
             "english": "I was not a student."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "genki_l5",
+    "lesson_number": 5,
+    "title_ja": "休(やす)みの 日(ひ)",
+    "title_en": "Holiday & Travel (A1_1 / A1_2)",
+    "description": "Learn verb past tense (~ました / ~ませんでした), particle と (with / together), and particle で for means of transportation.",
+    "particles": ["と", "で", "に", "へ"],
+    "dialogue": {
+      "title_ja": "月曜日(げつようび)の 会話(かいわ)",
+      "title_en": "Monday Conversation",
+      "lines": [
+        {
+          "speaker": "たけし",
+          "japanese": "メアリーさん、昨日(きのう) どこに 行(い)きましたか。",
+          "romaji": "Mearii-san, kinoo doko ni ikimashita ka.",
+          "english": "Mary, where did you go yesterday?"
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "友達(ともだち)と 京都(きょうと)へ 行(い)きました。",
+          "romaji": "Tomodachi to Kyoto e ikimashita.",
+          "english": "I went to Kyoto with a friend."
+        },
+        {
+          "speaker": "たけし",
+          "japanese": "何(なに)で 行(い)きましたか。",
+          "romaji": "Nani de ikimashita ka.",
+          "english": "How did you go there?"
+        },
+        {
+          "speaker": "メアリー",
+          "japanese": "新幹線(しんかんせん)で 行(い)きました。とても 楽(たの)しかったです！",
+          "romaji": "Shinkansen de ikimashita. Totemo tanoshikatta desu!",
+          "english": "I went by bullet train. It was very enjoyable!"
+        }
+      ]
+    },
+    "vocabulary": [
+      {
+        "japanese": "昨日(きのう)",
+        "romaji": "kinoo",
+        "english": "yesterday"
+      },
+      {
+        "japanese": "旅行(りょこう)します",
+        "romaji": "ryokoo shimasu",
+        "english": "to travel"
+      },
+      {
+        "japanese": "京都(きょうと)",
+        "romaji": "Kyooto",
+        "english": "Kyoto"
+      },
+      {
+        "japanese": "東京(とうきょう)",
+        "romaji": "Tookyoo",
+        "english": "Tokyo"
+      },
+      {
+        "japanese": "新幹線(しんかんせん)",
+        "romaji": "shinkansen",
+        "english": "bullet train"
+      },
+      {
+        "japanese": "電車(でんしゃ)",
+        "romaji": "densha",
+        "english": "train"
+      },
+      {
+        "japanese": "バス",
+        "romaji": "basu",
+        "english": "bus"
+      },
+      {
+        "japanese": "飛行機(ひこうき)",
+        "romaji": "hikooki",
+        "english": "airplane"
+      },
+      {
+        "japanese": "車(くるま)",
+        "romaji": "kuruma",
+        "english": "car"
+      },
+      {
+        "japanese": "写真(しゃしん)を撮(と)ります",
+        "romaji": "shashin o torimasu",
+        "english": "to take a picture"
+      },
+      {
+        "japanese": "買(か)いました",
+        "romaji": "kaimashita",
+        "english": "bought (past tense)"
+      },
+      {
+        "japanese": "楽(たの)しい",
+        "romaji": "tanoshii",
+        "english": "fun / enjoyable"
+      }
+    ],
+    "grammar": [
+      {
+        "title": "1. Verb Past Tense: ~ました (Affirmative) & ~ませんでした (Negative)",
+        "particle": "ました",
+        "explanation": "To express past completed actions, change **~ます** to **~ました (mashita)**. For past negative, change **~ます** to **~ませんでした (masen deshita)**.",
+        "structure": "Verb Stem + ました / ませんでした.",
+        "examples": [
+          {
+            "japanese": "昨日(きのう) 写真(しゃしん)を 撮(と)りました。",
+            "romaji": "Kinoo shashin o torimashita.",
+            "english": "I took photos yesterday."
+          },
+          {
+            "japanese": "何(なに)も 買(か)いませんでした。",
+            "romaji": "Nani mo kaimasen deshita.",
+            "english": "I didn't buy anything."
+          }
+        ]
+      },
+      {
+        "title": "2. Particle と (to) - 'With' / Companion",
+        "particle": "と",
+        "explanation": "The particle **と (to)** marks the person or companion with whom you perform an action.",
+        "structure": "Person + と + Action Verb.",
+        "examples": [
+          {
+            "japanese": "友達(ともだち)と 映画(えいが)を 見(み)ました。",
+            "romaji": "Tomodachi to eiga o mimashita.",
+            "english": "I watched a movie with a friend."
+          }
+        ]
+      },
+      {
+        "title": "3. Particle で (de) - Means of Transportation & Tools",
+        "particle": "で",
+        "explanation": "The particle **で (de)** specifies the transport method or instrument used to perform an action.",
+        "structure": "Transport/Tool + で + Action Verb.",
+        "examples": [
+          {
+            "japanese": "新幹線(しんかんせん)で 行(い)きました。",
+            "romaji": "Shinkansen de ikimashita.",
+            "english": "I went by bullet train."
           }
         ]
       }
