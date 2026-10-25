@@ -581,8 +581,8 @@ export class StudyingModule extends Module {
   render() {
     return `
       <div class="page-header">
-        <h1>Studying (日本語学習)</h1>
-        <p>Interactive Genki Japanese lessons with dialogues, vocabulary, and grammar rules.</p>
+        <h1>日本語学習</h1>
+        <p>会話、語彙、文法規則を含む、インタラクティブな『げんき』日本語レッスン。</p>
       </div>
 
       <div id="studying-root">
@@ -590,7 +590,7 @@ export class StudyingModule extends Module {
       </div>
 
       <footer class="module-footer">
-        Module 5 · Studying
+        Module 5 · Study
       </footer>
     `;
   }
