@@ -1,5 +1,5 @@
 /**
- * Minigames Module (3) — All interactive practice games in one section:
+ * Minigames Module (2) — All interactive practice games in one section:
  * 1. Flipcards (Flashcards)
  * 2. Quiz & Tests
  * 3. Memory Pair Match
@@ -12,6 +12,7 @@ import { dataManager, DataManager } from '../data.js';
 import { storage } from '../storage.js';
 import { audioPlayer } from '../audio.js';
 import { showToast } from '../ui.js';
+import { orchestrator } from '../orchestrator.js';
 
 export class MinigameModule extends Module {
   constructor() {
@@ -23,6 +24,7 @@ export class MinigameModule extends Module {
     });
 
     this.currentGame = 'hub'; // 'hub', 'flashcards', 'quiz', 'memory', 'unscramble', 'crossword'
+    this.activeLessonContext = null; // { lessonId, title, words } or null
 
     // Flashcards state
     this.flashcardWords = [];
@@ -62,22 +64,58 @@ export class MinigameModule extends Module {
 
   show() {
     super.show();
-    // Maintain active game state on show
-    if (this.currentGame === 'hub') {
-      this.renderGame();
+    this.renderGame();
+  }
+
+  /**
+   * Start exercise pre-filtered for a specific Genki study lesson.
+   */
+  startLessonExercise(gameType, lessonId) {
+    const lesson = dataManager.getGenkiLessonById(lessonId);
+    let lessonWords = [];
+
+    if (lesson && lesson.vocabulary && lesson.vocabulary.length > 0) {
+      lessonWords = lesson.vocabulary.map((v) => ({
+        japanese: v.japanese,
+        romaji: v.romaji,
+        english: v.english,
+        topic_ja: lesson.title_ja,
+        topic_en: lesson.title_en,
+        subtopic_en: `Lesson ${lesson.lesson_number} Vocab`
+      }));
     } else {
-      this.renderGame();
+      lessonWords = dataManager.getWords();
     }
+
+    this.activeLessonContext = {
+      lessonId: lessonId || (lesson ? lesson.id : null),
+      title: lesson ? `Lesson ${lesson.lesson_number}: ${lesson.title_en}` : 'Genki Lesson',
+      words: lessonWords
+    };
+
+    this.currentGame = gameType;
+    this.initGame(gameType, true);
+    orchestrator.show(2);
   }
 
   afterMount() {
     this.element.addEventListener('click', (e) => {
+      // Return to Study Session
+      const returnStudyBtn = e.target.closest('[data-action="return-to-study"]');
+      if (returnStudyBtn) {
+        this.stopMemoryTimer();
+        this.currentGame = 'hub';
+        orchestrator.show(1); // Show Studying Module (Module 1)
+        return;
+      }
+
       // Launch game
       const launchBtn = e.target.closest('[data-launch-game]');
       if (launchBtn) {
         const game = launchBtn.getAttribute('data-launch-game');
+        this.activeLessonContext = null; // Clear context on manually launching from hub
         this.currentGame = game;
-        this.initGame(game, false); // false = resume existing if present
+        this.initGame(game, false);
         return;
       }
 
@@ -275,10 +313,17 @@ export class MinigameModule extends Module {
     });
   }
 
+  getWordPool() {
+    if (this.activeLessonContext && this.activeLessonContext.words && this.activeLessonContext.words.length > 0) {
+      return this.activeLessonContext.words;
+    }
+    return dataManager.getWords();
+  }
+
   initGame(gameName, forceReset = false) {
     if (gameName === 'flashcards') {
       if (forceReset || this.flashcardWords.length === 0) {
-        this.flashcardWords = dataManager.getWords();
+        this.flashcardWords = this.getWordPool();
         this.flashcardIndex = 0;
         this.flashcardFlipped = false;
       }
@@ -290,7 +335,6 @@ export class MinigameModule extends Module {
       if (forceReset || this.memoryCards.length === 0) {
         this.initMemoryGame();
       } else if (this.memoryMatched.length < this.memoryCards.length && !this.memoryInterval) {
-        // Resume timer if game in progress
         this.startMemoryTimer();
       }
     } else if (gameName === 'unscramble') {
@@ -309,7 +353,7 @@ export class MinigameModule extends Module {
      MEMORY GAME
      ========================================================================== */
   initMemoryGame() {
-    const words = dataManager.getWords();
+    const words = this.getWordPool();
     const count = Math.min(6, words.length);
     const shuffledWords = [...words].sort(() => Math.random() - 0.5).slice(0, count);
 
@@ -382,7 +426,7 @@ export class MinigameModule extends Module {
      UNSCRAMBLE GAME
      ========================================================================== */
   initUnscrambleGame() {
-    const words = dataManager.getWords();
+    const words = this.getWordPool();
     this.unscrambleWords = [...words].sort(() => Math.random() - 0.5).slice(0, 10);
     this.unscrambleIndex = 0;
     this.loadUnscrambleCurrentWord();
@@ -456,13 +500,15 @@ export class MinigameModule extends Module {
     if (modeSelect) this.quizMode = modeSelect.value;
     if (countSelect) this.quizCount = Number(countSelect.value);
 
-    const allWords = dataManager.getWords();
-    if (allWords.length < 4) {
-      showToast('You need at least 4 vocabulary words in dataset to start a quiz!', 'warning');
+    const poolWords = this.getWordPool();
+    const allWords = dataManager.getWords(); // Distractors can come from full dataset
+
+    if (poolWords.length < 2) {
+      showToast('You need at least 2 vocabulary words to start a quiz!', 'warning');
       return;
     }
 
-    const shuffled = [...allWords].sort(() => Math.random() - 0.5);
+    const shuffled = [...poolWords].sort(() => Math.random() - 0.5);
     const selectedWords = shuffled.slice(0, Math.min(this.quizCount, shuffled.length));
 
     this.quizQuestions = selectedWords.map((word) => {
@@ -522,7 +568,7 @@ export class MinigameModule extends Module {
      KANA CROSSWORD GAME
      ========================================================================== */
   initCrosswordLevel() {
-    const words = dataManager.getWords();
+    const words = this.getWordPool();
     const kanaWords = words
       .map((w) => ({
         jp: w.japanese,
@@ -622,9 +668,26 @@ export class MinigameModule extends Module {
     const root = this.element.querySelector('#minigames-root');
     if (!root) return;
 
+    const returnStudyBtnHtml = this.activeLessonContext
+      ? `<button type="button" class="btn btn--primary btn--sm" data-action="return-to-study">
+          ↩️ Return to Study Session (${this.activeLessonContext.title})
+         </button>`
+      : '';
+
     // HUB VIEW
     if (this.currentGame === 'hub') {
       root.innerHTML = `
+        ${
+          this.activeLessonContext
+            ? `<div style="background:var(--primary-soft); border:1px solid var(--primary); border-radius:var(--radius); padding:0.75rem 1rem; margin-bottom:1rem; display:flex; justify-space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                <div>
+                  <span style="font-weight:700; color:var(--primary);">Active Lesson Context:</span> ${this.activeLessonContext.title} (${this.activeLessonContext.words.length} words)
+                </div>
+                ${returnStudyBtnHtml}
+               </div>`
+            : ''
+        }
+
         <div class="card-grid">
           <article class="card interactive-card" data-launch-game="flashcards">
             <div class="card__icon">🎴</div>
@@ -674,8 +737,11 @@ export class MinigameModule extends Module {
 
       root.innerHTML = `
         <div class="content-block" style="max-width:550px; margin:0 auto;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            ${
+              returnStudyBtnHtml ||
+              `<button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games Hub</button>`
+            }
             <span class="badge">${this.flashcardWords.length > 0 ? this.flashcardIndex + 1 : 0} / ${this.flashcardWords.length}</span>
             <button type="button" class="btn btn--secondary btn--sm" data-action="fc-shuffle">🔀 Shuffle</button>
           </div>
@@ -686,7 +752,7 @@ export class MinigameModule extends Module {
                 <!-- FRONT -->
                 <div class="flashcard-face flashcard-front">
                   <div class="flashcard-header">
-                    <span class="badge">${currentWord ? currentWord.topic_ja : ''}</span>
+                    <span class="badge">${currentWord ? currentWord.topic_ja || currentWord.topic_en || '' : ''}</span>
                     <button type="button" class="btn-icon" data-action="fc-audio" title="Play Audio">🔊</button>
                   </div>
                   <div class="flashcard-body">
@@ -701,7 +767,7 @@ export class MinigameModule extends Module {
                 <!-- BACK -->
                 <div class="flashcard-face flashcard-back">
                   <div class="flashcard-header">
-                    <span class="badge">${currentWord ? currentWord.subtopic_en : ''}</span>
+                    <span class="badge">${currentWord ? currentWord.subtopic_en || '' : ''}</span>
                     <button type="button" class="btn-icon" data-action="fc-audio" title="Play Audio">🔊</button>
                   </div>
                   <div class="flashcard-body">
@@ -736,8 +802,11 @@ export class MinigameModule extends Module {
       if (!this.quizActive) {
         root.innerHTML = `
           <div class="content-block" style="max-width:550px; margin:0 auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-              <button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games</button>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+              ${
+                returnStudyBtnHtml ||
+                `<button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games Hub</button>`
+              }
             </div>
 
             <h2 style="margin-bottom:1rem;">Multiple Choice Quiz Setup</h2>
@@ -820,8 +889,11 @@ export class MinigameModule extends Module {
 
       root.innerHTML = `
         <div class="content-block quiz-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            ${
+              returnStudyBtnHtml ||
+              `<button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games Hub</button>`
+            }
             <span class="badge">Question ${this.quizIndex + 1} of ${this.quizQuestions.length}</span>
             <span class="text-muted" style="font-size:0.9rem; font-weight:600;">Score: ${this.quizScore}</span>
           </div>
@@ -837,7 +909,8 @@ export class MinigameModule extends Module {
           ${
             this.quizAnswered
               ? `
-            <div style="margin-top:1.5rem; text-align:right;">
+            <div style="margin-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              ${returnStudyBtnHtml}
               <button type="button" class="btn btn--primary" data-action="next-quiz-q">
                 ${this.quizIndex + 1 === this.quizQuestions.length ? 'View Results 🏆' : 'Next Question ➡️'}
               </button>
@@ -856,8 +929,11 @@ export class MinigameModule extends Module {
 
       root.innerHTML = `
         <div class="content-block">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            ${
+              returnStudyBtnHtml ||
+              `<button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games Hub</button>`
+            }
             <span class="badge" id="memory-timer">${this.memoryTimer}s</span>
           </div>
 
@@ -880,9 +956,12 @@ export class MinigameModule extends Module {
           ${
             isWon
               ? `
-            <div class="text-center" style="margin-top:1.5rem;">
+            <div class="text-center" style="margin-top:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
               <h2>🎉 Puzzle Solved in ${this.memoryTimer} seconds!</h2>
-              <button type="button" class="btn btn--primary" data-action="restart-memory" style="margin-top:0.75rem;">Play Again</button>
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <button type="button" class="btn btn--primary" data-action="restart-memory">Play Again</button>
+                ${returnStudyBtnHtml}
+              </div>
             </div>
           `
               : ''
@@ -898,8 +977,11 @@ export class MinigameModule extends Module {
 
       root.innerHTML = `
         <div class="content-block" style="max-width:600px; margin:0 auto;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            ${
+              returnStudyBtnHtml ||
+              `<button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games Hub</button>`
+            }
             <span class="badge">Word ${this.unscrambleIndex + 1} of ${this.unscrambleWords.length}</span>
           </div>
 
@@ -935,7 +1017,7 @@ export class MinigameModule extends Module {
               .join('')}
           </div>
 
-          <div style="display:flex; justify-content:center; gap:0.75rem; margin-top:2rem;">
+          <div style="display:flex; justify-content:center; gap:0.75rem; margin-top:2rem; flex-wrap:wrap;">
             <button type="button" class="btn btn--primary" data-action="check-unscramble">Check Word</button>
             <button type="button" class="btn btn--secondary" data-action="next-unscramble">Skip Word</button>
           </div>
@@ -950,8 +1032,11 @@ export class MinigameModule extends Module {
 
       root.innerHTML = `
         <div class="content-block">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            ${
+              returnStudyBtnHtml ||
+              `<button type="button" class="btn btn--ghost btn--sm" data-action="back-to-hub">⬅️ Back to Games Hub</button>`
+            }
             <span class="badge">Crossword Level ${this.crosswordLevelIndex + 1}</span>
           </div>
 
@@ -1028,7 +1113,7 @@ export class MinigameModule extends Module {
       </div>
 
       <footer class="module-footer">
-        Module 3 · Minigames
+        Module 2 · Minigames
       </footer>
     `;
   }
