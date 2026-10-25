@@ -18,7 +18,7 @@ export class MinigameModule extends Module {
     super({
       id: 2,
       name: 'Minigames',
-      navLabel: 'ゲーム (Games)',
+      navLabel: 'ゲーム',
       navOrder: 2
     });
 

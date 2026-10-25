@@ -10,7 +10,7 @@ export class KanaModule extends Module {
     super({
       id: 3,
       name: 'Kana Chart',
-      navLabel: '仮名 (Kana)',
+      navLabel: '仮名',
       navOrder: 3
     });
 

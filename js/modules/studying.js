@@ -13,7 +13,7 @@ export class StudyingModule extends Module {
     super({
       id: 5,
       name: 'Studying',
-      navLabel: '学習 (Study)',
+      navLabel: '学習',
       navOrder: 1
     });
 

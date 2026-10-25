@@ -34,7 +34,7 @@ export class SettingsModule extends Module {
     super({
       id: 99,
       name: 'Settings',
-      navLabel: '設定 (Settings)',
+      navLabel: '設定',
       navOrder: 99
     });
   }
