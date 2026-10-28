@@ -1,0 +1,160 @@
+{
+  "catalog": {
+    "product": {
+      "id": "cama-multifuncion",
+      "name": "Cama Multifuncional Takumi",
+      "tagline": "Diseño Inteligente • Confort • Máximo Espacio de Guardado",
+      "description": "Fabricada en MDF. Diseñada para transformar el espacio de tu dormitorio combinando estética nórdica minimalista con funcionalidad de guardado inteligente.",
+      "brand": "Takumi Muebles",
+      "currency": {
+        "symbol": "$",
+        "code": "ARS",
+        "locale": "es-AR"
+      },
+      "payment": {
+        "title": "Pago al Momento de la Entrega",
+        "badge": "Pago Contra Entrega",
+        "highlight": "Abonás al recibir el producto",
+        "description": "No solicitamos señas ni transferencias previas. El producto se abona en su totalidad al momento de la entrega en tu domicilio, una vez recibido y verificado.",
+        "methods": "Efectivo o Transferencia al momento de la entrega"
+      },
+      "badges": [
+        "Pago Contra Entrega",
+        "Sin Señas Previas",
+        "Garantía de 1 Año",
+        "Madera Maciza"
+      ]
+    },
+    "whatsapp": {
+      "phoneNumber": "54911559097",
+      "businessName": "Takumi Muebles",
+      "callToAction": "Consultar por WhatsApp",
+      "messageHeader": "*CONSULTA DE PRESUPUESTO - TAKUMI*",
+      "messageFooter": "¿Tienen disponibilidad y tiempos de entrega para esta configuración? ¡Muchas gracias!"
+    },
+    "watermark": {
+      "src": "takumi_logo.jpeg",
+      "text": "TAKUMI MUEBLES",
+      "opacity": 0.35,
+      "position": "bottom-right",
+      "margin": 24,
+      "maxWidthPercent": 0.22
+    },
+    "baseLayer": {
+      "src": "catalogo_img_layered_cerrado.png",
+      "alt": "Cama Takumi cerrada base"
+    },
+    "sizes": [
+      {
+        "id": "1-plaza",
+        "name": "1 Plaza",
+        "dimensions": "0.80 x 1.90 m",
+        "basePrice": 340000,
+        "isDefault": false
+      },
+      {
+        "id": "1-plaza-media",
+        "name": "1 ½ Plaza",
+        "dimensions": "1.00 x 1.90 m",
+        "basePrice": 395000,
+        "isDefault": false
+      },
+      {
+        "id": "2-plazas",
+        "name": "2 Plazas",
+        "dimensions": "1.40 x 1.90 m",
+        "basePrice": 460000,
+        "badge": "Más Elegido",
+        "isDefault": true
+      },
+      {
+        "id": "queen",
+        "name": "Queen",
+        "dimensions": "1.60 x 2.00 m",
+        "basePrice": 520000,
+        "badge": "Recomendado",
+        "isDefault": false
+      },
+      {
+        "id": "king",
+        "name": "King",
+        "dimensions": "2.00 x 2.00 m",
+        "basePrice": 610000,
+        "isDefault": false
+      }
+    ],
+    "compartments": [
+      {
+        "id": "zapatero",
+        "name": "Zapatero Frontal",
+        "shortName": "Zapatero",
+        "category": "Módulos de Guardado",
+        "description": "Módulo frontal extraíble de extracción total. Capacidad estimada para 8-12 pares de calzado.",
+        "icon": "shoe",
+        "price": 0,
+        "defaultActive": false,
+        "layerSrc": "catalogo_img_layered_zapatero.png",
+        "hotspot": {
+          "xPercent": 27,
+          "yPercent": 75,
+          "label": "Zapatero",
+          "tooltip": "Tocar para abrir o cerrar zapatero"
+        }
+      },
+      {
+        "id": "cajones",
+        "name": "Cajones Laterales",
+        "shortName": "Cajones",
+        "category": "Módulos de Guardado",
+        "description": "2 cajones amplios sobre guías telescópicas reforzadas. Ideales para sábanas y ropa de cama.",
+        "icon": "drawers",
+        "price": 0,
+        "defaultActive": false,
+        "layerSrc": "catalogo_img_layered_cajones.png",
+        "hotspot": {
+          "xPercent": 81,
+          "yPercent": 69,
+          "label": "Cajones",
+          "tooltip": "Tocar para abrir o cerrar cajones"
+        }
+      },
+      {
+        "id": "baul",
+        "name": "Baúl Hidráulico",
+        "shortName": "Baúl",
+        "category": "Módulos de Guardado",
+        "description": "Estructura elevable con pistones neumáticos de gas a presión. Acceso a todo el volumen interno de la cama.",
+        "icon": "trunk",
+        "price": 0,
+        "defaultActive": false,
+        "layerSrc": "catalogo_img_layered_baulera.png",
+        "hotspot": {
+          "xPercent": 49,
+          "yPercent": 46,
+          "label": "Baúl",
+          "tooltip": "Tocar para abrir o cerrar baúl hidráulico"
+        }
+      },
+      {
+        "id": "color-madera",
+        "name": "Seleccion de color",
+        "shortName": "Color Natural",
+        "category": "Cambiar el color",
+        "description": "Selecciona esta opcion si queres cambiar el color de blanco a Negro o Baltico, por ejemplo.",
+        "icon": "palette",
+        "price": 50000,
+        "defaultActive": true
+      },
+      {
+        "id": "lustre-protector",
+        "name": "Tratamiento Sellador Antimanchas",
+        "shortName": "Sellador Hidrófugo",
+        "category": "Protección",
+        "description": "Aplicación de triple sellador hidrófugo que repele líquidos y humedad ambiente.",
+        "icon": "shield",
+        "price": 50000,
+        "defaultActive": true
+      }
+    ]
+  }
+}

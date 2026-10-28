@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日本語</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    /* Apply theme early to avoid flash */
+    (function () {
+      try {
+        var t = localStorage.getItem('app-theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div id="app">
+    <header id="navbar-root" class="navbar-root"></header>
+    <main id="module-root" class="module-root" aria-live="polite"></main>
+  </div>
+  <!-- PWA Status Toast Container -->
+<div id="pwa-toast" class="pwa-toast"></div>
+
+<style>
+.pwa-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(100px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    z-index: 10000;
+}
+
+.pwa-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+</style>
+  <script type="module" src="js/main.js"></script>
+  <script>
+	  function showPwaToast(message, duration = 4000) {
+  const toast = document.getElementById('pwa-toast');
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, duration);
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((registration) => {
+
+      // Listen for updates or fresh installations
+      registration.addEventListener('updatefound', () => {
+        const installingWorker = registration.installing;
+        
+        // Let the user know caching has started
+        showPwaToast('Caching app assets...');
+
+        installingWorker.addEventListener('statechange', () => {
+          if (installingWorker.state === 'installed') {
+            if (navigator.serviceWorker.controller) {
+              // Existing installation found -> this is a new version
+              showPwaToast('App updated! Refresh to load the latest version.', 5000);
+            } else {
+              // First time installation complete
+              showPwaToast('App ready for offline use!');
+            }
+          }
+        });
+      });
+
+    }).catch((error) => {
+      console.error('Service Worker registration failed:', error);
+    });
+  });
+}
+  </script>
+</body>
+</html>

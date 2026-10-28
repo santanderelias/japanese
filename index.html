@@ -1,106 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>日本語</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="/manifest.json">
-  <script>
-    /* Apply theme early to avoid flash */
-    (function () {
-      try {
-        var t = localStorage.getItem('app-theme');
-        if (t === 'dark' || t === 'light') {
-          document.documentElement.setAttribute('data-theme', t);
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    })();
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Configurador interactivo de camas multifuncionales Takumi. Elige tu medida, combina compartimentos de guardado y cotiza en tiempo real vía WhatsApp.">
+  <meta name="theme-color" content="#181A20">
+  <title>Takumi Muebles | Configurador de Cama Multifuncional</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <header id="navbar-root" class="navbar-root"></header>
-    <main id="module-root" class="module-root" aria-live="polite"></main>
+
+  <!-- Top App Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-mark">
+          <span class="brand-symbol">匠</span>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-name" id="appBrandName">TAKUMI</h1>
+          <span class="brand-tagline">Muebles de Diseño</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text">Atención en línea</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Configurator Layout -->
+  <main class="app-main">
+    <div class="catalog-layout">
+
+      <!-- LEFT / TOP: Interactive Visualizer Canvas Section -->
+      <section class="visualizer-section" id="visualizerSection" aria-label="Visualizador interactivo de cama">
+        <div class="canvas-card">
+          <!-- Canvas Container with Fixed Aspect Ratio -->
+          <div class="canvas-wrapper" id="canvasWrapper">
+            <!-- HTML5 Canvas for real-time layered rendering and asset protection -->
+            <canvas id="bedCanvas" width="896" height="1195" aria-label="Visualización interactiva de la cama con compartimentos"></canvas>
+
+            <!-- Interactive Hotspots Overlay -->
+            <div class="hotspots-layer" id="hotspotsLayer" aria-label="Puntos interactivos de compartimentos">
+              <!-- Dynamically rendered hotspots will appear here -->
+            </div>
+
+            <!-- Canvas Loading State -->
+            <div class="canvas-loader" id="canvasLoader">
+              <div class="loader-spinner"></div>
+              <span class="loader-text">Cargando visualizador...</span>
+            </div>
+
+            <!-- Watermark Canvas Badge (Visual protection indicator) -->
+            <div class="security-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>Takumi Original • Render Interactivo</span>
+            </div>
+          </div>
+
+          <!-- Quick Canvas Controls -->
+          <div class="canvas-toolbar" id="canvasToolbar">
+            <div class="toolbar-group">
+              <button type="button" class="tool-btn" id="btnToggleAll" aria-label="Abrir o cerrar todos los compartimentos">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+                <span id="btnToggleAllText">Abrir Todo</span>
+              </button>
+
+              <button type="button" class="tool-btn" id="btnToggleHotspots" aria-label="Mostrar u ocultar puntos interactivos" title="Activar/desactivar pines">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>Puntos de Toque</span>
+              </button>
+            </div>
+
+            <div class="canvas-hint" id="canvasHint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Toca los puntos en la cama para abrir o cerrar</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT / BOTTOM: Configuration Panel Section -->
+      <section class="configurator-section" aria-label="Configuración de medida y opciones">
+
+        <!-- Product Overview Header -->
+        <header class="product-header">
+          <div class="product-badge-row" id="productTagRow">
+            <span class="pill-tag tag-primary">Diseño Escandinavo</span>
+            <span class="pill-tag tag-neutral">Línea Premium</span>
+          </div>
+          <h2 class="product-title" id="productTitle">Cama Multifuncional Takumi</h2>
+          <p class="product-tagline" id="productTagline">Diseño Inteligente • Confort • Máximo Espacio de Guardado</p>
+          <p class="product-desc" id="productDescription">
+            Estructura en madera paraíso maciza con sistema de elevación asistida y compartimentos integrados de alta capacidad.
+          </p>
+
+          <!-- Key highlights -->
+          <div class="features-chips" id="productBadges">
+            <!-- Injected dynamically from src.json -->
+          </div>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- 1. Size Selection (Custom Radio Pills) -->
+        <div class="config-block" id="sizeConfigBlock">
+          <div class="block-header">
+            <div class="block-title-wrap">
+              <span class="step-num">1</span>
+              <div>
+                <h3 class="block-title">Elige la Medida</h3>
+                <span class="block-subtitle">Selecciona el tamaño ideal para tu habitación</span>
+              </div>
+            </div>
+            <div class="active-size-badge" id="activeSizeBadge">
+              <!-- e.g. 2 Plazas (1.40 x 1.90 m) -->
+            </div>
+          </div>
+
+          <!-- Custom Radio Pills Container -->
+          <div class="size-pills-grid" id="sizePillsContainer" role="radiogroup" aria-label="Medidas de cama disponibles">
+            <!-- Dynamically populated from src.json -->
+          </div>
+        </div>
+
+        <div class="divider" id="sizeDivider"></div>
+
+        <!-- 2. Compartment Add-ons & Options -->
+        <div class="config-block" id="optionsConfigBlock">
+          <div class="block-header">
+            <div class="block-title-wrap">
+              <span class="step-num" id="optionsStepNum">2</span>
+              <div>
+                <h3 class="block-title" id="optionsBlockTitle">Personalización y Adicionales</h3>
+                <span class="block-subtitle" id="optionsBlockSubtitle">Agrega compartimentos, acabados y opciones a tu medida</span>
+              </div>
+            </div>
+            <span class="modules-counter" id="activeModulesCounter">0 activos</span>
+          </div>
+
+          <!-- Compartments & Add-ons List -->
+          <div class="compartments-list" id="compartmentsContainer" aria-label="Lista de adicionales y opciones">
+            <!-- Dynamically populated from src.json -->
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 3. Dynamic Price Engine & Payment Policy Card -->
+        <div class="price-summary-card">
+          <div class="price-header">
+            <span class="price-label">Inversión Total Estimada</span>
+            <div class="live-price-wrapper">
+              <span class="currency-symbol" id="currencySymbol">$</span>
+              <span class="live-price-value" id="totalPriceDisplay">0</span>
+            </div>
+          </div>
+
+          <!-- REQUISITO 1 & 2: Información de Pago Contra Entrega (Sin cuotas) -->
+          <div class="payment-policy-card" id="paymentPolicyCard">
+            <div class="payment-policy-header">
+              <div class="payment-policy-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9 12 11 14 15 10"/>
+                </svg>
+              </div>
+              <div class="payment-policy-title-wrap">
+                <span class="payment-policy-title" id="paymentPolicyTitle">Pago al Momento de la Entrega</span>
+                <span class="payment-policy-badge" id="paymentPolicyBadge">100% Seguro • Sin Señas</span>
+              </div>
+            </div>
+            <p class="payment-policy-desc" id="paymentPolicyDesc">
+              Abonás en su totalidad recién cuando recibís y verificás el producto en tu domicilio. No solicitamos señas ni anticipos previos.
+            </p>
+          </div>
+
+          <!-- Expandable Breakdown -->
+          <details class="price-breakdown-details" id="priceBreakdownDetails">
+            <summary class="breakdown-toggle">
+              <span>Ver desglose de precio</span>
+              <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </summary>
+            <div class="breakdown-content" id="breakdownContent">
+              <!-- Injected dynamically: Base price + Each active add-on (Gratis if price=0) -->
+            </div>
+          </details>
+
+          <!-- Main CTA: WhatsApp Integration -->
+          <div class="actions-group">
+            <a href="#" class="btn-whatsapp" id="whatsappBtn" target="_blank" rel="noopener noreferrer">
+              <svg class="wa-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.42 0-2.82-.37-4.06-1.08l-.29-.17-3.12.82.83-3.04-.19-.3a8.196 8.196 0 0 1-1.26-4.46c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.26-1.49-1.41-1.74-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.12-.23-.19-.48-.32z"/>
+              </svg>
+              <div class="btn-wa-text">
+                <span class="btn-wa-title" id="waButtonTitle">Consultar por WhatsApp</span>
+                <span class="btn-wa-sub">Respuesta inmediata con asesor técnico</span>
+              </div>
+            </a>
+
+            <!-- Secondary Share & Copy CTA -->
+            <button type="button" class="btn-secondary" id="btnShareConfig">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              <span>Copiar o Compartir Configuración</span>
+            </button>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="guarantee-footer">
+            <div class="guarantee-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>5 Años Garantía</span>
+            </div>
+            <div class="guarantee-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="3" width="15" height="13"/>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                <circle cx="5.5" cy="18.5" r="2.5"/>
+                <circle cx="18.5" cy="18.5" r="2.5"/>
+              </svg>
+              <span>Envíos a Domicilio</span>
+            </div>
+            <div class="guarantee-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>Abonás al Recibir</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Sticky Mobile Bar (Visible on mobile viewports for quick conversion) -->
+  <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Barra fija de compra móvil">
+    <div class="mobile-bar-info">
+      <div class="mobile-bar-size" id="mobileBarSize">2 Plazas</div>
+      <div class="mobile-bar-price" id="mobileBarPrice">$ 0</div>
+      <span class="mobile-bar-payment-tag" id="mobileBarPaymentTag">Pago al recibir</span>
+    </div>
+    <a href="#" class="mobile-bar-cta" id="mobileBarWhatsappBtn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.42 0-2.82-.37-4.06-1.08l-.29-.17-3.12.82.83-3.04-.19-.3a8.196 8.196 0 0 1-1.26-4.46c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.26-1.49-1.41-1.74-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.12-.23-.19-.48-.32z"/>
+      </svg>
+      <span>Cotizar WhatsApp</span>
+    </a>
+  </aside>
+
+  <!-- Toast Notification element -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="polite">
+    <div class="toast-icon">✓</div>
+    <span class="toast-message" id="toastMessage">Configuración copiada</span>
   </div>
-  <!-- PWA Status Toast Container -->
-<div id="pwa-toast" class="pwa-toast"></div>
 
-<style>
-.pwa-toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transform: translateY(100px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-    z-index: 10000;
-}
-
-.pwa-toast.show {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-}
-</style>
-  <script type="module" src="js/main.js"></script>
-  <script>
-	  function showPwaToast(message, duration = 4000) {
-  const toast = document.getElementById('pwa-toast');
-  if (!toast) return;
-
-  toast.textContent = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, duration);
-}
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then((registration) => {
-
-      // Listen for updates or fresh installations
-      registration.addEventListener('updatefound', () => {
-        const installingWorker = registration.installing;
-        
-        // Let the user know caching has started
-        showPwaToast('Caching app assets...');
-
-        installingWorker.addEventListener('statechange', () => {
-          if (installingWorker.state === 'installed') {
-            if (navigator.serviceWorker.controller) {
-              // Existing installation found -> this is a new version
-              showPwaToast('App updated! Refresh to load the latest version.', 5000);
-            } else {
-              // First time installation complete
-              showPwaToast('App ready for offline use!');
-            }
-          }
-        });
-      });
-
-    }).catch((error) => {
-      console.error('Service Worker registration failed:', error);
-    });
-  });
-}
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
