@@ -147,12 +147,12 @@
       },
       {
         "id": "lustre-protector",
-        "name": "Tratamiento Sellador Antimanchas",
+        "name": "Adicional 2",
         "shortName": "Sellador Hidrófugo",
         "category": "Protección",
-        "description": "Aplicación de triple sellador hidrófugo que repele líquidos y humedad ambiente.",
+        "description": "Aplicacion de otro adicional a confirmar....",
         "icon": "shield",
-        "price": 50000,
+        "price": 20000,
         "defaultActive": true
       }
     ]
