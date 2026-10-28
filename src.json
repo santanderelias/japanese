@@ -92,7 +92,7 @@
         "description": "Módulo frontal extraíble de extracción total. Capacidad estimada para 8-12 pares de calzado.",
         "icon": "shoe",
         "price": 0,
-        "defaultActive": true,
+        "defaultActive": false,
         "layerSrc": "catalogo_img_layered_zapatero.png",
         "hotspot": {
           "xPercent": 27,
@@ -109,7 +109,7 @@
         "description": "2 cajones amplios sobre guías telescópicas reforzadas. Ideales para sábanas y ropa de cama.",
         "icon": "drawers",
         "price": 0,
-        "defaultActive": true,
+        "defaultActive": false,
         "layerSrc": "catalogo_img_layered_cajones.png",
         "hotspot": {
           "xPercent": 81,
@@ -126,7 +126,7 @@
         "description": "Estructura elevable. Acceso a todo el volumen interno de la cama.",
         "icon": "trunk",
         "price": 0,
-        "defaultActive": true,
+        "defaultActive": false,
         "layerSrc": "catalogo_img_layered_baulera.png",
         "hotspot": {
           "xPercent": 49,
