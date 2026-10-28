@@ -13,7 +13,8 @@
   const state = {
     config: null,
     activeSizeId: null,
-    activeOptionIds: new Set(),
+    selectedOptionIds: new Set(), // Options included in configuration / price / quote
+    previewOpenIds: new Set(),    // Visual layers currently open on the canvas preview
     imagesLoaded: false,
     showHotspots: true,
     displayedPrice: 0,
@@ -105,6 +106,13 @@
     return cat.compartments || cat.addons || cat.options || [];
   }
 
+  /**
+   * Returns only options that have a visual image layer to render on the canvas.
+   */
+  function getVisualOptions() {
+    return getOptions().filter(opt => !!opt.layerSrc);
+  }
+
   function getCurrency() {
     return getCatalog().product?.currency || { symbol: "$", code: "ARS", locale: "es-AR" };
   }
@@ -148,11 +156,18 @@
       state.activeSizeId = null;
     }
 
-    // Initialize Active Options (safe check)
+    // Initialize Options:
+    // 1. selectedOptionIds: included in quote & price (respects defaultSelected or defaultActive)
+    // 2. previewOpenIds: visual open layers on canvas (ALWAYS starts completely closed unless defaultPreviewOpen is true)
     const options = getOptions();
     options.forEach(opt => {
-      if (opt.defaultActive) {
-        state.activeOptionIds.add(opt.id);
+      const isSelected = opt.defaultSelected !== undefined ? opt.defaultSelected : opt.defaultActive;
+      if (isSelected) {
+        state.selectedOptionIds.add(opt.id);
+      }
+
+      if (opt.defaultPreviewOpen === true) {
+        state.previewOpenIds.add(opt.id);
       }
     });
 
@@ -343,10 +358,10 @@
       drawStudioPlaceholder(ctx, w, h);
     }
 
-    // 2. Draw Active Option Layers
+    // 2. Draw Active Option Layers (Preview open state on canvas)
     const options = getOptions();
     options.forEach(opt => {
-      if (state.activeOptionIds.has(opt.id)) {
+      if (state.previewOpenIds.has(opt.id)) {
         const layerGraphic = state.loadedImages.layers[opt.id];
         if (layerGraphic) {
           const lW = layerGraphic.width || layerGraphic.naturalWidth || w;
@@ -579,28 +594,29 @@
     }
     if (dom.optionsConfigBlock) dom.optionsConfigBlock.style.display = '';
 
-    // Clean up activeOptionIds: remove any IDs that no longer exist in src.json
+    // Clean up IDs: remove any IDs that no longer exist in src.json
     const validIds = new Set(options.map(o => o.id));
-    state.activeOptionIds.forEach(id => {
-      if (!validIds.has(id)) {
-        state.activeOptionIds.delete(id);
-      }
+    state.selectedOptionIds.forEach(id => {
+      if (!validIds.has(id)) state.selectedOptionIds.delete(id);
+    });
+    state.previewOpenIds.forEach(id => {
+      if (!validIds.has(id)) state.previewOpenIds.delete(id);
     });
 
     dom.compartmentsContainer.innerHTML = '';
 
     options.forEach(opt => {
-      const isActive = state.activeOptionIds.has(opt.id);
+      const isSelected = state.selectedOptionIds.has(opt.id);
       const isFree = !opt.price || opt.price === 0;
 
       // REQUISITO 3: Si un precio es 0, mostrar "Gratis"
       const priceText = isFree ? 'Gratis' : `+ ${formatPriceValue(opt.price, currency)}`;
 
       const card = document.createElement('div');
-      card.className = `compartment-card ${isActive ? 'is-active' : ''}`;
+      card.className = `compartment-card ${isSelected ? 'is-active' : ''}`;
       card.dataset.optionId = opt.id;
       card.setAttribute('role', 'checkbox');
-      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
       card.setAttribute('tabindex', '0');
 
       let categoryBadgeHtml = '';
@@ -617,8 +633,8 @@
             <div class="comp-title-row">
               <span class="comp-name">${opt.name || 'Adicional'}</span>
               ${categoryBadgeHtml}
-              <span class="comp-state-tag ${isActive ? 'open' : 'closed'}">
-                ${isActive ? 'Activo' : 'Inactivo'}
+              <span class="comp-state-tag ${isSelected ? 'open' : 'closed'}">
+                ${isSelected ? 'Incluido' : 'No incluido'}
               </span>
             </div>
             ${opt.description ? `<p class="comp-desc">${opt.description}</p>` : ''}
@@ -632,18 +648,19 @@
         </div>
       `;
 
-      card.addEventListener('click', () => toggleOption(opt.id));
+      card.addEventListener('click', () => toggleSelectedOption(opt.id));
       card.addEventListener('keydown', (e) => {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
-          toggleOption(opt.id);
+          toggleSelectedOption(opt.id);
         }
       });
 
       dom.compartmentsContainer.appendChild(card);
     });
 
-    updateOptionsCounter();
+    updateSelectedCounter();
+    updateVisualPreviewCounter();
   }
 
   function getDynamicIcon(type) {
@@ -701,20 +718,27 @@
     }
   }
 
-  function updateOptionsCounter() {
+  function updateSelectedCounter() {
     const total = getOptions().length;
-    const active = state.activeOptionIds.size;
+    const selectedCount = state.selectedOptionIds.size;
     if (dom.activeModulesCounter) {
-      dom.activeModulesCounter.textContent = `${active} de ${total} activos`;
+      dom.activeModulesCounter.textContent = `${selectedCount} de ${total} seleccionados`;
     }
+  }
+
+  function updateVisualPreviewCounter() {
+    const visualOptions = getVisualOptions();
+    const totalVisual = visualOptions.length;
+    const openCount = visualOptions.filter(opt => state.previewOpenIds.has(opt.id)).length;
+
     if (dom.btnToggleAllText) {
-      dom.btnToggleAllText.textContent = active === total ? 'Cerrar Todo' : 'Abrir Todo';
+      dom.btnToggleAllText.textContent = (openCount > 0 && openCount === totalVisual) ? 'Cerrar Todo' : 'Abrir Todo';
     }
   }
 
   // =========================================================================
-  // Canvas Hotspots Overlay & Bidirectional Syncing
-  // Only renders pins for items that define a valid hotspot object
+  // Canvas Hotspots Overlay & Preview Layer Controls
+  // Renders pins for items that define a valid hotspot object
   // =========================================================================
   function renderHotspotsOverlay() {
     const options = getOptions();
@@ -733,14 +757,14 @@
     if (dom.btnToggleHotspots) dom.btnToggleHotspots.style.display = '';
 
     hotspotOptions.forEach(opt => {
-      const isActive = state.activeOptionIds.has(opt.id);
+      const isOpen = state.previewOpenIds.has(opt.id);
       const pin = document.createElement('button');
       pin.type = 'button';
-      pin.className = `hotspot-pin ${isActive ? 'is-active' : ''}`;
+      pin.className = `hotspot-pin ${isOpen ? 'is-active' : ''}`;
       pin.dataset.optionId = opt.id;
       pin.style.left = `${opt.hotspot.xPercent}%`;
       pin.style.top = `${opt.hotspot.yPercent}%`;
-      pin.setAttribute('aria-label', `${opt.hotspot.label || opt.name}: ${isActive ? 'Abierto' : 'Cerrado'}`);
+      pin.setAttribute('aria-label', `${opt.hotspot.label || opt.name}: ${isOpen ? 'Abierto' : 'Cerrado'}`);
 
       pin.innerHTML = `
         <span class="hotspot-pulse"></span>
@@ -751,15 +775,15 @@
         </span>
         <div class="hotspot-tooltip">
           <span>${opt.hotspot.label || opt.name}</span>
-          <span class="hotspot-status-badge ${isActive ? 'open' : 'closed'}">
-            ${isActive ? 'Abierto' : 'Cerrado'}
+          <span class="hotspot-status-badge ${isOpen ? 'open' : 'closed'}">
+            ${isOpen ? 'Abierto' : 'Cerrado'}
           </span>
         </div>
       `;
 
       pin.addEventListener('click', (e) => {
         e.stopPropagation();
-        toggleOption(opt.id);
+        togglePreviewLayer(opt.id);
       });
 
       dom.hotspotsLayer.appendChild(pin);
@@ -767,69 +791,116 @@
   }
 
   /**
-   * Central Synchronizer: toggles option state and syncs canvas, cards,
-   * and hotspots simultaneously without errors.
+   * Toggles the VISUAL preview state on the canvas (Abrir/Cerrar inspección visual)
    */
-  function toggleOption(optId) {
-    if (state.activeOptionIds.has(optId)) {
-      state.activeOptionIds.delete(optId);
+  function togglePreviewLayer(optId) {
+    if (state.previewOpenIds.has(optId)) {
+      state.previewOpenIds.delete(optId);
     } else {
-      state.activeOptionIds.add(optId);
-    }
-
-    const isActive = state.activeOptionIds.has(optId);
-
-    // 1. Sync Control Panel Card
-    const card = dom.compartmentsContainer?.querySelector(`.compartment-card[data-option-id="${optId}"]`);
-    if (card) {
-      card.classList.toggle('is-active', isActive);
-      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
-      const tag = card.querySelector('.comp-state-tag');
-      if (tag) {
-        tag.className = `comp-state-tag ${isActive ? 'open' : 'closed'}`;
-        tag.textContent = isActive ? 'Activo' : 'Inactivo';
+      state.previewOpenIds.add(optId);
+      // If user opens a compartment on the visualizer, also make sure it's included in the quote
+      if (!state.selectedOptionIds.has(optId)) {
+        state.selectedOptionIds.add(optId);
+        syncCardUI(optId);
+        updateSelectedCounter();
+        updatePriceDisplay(true);
+        updateWhatsAppLinks();
       }
     }
 
-    // 2. Sync Canvas Hotspot Pin (if exists)
-    const pin = dom.hotspotsLayer?.querySelector(`.hotspot-pin[data-option-id="${optId}"]`);
-    if (pin) {
-      pin.classList.toggle('is-active', isActive);
-      const statusBadge = pin.querySelector('.hotspot-status-badge');
-      if (statusBadge) {
-        statusBadge.className = `hotspot-status-badge ${isActive ? 'open' : 'closed'}`;
-        statusBadge.textContent = isActive ? 'Abierto' : 'Cerrado';
-      }
-    }
-
-    // 3. Update Canvas Rendering
+    syncHotspotPin(optId);
     drawCanvas();
+    updateVisualPreviewCounter();
 
-    // 4. Update Price & Counters
-    updateOptionsCounter();
+    if (navigator.vibrate) navigator.vibrate(10);
+  }
+
+  function syncHotspotPin(optId) {
+    const pin = dom.hotspotsLayer?.querySelector(`.hotspot-pin[data-option-id="${optId}"]`);
+    if (!pin) return;
+    const isOpen = state.previewOpenIds.has(optId);
+    pin.classList.toggle('is-active', isOpen);
+    const statusBadge = pin.querySelector('.hotspot-status-badge');
+    if (statusBadge) {
+      statusBadge.className = `hotspot-status-badge ${isOpen ? 'open' : 'closed'}`;
+      statusBadge.textContent = isOpen ? 'Abierto' : 'Cerrado';
+    }
+  }
+
+  /**
+   * Toggles the SELECTION state of an option (Incluir/Quitar del presupuesto y cotización)
+   */
+  function toggleSelectedOption(optId, forceState) {
+    const shouldSelect = forceState !== undefined 
+      ? forceState 
+      : !state.selectedOptionIds.has(optId);
+
+    if (shouldSelect) {
+      state.selectedOptionIds.add(optId);
+      // Optional visual feedback: if the option has a visual layer, open it so user sees it
+      const opt = getOptions().find(o => o.id === optId);
+      if (opt?.layerSrc) {
+        state.previewOpenIds.add(optId);
+        syncHotspotPin(optId);
+        drawCanvas();
+      }
+    } else {
+      state.selectedOptionIds.delete(optId);
+      // If unselected from purchase, also close its visual preview layer
+      state.previewOpenIds.delete(optId);
+      syncHotspotPin(optId);
+      drawCanvas();
+    }
+
+    syncCardUI(optId);
+    updateSelectedCounter();
+    updateVisualPreviewCounter();
     updatePriceDisplay(true);
     updateWhatsAppLinks();
 
     if (navigator.vibrate) navigator.vibrate(10);
   }
 
-  function toggleAllOptions() {
-    const options = getOptions();
-    const shouldOpen = state.activeOptionIds.size < options.length;
+  function syncCardUI(optId) {
+    const card = dom.compartmentsContainer?.querySelector(`.compartment-card[data-option-id="${optId}"]`);
+    if (!card) return;
+    const isSelected = state.selectedOptionIds.has(optId);
+    card.classList.toggle('is-active', isSelected);
+    card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+    const tag = card.querySelector('.comp-state-tag');
+    if (tag) {
+      tag.className = `comp-state-tag ${isSelected ? 'open' : 'closed'}`;
+      tag.textContent = isSelected ? 'Incluido' : 'No incluido';
+    }
+  }
 
-    options.forEach(opt => {
-      const isCurrentlyActive = state.activeOptionIds.has(opt.id);
-      if (shouldOpen && !isCurrentlyActive) {
-        toggleOption(opt.id);
-      } else if (!shouldOpen && isCurrentlyActive) {
-        toggleOption(opt.id);
+  /**
+   * Toolbar button: toggles all visual layers open or closed
+   */
+  function toggleAllPreviewLayers() {
+    const visualOptions = getVisualOptions();
+    if (!visualOptions.length) return;
+
+    const allOpen = visualOptions.every(opt => state.previewOpenIds.has(opt.id));
+
+    visualOptions.forEach(opt => {
+      if (allOpen) {
+        state.previewOpenIds.delete(opt.id);
+      } else {
+        state.previewOpenIds.add(opt.id);
       }
+      syncHotspotPin(opt.id);
     });
+
+    drawCanvas();
+    updateVisualPreviewCounter();
+
+    if (navigator.vibrate) navigator.vibrate(10);
   }
 
   // =========================================================================
   // Dynamic Price Engine & Breakdown (REQUISITOS 1, 2, 3)
-  // Calculates live price, handles price 0 as "Gratis", no installments
+  // Calculates live price based on selectedOptionIds, handles price 0 as "Gratis"
   // =========================================================================
   function calculateTotalPrice() {
     const activeSize = getActiveSize();
@@ -837,7 +908,7 @@
 
     const options = getOptions();
     options.forEach(opt => {
-      if (state.activeOptionIds.has(opt.id)) {
+      if (state.selectedOptionIds.has(opt.id)) {
         total += (opt.price || 0);
       }
     });
@@ -908,7 +979,7 @@
     }
 
     options.forEach(opt => {
-      if (state.activeOptionIds.has(opt.id)) {
+      if (state.selectedOptionIds.has(opt.id)) {
         const isFree = !opt.price || opt.price === 0;
         const valText = isFree ? 'Gratis' : formatPriceValue(opt.price, currency);
 
@@ -960,14 +1031,14 @@
     const payment = getPaymentConfig();
     const options = getOptions();
 
-    // Build options list
+    // Build options list from selectedOptionIds
     let optionsText = '';
-    if (state.activeOptionIds.size === 0) {
+    if (state.selectedOptionIds.size === 0) {
       optionsText = '• Base cerrada sin adicionales';
     } else {
       const activeList = [];
       options.forEach(opt => {
-        if (state.activeOptionIds.has(opt.id)) {
+        if (state.selectedOptionIds.has(opt.id)) {
           const isFree = !opt.price || opt.price === 0;
           const priceStr = isFree ? 'Gratis' : formatPriceValue(opt.price, currency);
           activeList.push(`• ${opt.name || 'Adicional'}: ${priceStr}`);
@@ -1067,7 +1138,7 @@ ${footer}`;
   // =========================================================================
   function setupEventListeners() {
     if (dom.btnToggleAll) {
-      dom.btnToggleAll.addEventListener('click', toggleAllOptions);
+      dom.btnToggleAll.addEventListener('click', toggleAllPreviewLayers);
     }
 
     if (dom.btnToggleHotspots) {
