@@ -144,16 +144,6 @@
         "icon": "palette",
         "price": 50000,
         "defaultActive": false
-      },
-      {
-        "id": "lustre-protector",
-        "name": "Adicional 2",
-        "shortName": "Sellador Hidrófugo",
-        "category": "Protección",
-        "description": "Aplicacion de otro adicional a confirmar....",
-        "icon": "shield",
-        "price": 20000,
-        "defaultActive": false
       }
     ]
   }
